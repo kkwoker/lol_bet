@@ -24,4 +24,6 @@ angular.module('lolBetApp')
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
     });
+
+    
   });

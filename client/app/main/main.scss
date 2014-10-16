@@ -19,7 +19,21 @@
     color: #F5F5F5;
     text-align: center;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-    background: #4393B9;
+    background: url(http://na.leagueoflegends.com/sites/default/files/upload/art/team_graves_2.jpg);
+    height: 750px;
+}
+.features {
+    text-align: center;
+    margin-top: 70px;
+    
+    div>div {
+        padding: 0 30px;
+
+        &:nth-child(odd) {
+            border-left: 1px solid #E5E5E5;
+            border-right: 1px solid #E5E5E5;
+        }
+    }
 }
 
 .footer {
