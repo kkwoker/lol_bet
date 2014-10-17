@@ -33,7 +33,7 @@ exports.create = function (req, res, next) {
   console.log(keys.RIOT_API_KEY);
   var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + summonerName + "?api_key=" + keys.RIOT_API_KEY;
   request(url, function(error, response, body){
-    if(!error && response.statusCode == 200){
+    if(!error && response.statusCode === 200){
       console.log(JSON.parse(body));
       var jsonBody = JSON.parse(body)[summonerName];
       var newUser = new User({"email": req.body.email, "password": req.body.password, "summonerObject": jsonBody  });
@@ -41,7 +41,7 @@ exports.create = function (req, res, next) {
         return res.json(201, newUser);
       });
     }
-    if(response.statusCode == 404){
+    if(response.statusCode === 404){
       console.log("SUMMONER NOT FOUND");
       return res.json(404, { "success": false});
     }
