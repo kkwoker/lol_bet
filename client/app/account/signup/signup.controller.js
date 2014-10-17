@@ -1,16 +1,29 @@
 'use strict';
 
 angular.module('lolBetApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location) {
+  .controller('SignupCtrl', ['$scope', '$http', '$location', 'Auth', 
+    function ($scope, $http, $location, Auth) {
     $scope.user = {};
     $scope.errors = {};
+
+    $scope.checkSummoner = function() {
+      console.log($scope.user.summonerName);
+      $http.get('/api/summoners/' + $scope.user.summonerName
+      ).success(function(data) {
+        $scope.errors['invalidSummoner'] = false;
+        console.log(data);
+      }).error(function() {
+        $scope.errors['invalidSummoner'] = true;
+        console.log($scope.errors);
+      });
+    };
 
     $scope.register = function(form) {
       $scope.submitted = true;
 
       if(form.$valid) {
         Auth.createUser({
-          summonerName: $scope.user.summonerName,
+          summoner: { name: $scope.user.summonerName },
           email: $scope.user.email,
           password: $scope.user.password
         })
@@ -31,4 +44,4 @@ angular.module('lolBetApp')
       }
     };
 
-  });
+  }]);
