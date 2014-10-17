@@ -4,6 +4,9 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var request = require('request');
+
+var keys = require('../../config/local.env');
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -24,14 +27,25 @@ exports.index = function(req, res) {
  * Creates a new user
  */
 exports.create = function (req, res, next) {
-  var newUser = new User(req.body);
-  newUser.provider = 'local';
-  newUser.role = 'user';
-  newUser.save(function(err, user) {
-    if (err) return validationError(res, err);
-    var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
-    res.json({ token: token });
-  });
+
+  var summonerName = req.body.summonerName;
+  console.log(summonerName);
+  console.log(keys.RIOT_API_KEY);
+  var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + summonerName + "?api_key=" + keys.RIOT_API_KEY;
+  request(url, function(error, response, body){
+    if(!error && response.statusCode == 200){
+      console.log(JSON.parse(body));
+      var jsonBody = JSON.parse(body)[summonerName];
+      var newUser = new User({"email": req.body.email, "password": req.body.password, "summonerObject": jsonBody  });
+      newUser.save(function(err, user) {
+        return res.json(201, newUser);
+      });
+    }
+    if(response.statusCode == 404){
+      console.log("SUMMONER NOT FOUND");
+      return res.json(404, { "success": false});
+    }
+  })
 };
 
 /**
