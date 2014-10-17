@@ -57,9 +57,7 @@ User.find({}).remove(function() {
         summonerLevel: 30,
         revisionDate: 1411327378000
       }
-  }
-
-  , function() {
+  }, function() {
       console.log('finished populating users');
     }
   );

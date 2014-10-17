@@ -10,10 +10,10 @@ angular.module('lolBetApp')
       console.log($scope.user.summonerName);
       $http.get('/api/summoners/' + $scope.user.summonerName
       ).success(function(data) {
-        $scope.errors['invalidSummoner'] = false;
+        $scope.errors.invalidSummoner = false;
         console.log(data);
       }).error(function() {
-        $scope.errors['invalidSummoner'] = true;
+        $scope.errors.invalidSummoner = true;
         console.log($scope.errors);
       });
     };
