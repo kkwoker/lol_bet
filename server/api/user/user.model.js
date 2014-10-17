@@ -7,12 +7,12 @@ var crypto = require('crypto');
 var UserSchema = new Schema({
   summonerObject: {},
   email: { type: String, lowercase: true },
-  // role: {
-  //   type: String,
-  //   default: 'user'
-  // },
+  role: {
+    type: String,
+    default: 'user'
+  },
   hashedPassword: String,
-  // provider: String,
+  provider: String,
   salt: String
 });
 
