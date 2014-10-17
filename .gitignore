@@ -7,3 +7,5 @@ npm-debug.log
 client/bower_components
 dist
 /server/config/local.env.js
+lolbet.sublime-project
+lolbet.sublime-workspace
