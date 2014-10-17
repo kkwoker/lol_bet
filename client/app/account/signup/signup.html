@@ -8,13 +8,13 @@
     <div class="col-sm-12">
       <form class="form" name="form" ng-submit="register(form)" novalidate>
 
-        <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
-                                            'has-error': form.name.$invalid && submitted }">
-          <label>Name</label>
+        <div class="form-group" ng-class="{ 'has-success': form.summonerName.$valid && submitted,
+                                            'has-error': form.summonerName.$invalid && submitted }">
+          <label>Summoner Name</label>
 
-          <input type="text" name="name" class="form-control" ng-model="user.name"
+          <input type="text" name="summonerName" class="form-control" ng-model="user.summonerName"
                  required/>
-          <p class="help-block" ng-show="form.name.$error.required && submitted">
+          <p class="help-block" ng-show="form.summonerName.$error.required && submitted">
             A name is required
           </p>
         </div>
@@ -66,5 +66,4 @@
       </form>
     </div>
   </div>
-  <hr>
 </div>

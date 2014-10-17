@@ -10,7 +10,7 @@ angular.module('lolBetApp')
 
       if(form.$valid) {
         Auth.createUser({
-          name: $scope.user.name,
+          summonerName: $scope.user.summonerName,
           email: $scope.user.email,
           password: $scope.user.password
         })
