@@ -41,8 +41,25 @@ User.find({}).remove(function() {
     role: 'admin',
     name: 'Admin',
     email: 'admin@admin.com',
-    password: 'admin'
-  }, function() {
+    password: 'admin',
+    
+  },{
+    provider: 'local',
+    role: 'admin',
+    name: 'Admin',
+    email: 'kkwoker@admin.com',
+    password: 'admin',
+    summoner: {
+        id: 23859411,
+        indexName: "herpofthederp",
+        name: "HERPoftheDERP",
+        profileIconId: 662,
+        summonerLevel: 30,
+        revisionDate: 1411327378000
+      }
+  }
+
+  , function() {
       console.log('finished populating users');
     }
   );

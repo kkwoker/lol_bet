@@ -34,9 +34,22 @@ exports.create = function (req, res, next) {
   var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + summonerName + "?api_key=" + keys.RIOT_API_KEY;
   request(url, function(error, response, body){
     if(!error && response.statusCode === 200){
-      console.log(JSON.parse(body));
-      var jsonBody = JSON.parse(body)[summonerName];
-      var newUser = new User({"email": req.body.email, "password": req.body.password, "summonerObject": jsonBody  });
+      console.log(body);
+      var jsonBody = JSON.parse(body);
+      var indexedName = Object.keys(jsonBody)[0];
+      console.log("indexedName: " + indexedName);
+      console.log("jsonBody: " + jsonBody);
+      var user = {};
+      
+      user.provider = "local";
+      user.email = req.body.email;
+      user.password = req.body.password;
+      var sumObj = jsonBody[indexedName]
+      sumObj.indexName = indexedName;
+      user.summoner = sumObj;
+      console.log(user);
+      
+      var newUser = new User(user);
       newUser.save(function(err, user) {
         return res.json(201, newUser);
       });
@@ -53,11 +66,13 @@ exports.create = function (req, res, next) {
  */
 exports.show = function (req, res, next) {
   var userId = req.params.id;
-
+  console.log("HELLO");
   User.findById(userId, function (err, user) {
-    if (err) return next(err);
-    if (!user) return res.send(401);
-    res.json(user.profile);
+
+    // if (err) return next(err);
+    // if (!user) return res.send(401);
+    // res.json(user.profile);
+    return res.json(200,{"user": user})
   });
 };
 

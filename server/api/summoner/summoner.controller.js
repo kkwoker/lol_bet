@@ -3,6 +3,7 @@ var keys = require('../../config/local.env')
 
 var _ = require('lodash');
 var Summoner = require('./summoner.model');
+var User = require('../user/user.model');
 var request = require('request');
 // Get list of summoners
 exports.index = function(req, res) {
@@ -14,22 +15,32 @@ exports.index = function(req, res) {
 
 // Get a single summoner
 exports.show = function(req, res) {
-  console.log(req.params.id);
-  console.log(keys.RIOT_API_KEY);
   var summonerName = req.params.id;
-  console.log(summonerName);
-  var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + summonerName + "?api_key=" + keys.RIOT_API_KEY;
-  request(url, function(error, response, body){
-    if(!error && response.statusCode === 200){
-      console.log(JSON.parse(body));
-      var jsonBody = JSON.parse(body);
-      console.log(jsonBody);
-      jsonBody.success = true;
-      return res.json(200, jsonBody);
-    }
-    if(response.statusCode === 404){
-      console.log("SUMMONER NOT FOUND");
-      return res.json(404, { "success": false});
+  var lowerCaseName = summonerName.toLowerCase();
+  User.findOne({'summoner.indexName': lowerCaseName}, function(err, person){
+    if(person){
+      console.log("THIS PERSON IS ALREADY IN THE database");
+      // This person is already in the database
+      var body = {"summoner": person, "success": false, "error": "This summoner name has already been taken"};
+      return res.json(200,body)
+    }else{
+      console.log("This name is not in the database");
+      var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + summonerName + "?api_key=" + keys.RIOT_API_KEY;    
+      request(url, function(error, response, body){
+        if(!error && response.statusCode === 200){
+          console.log(JSON.parse(body));
+          var jsonBody = JSON.parse(body);
+          console.log(jsonBody);
+          jsonBody.success = true;
+          return res.json(200, jsonBody);
+        }
+        if(response.statusCode === 404){
+          console.log("SUMMONER NOT FOUND");
+          var obj = {"success": false,
+                     "error": "Summoner name is not found."};
+          return res.json(404, obj);
+        }
+      })
     }
   })
 };
