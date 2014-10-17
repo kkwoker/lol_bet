@@ -29,7 +29,7 @@ angular.module('lolBetApp')
         })
         .then( function() {
           // Account created, redirect to home
-          $location.path('/');
+          $location.path('/home');
         })
         .catch( function(err) {
           err = err.data;
