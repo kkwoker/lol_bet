@@ -36,6 +36,7 @@ exports.create = function (req, res, next) {
     if(!error && response.statusCode === 200){
       console.log(body);
       var jsonBody = JSON.parse(body);
+      console.log(jsonBody);
       var indexedName = Object.keys(jsonBody)[0];
       console.log("indexedName: " + indexedName);
       console.log("jsonBody: " + jsonBody);
