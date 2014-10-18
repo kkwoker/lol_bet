@@ -9,7 +9,13 @@
           <h3>{{ user.summoner.name }}</h3>
         </div>
         <div class="right">
-          <button class="btn-large btn-large-primary" ng-click="searchGames()">Watch for games!</button>
+          <div ng-show="loading">
+              <div class="ball"></div>
+              <div class="ball1"></div>
+          </div>
+          <button class="btn-large btn-large-primary"ng-click="searchGames()">
+            Watch for games! 
+          </button>
         </div>
       </div>
       <div class="home-body">

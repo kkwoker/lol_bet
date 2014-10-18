@@ -16,6 +16,7 @@ angular.module('lolBetApp')
 
     $scope.searchGames = function() {
       var url = '/matches/search/' + $scope.user.summoner.indexName;
+      $scope.loading = true;
       console.log(url);
       $http.get(url)
         .success(function(data) {
