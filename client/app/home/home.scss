@@ -1,0 +1,45 @@
+.home-box {
+    color: black;
+    padding: 0;
+    text-align: left;
+    background-color: #e7e7e7;
+    margin-top: 30px;
+    
+    .home-header {
+        border-bottom: 1px solid;
+
+        * {
+            display: inline-block;
+        }
+
+        img {
+            width: 100px;
+        }
+
+        .right {
+            float: right;
+            margin: 26px;
+        }
+    }
+    
+    .home-body {
+
+        .home-body-left {
+            text-align: center;
+            padding: 15px;
+            border-right: 1px solid;
+
+            .button {
+                margin: 10px 0;
+                
+                button {
+                    width: 200px;
+                }    
+            }
+        }
+
+        .home-body-right {
+            padding: 15px;
+        }   
+    }
+}
