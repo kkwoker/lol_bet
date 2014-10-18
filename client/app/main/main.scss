@@ -25,7 +25,45 @@
 }
 
 // Home view
+.home-box {
+    color: black;
+    padding: 0;
+    text-align: left;
+    background-color: #e7e7e7;
+    
+    .home-header {
+        border-bottom: 1px solid;
 
+        * {
+            display: inline-block;
+        }
+
+        img {
+            width: 100px;
+        }
+
+        .right {
+            float: right;
+            margin: 26px;
+        }
+    }
+    
+    .home-body {
+        padding: 10px;
+
+        .home-body-left {
+            text-align: center;
+
+            .button {
+                margin: 15px 0;
+                
+                button {
+                    width: 200px;
+                }    
+            }
+        }   
+    }
+}
 
 .features {
     text-align: center;
