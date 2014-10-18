@@ -78,19 +78,19 @@ User.find({}).remove(function() {
         revisionDate: 1413534892000
       }
   }
-  , {
-    provider: 'local',
-    name: 'Marlon',
-    email: 'marlon@marlon.com',
-    password: '1234',
-    summoner: {
-      id: 61353331,
-      name: "LOL BET",
-      profileIconId: 23,
-      summonerLevel: 2,
-      revisionDate: 1413615915000
-    }
-  }
+  // , {
+  //   provider: 'local',
+  //   name: 'Marlon',
+  //   email: 'marlon@marlon.com',
+  //   password: '1234',
+  //   summoner: {
+  //     id: 61353331,
+  //     name: "LOL BET",
+  //     profileIconId: 23,
+  //     summonerLevel: 2,
+  //     revisionDate: 1413615915000
+  //   }
+  // }
 
   , function() {
       console.log('finished populating users');
