@@ -45,6 +45,27 @@
     }
 }
 
+.search-loading {
+    position: fixed;
+    background-color: rgba(26, 26, 22, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    left: 0px;
+    top: 0;
+    padding: 200px;
+
+    .loading-ball {
+        position: relative;
+        right: 14px;
+        top: 17px;  
+    }
+
+    h3 {
+        color: #E2E1E1;
+    }
+}
+
 .ball {
     background-color: rgba(0,0,0,0);
     border: 5px solid rgba(0,183,229,0.9);
@@ -72,8 +93,7 @@
     height: 30px;
     margin: 0 auto;
     position: relative;
-    bottom: 10px;
-    right: 44px;
+    bottom: 40px;
     -moz-animation: spinoff .5s infinite linear;
     -webkit-animation: spinoff .5s infinite linear;
 }
