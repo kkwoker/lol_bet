@@ -60,12 +60,12 @@ function parseMatch(match){
   }
       
   var t1 = [];
-  for( var i in teamOne){
-    t1.push({"name": teamOne[i], "champId": champOBJ[teamOne[i]]})
+  for( var j in teamOne){
+    t1.push({"name": teamOne[j], "champId": champOBJ[teamOne[j]]})
   }
   var t2 = [];
-  for( var i in teamTwo){
-    t2.push({"name": teamTwo[i], "champId": champOBJ[teamTwo[i]]})
+  for( var k in teamTwo){
+    t2.push({"name": teamTwo[k], "champId": champOBJ[teamTwo[k]]})
   }
   var matchObj = {
     "teamOne": t1,
