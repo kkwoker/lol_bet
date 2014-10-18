@@ -7,6 +7,7 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Match = require('../api/match/match.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -29,6 +30,12 @@ Thing.find({}).remove(function() {
     info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
   });
 });
+
+Match.find({}).remove(function() {
+});
+
+
+
 
 User.find({}).remove(function() {
   User.create({
@@ -59,19 +66,33 @@ User.find({}).remove(function() {
       }
   },{
     provider: 'local',
-    role: 'admin',
-    name: 'marlon',
-    email: 'marlonkenny@admin.com',
-    password: 'admin',
+    name: 'Eric',
+    email: 'eric@eric.com',
+    password: '1234',
     summoner: {
-        id: 61353331,
-        indexName: "lolbet",
-        name: "LOL BET",
-        profileIconId: 23,
-        summonerLevel: 1,
-        revisionDate: 1413599400000
+        id: 20800354,
+        indexName: "eufo",
+        name: "Eufo",
+        profileIconId: 692,
+        summonerLevel: 30,
+        revisionDate: 1413534892000
       }
-  }, function() {
+  },
+  // , {
+  //   provider: 'local',
+  //   name: 'Marlon',
+  //   email: 'marlon@marlon.com',
+  //   password: '1234',
+  //   summoner: {
+  //     id: 61353331,
+  //     name: "LOL BET",
+  //     profileIconId: 23,
+  //     summonerLevel: 2,
+  //     revisionDate: 1413615915000
+  //   }
+  // }
+
+  function() {
       console.log('finished populating users');
     }
   );

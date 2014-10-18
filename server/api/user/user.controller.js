@@ -28,19 +28,17 @@ exports.index = function(req, res) {
  */
 exports.create = function (req, res, next) {
 
-  var summonerName = req.body.summonerName;
-  console.log(summonerName);
-  console.log(keys.RIOT_API_KEY);
+  var summonerName = req.body.summoner.name;
+  console.log(req.body);
   var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + summonerName + "?api_key=" + keys.RIOT_API_KEY;
   request(url, function(error, response, body){
     if(!error && response.statusCode === 200){
       console.log(body);
       var jsonBody = JSON.parse(body);
+      console.log(jsonBody);
       var indexedName = Object.keys(jsonBody)[0];
-      console.log("indexedName: " + indexedName);
-      console.log("jsonBody: " + jsonBody);
+
       var user = {};
-      
       user.provider = "local";
       user.email = req.body.email;
       user.password = req.body.password;
