@@ -19,7 +19,6 @@ exports.search = function(req, res){
   var summonerName = req.params.indexName;
   var nameInTeam1or2 = [{"match.teamOne.name": summonerName}, {"match.teamTwo.name": summonerName}];
   Match.findOne(nameInTeam1or2, function(err, match){
-    console.log(match);
     if(match){
       console.log("Found a match in the database");
       return res.json(200, match);
