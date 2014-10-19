@@ -7,20 +7,22 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="/" class="navbar-brand">lol_bet</a>
-         <form ng-hide="isLoggedIn()" class="form-horizontal" name="form" ng-submit="login(form)" ng-controller="LoginCtrl" novalidate>
+      <a href="/" class="navbar-brand"></a>
+         <form ng-hide="isLoggedIn()" style="width:700px; margin: 10px 0px 10px 600px;" class="form-horizontal" name="form" ng-submit="login(form)" ng-controller="LoginCtrl" novalidate>
 
-        <div class="control-group">
+        <div class="control-group" >
           <div class="controls form-inline">
               <label>Email</label>
 
-              <input autofocus type="email" name="email" class="form-control" ng-model="user.email" required>
+              <input autofocus type="email" name="email"  class="form-control" ng-model="user.email" required>
          
               <label>Password</label>
 
               <input type="password" name="password" class="form-control" ng-model="user.password" required>
-         </div>
-       </div>
+               <button style="margin-left:20px;"class="btn btn-inverse btn-lg btn-login" type="submit">
+              Login
+            </button>
+       
 
           <div class="form-group has-error">
             <p class="help-block" ng-show="form.email.$error.required && form.password.$error.required && submitted">
@@ -34,12 +36,12 @@
           </div>
 
           <div>
-            <button class="btn btn-inverse btn-lg btn-login" type="submit">
-              Login
-            </button>
-            <a class="btn btn-default btn-lg btn-register" href="/signup">
+           
+           <!--  <a class="btn btn-default btn-lg btn-register" href="/signup">
               Register
-            </a>
+            </a> -->
+          </div>
+          </div>
           </div>
 
     </form>
@@ -52,7 +54,9 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
+        
+
+        </li>
         <!-- <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li> -->
         <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().summoner.name }}</p> </li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
