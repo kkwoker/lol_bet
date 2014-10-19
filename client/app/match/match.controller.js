@@ -1,26 +1,35 @@
 'use strict';
 
 angular.module('lolBetApp')
-  .controller('MatchCtrl', ['$scope', 'socket-test', 
-    function ($scope, socket) {
+  .controller('MatchCtrl', ['$scope', '$http', 'socket', 
+    function ($scope, $http, socket) {
     console.log(socket);
 
     $scope.sendMessage = function() {
       console.log('sending');
-      socket.socket.emit('message', $scope.nickName, $scope.message);
+
+      $http.post('api/bets', { content: $scope.message });
       $scope.message = '';
     };
 
-    $scope.$on('socket:broadcast', function(event, data) {
-      console.log('got a message', event.name);
-      if (!data.payload) {
-        console.log('invalid message', 'event', event, 
-                   'data', JSON.stringify(data));
-        return;
-      } 
-      $scope.$apply(function() {
-        $scope.messageLog = data.source + data.payload + $scope.messageLog;
+    $http.get('/api/bets').success(function(messages) {
+      $scope.messages = messages;
+ 
+      // Update array with any new or deleted items pushed from the socket
+      socket.syncUpdates('bet', $scope.messages, function(event, bet, messages) {
+        // This callback is fired after the comments array is updated by the socket listeners
+ 
+        // sort the array every time its modified
+        messages.sort(function(a, b) {
+          a = new Date(a.date);
+          b = new Date(b.date);
+          return a>b ? -1 : a<b ? 1 : 0;
+        });
       });
+    });
+
+    $scope.$on('$destroy', function () {
+      socket.unsyncUpdates('bet');
     });
 
     socket.syncUpdates();

@@ -8,6 +8,7 @@
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Match = require('../api/match/match.model');
+var Bet = require('../api/bet/bet.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -34,8 +35,11 @@ Thing.find({}).remove(function() {
 Match.find({}).remove(function() {
 });
 
+Bet.find({}).remove(function() {
+  Bet.create({
 
-
+  })
+});
 
 User.find({}).remove(function() {
   User.create({
