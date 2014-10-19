@@ -90,7 +90,8 @@ exports.search = function(req, res){
     var obj = {
       "_id": match.playerCredentials.gameId,
       "match": matchNew,
-      "bet": bet
+      "bet": bet,
+      "active": true
     }
     var newMatch = new Match(obj);
     newMatch.save(function(err, match){
