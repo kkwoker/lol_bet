@@ -21,6 +21,7 @@ function onConnect(socket) {
   require('../api/match/match.socket').register(socket);
   require('../api/summoner/summoner.socket').register(socket);
   require('../api/thing/thing.socket').register(socket);
+
 }
 
 module.exports = function (socketio) {
