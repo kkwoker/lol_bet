@@ -1,10 +1,35 @@
 'use strict';
 
 angular.module('lolBetApp')
-  .controller('HomeCtrl', ['$scope', 'Auth', function ($scope, Auth) {
-    $scope.user = Auth.getCurrentUser();
+  .controller('HomeCtrl', ['$scope', '$http', 'Auth', function ($scope, $http, Auth) {
+    $scope.user = {};
+      
+    Auth.getCurrentUser().$promise
+      .then(function(data) {
+        // success!
+        $scope.user = data;
+        $scope.user.avatarURL = 'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + $scope.user.summoner.profileIconId + '.png';
+      }, function(response) {
+        // failure
+        console.log(response);
+      });
 
-    $scope.user.$promise.then(function() {
-      $scope.user.avatarURL = 'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + $scope.user.summoner.profileIconId + '.png';
-    });
+    $scope.searchGames = function() {
+      var url = '/matches/search/' + $scope.user.summoner.indexName;
+      $scope.loading = true;
+      
+      $http.get(url)
+        .success(function(data) {
+          console.log(data);
+        })
+        .error(function(response, status) {
+          console.log(response, status);
+        }); 
+    };
+
+    $scope.cancelSearch = function(event) {
+      if (event.keyCode === 27) { 
+        $scope.loading=false;
+      }
+    };
   }]);

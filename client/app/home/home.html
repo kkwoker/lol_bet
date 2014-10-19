@@ -1,7 +1,14 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <header class="hero-unit" id="banner">
-  <div class="container background-blur" ng-controller="HomeCtrl">
+  <div class="container background-blur" ng-controller="HomeCtrl" ng-keyup="cancelSearch($event)">
+  <div class="search-loading" ng-show="loading">
+    <div class="loading-ball">
+      <div class="ball"></div>
+      <div class="ball1"></div>
+    </div>
+    <h3>Searching...</h3>
+  </div>
     <div class="col-sm-12 col-md-8 col-md-offset-2 home-box">
       <div class="home-header">
         <div class="left">
@@ -9,7 +16,9 @@
           <h3>{{ user.summoner.name }}</h3>
         </div>
         <div class="right">
-          <button class="btn btn-lg">Watch for games!</button>
+          <button class="btn-large btn-large-primary" ng-click="searchGames()">
+            Search for games!
+          </button>
         </div>
       </div>
       <div class="home-body">
@@ -27,10 +36,10 @@
           </div>
 
           <div class="col-sm-12 button">
-            <button class="btn btn-lg">Deposit</button>
+            <button class="btn-large btn-large-primary">Deposit</button>
           </div>
           <div class="col-sm-12 button">
-            <button class="btn btn-lg">Withdraw</button>
+            <button class="btn-large btn-large-primary">Withdraw</button>
           </div>
         </div>
         <div class="col-sm-12 col-md-4 home-body-right">
