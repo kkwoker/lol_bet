@@ -7,6 +7,8 @@ var unirest = require('unirest');
 var request = require('request');
 var keys = require('../../config/local.env.js');
 var async = require('async');
+var http = require('http');
+
 // Get list of matchs
 exports.index = function(req, res) {
   Match.find(function (err, matchs) {
@@ -168,6 +170,19 @@ exports.destroy = function(req, res) {
     });
   });
 };
+
+exports.gameCompletion = function(req, res){
+  var gameId = req.params.id;
+  console.log("Running game completion");
+  var url = "http://na.api.pvp.net/api/lol/na/v2.2/match/" + gameId + "?api_key=" + keys.RIOT_API_KEY;
+  console.log(url);
+  request(url, function(err, response, body){
+    var jsonBody = JSON.parse(body);
+    console.log("Request recieved");
+    return res.json(200, jsonBody);
+  })
+}
+
 
 function handleError(res, err) {
   return res.send(500, err);
