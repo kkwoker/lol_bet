@@ -27,7 +27,7 @@ exports.index = function(req, res) {
  * Creates a new user
  */
 exports.create = function (req, res, next) {
-
+  console.log("User#Create");
   var summonerName = req.body.summoner.name;
   console.log(req.body);
   var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + summonerName + "?api_key=" + keys.RIOT_API_KEY;
@@ -63,8 +63,9 @@ exports.create = function (req, res, next) {
  * Get a single user
  */
 exports.show = function (req, res, next) {
+  console.log("User#Show");
   var userId = req.params.id;
-  console.log("HELLO");
+  console.log(req.params);
   User.findById(userId, function (err, user) {
 
     // if (err) return next(err);

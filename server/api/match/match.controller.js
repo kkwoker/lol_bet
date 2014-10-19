@@ -4,7 +4,9 @@ var _ = require('lodash');
 var Match = require('./match.model');
 var User = require('../user/user.model');
 var unirest = require('unirest');
+var request = require('request');
 var keys = require('../../config/local.env.js');
+var async = require('async');
 // Get list of matchs
 exports.index = function(req, res) {
   Match.find(function (err, matchs) {
@@ -15,89 +17,106 @@ exports.index = function(req, res) {
 
 exports.search = function(req, res){
   var summonerName = req.params.indexName;
-  // Check if he has an active match in our database
-  // if he has an active match in our database, return it
-  var expression = [{"match.teamOne.name": summonerName}, {"match.teamTwo.name": summonerName}];
-  Match.findOne(expression, function(err, match){
+  var nameInTeam1or2 = [{"match.teamOne.name": summonerName}, {"match.teamTwo.name": summonerName}];
+  Match.findOne(nameInTeam1or2, function(err, match){
+    console.log(match);
     if(match){
       console.log("Found a match in the database");
       return res.json(200, match);
     }else{
       console.log("Did not find a match in the database");
-      console.log("Looking at the Riot API");
-      unirest.get("https://community-league-of-legends.p.mashape.com/api/v1.0/na/summoner/retrieveInProgressSpectatorGameInfo/"+ summonerName)
+      return lookForMatchAtRiot(summonerName);
+    }
+  })
+
+  function lookForMatchAtRiot(summonerName){
+    console.log("Looking at the Riot API");
+    unirest.get("https://community-league-of-legends.p.mashape.com/api/v1.0/na/summoner/retrieveInProgressSpectatorGameInfo/"+ summonerName)
         .header("X-Mashape-Key", keys.MASHAPE_API_KEY)
         .end(function (result) {
-          var match = result.body;
           if(result.body.success){
             console.log("THERE IS NO MATCH");
-            return res.json(404, match);
+            return res.json(404, result.body);
           }else{
             console.log("MATCH FOUND");
-            match = parseMatch(match);
-            var newMatch = new Match(match);
-            newMatch.save(function(err,match){
-              return res.json(200, match)
-            })
+            return findPlayers(result.body)
           }
         })
-    }
-  });
-}
-function parseMatch(match){
-  var one = match.game.teamOne.array;
-  var two = match.game.teamTwo.array;
-  var teamOne = [].map.call(one ,function(player){
-    return player.summonerInternalName;
-  })
-  var teamTwo = [].map.call(two ,function(player){
-    return player.summonerInternalName;
-  })
-  var arr = match.game.playerChampionSelections.array;
-  var champOBJ = {}
-  for(var i in arr){
-    champOBJ[arr[i].summonerInternalName] = arr[i].championId;
   }
-      
-  var t1 = [];
-  for( var i in teamOne){
-    t1.push({"name": teamOne[i], "champId": champOBJ[teamOne[i]]})
-  }
-  var t2 = [];
-  for( var i in teamTwo){
-    t2.push({"name": teamTwo[i], "champId": champOBJ[teamTwo[i]]})
-  }
-  var matchObj = {
-    "teamOne": t1,
-    "teamTwo": t2
-  }
-  var bet = {
-    "playerArr": ['herpofthederp', 'eufo']
-  }
-  var obj = {
-    "_id": match.playerCredentials.gameId,
-    "match": matchObj,
-    "bet": bet
-  }
-  return obj;
 
-}
+  function findPlayers(match){
+    var teamOne = [].map.call(match.game.teamOne.array ,function(player){
+      return player.summonerInternalName;
+    })
+    var teamTwo = [].map.call(match.game.teamTwo.array ,function(player){
+      return player.summonerInternalName;
+    })
+    var players = teamOne.concat(teamTwo);
+    return getSummoners(match, players, teamOne, teamTwo);
+  }
 
-//       var newMatch = new Match(obj);
-//       newMatch.save(function(err, match){
-//         return res.json(200, match);
-//       })
+  function getSummoners(match, players, teamOne, teamTwo){
+    var playerString = players.join(',');
+    var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + playerString + "?api_key=" + keys.RIOT_API_KEY;    
+    request(url, function(error, response, body){
+      var summoners = JSON.parse(body);
+      return parseMatch(match, summoners, teamOne, teamTwo);
+    })
+  }
 
-
-//       // return res.json(200, obj);
-//     }
-//   });
+  function parseMatch(match, summoners, teamOne, teamTwo){
     
-//     }
-//   });  
-  
-// }
+    var arr = match.game.playerChampionSelections.array;
+    var champs = {}
+    for(var i in arr){
+      champs[arr[i].summonerInternalName] = arr[i].championId;
+    }
 
+    var t1 = [];
+    for( var i in teamOne){
+      t1.push({"name": teamOne[i], "champId": champs[teamOne[i]], "summoner": summoners[teamOne[i]]})
+    }
+    var t2 = [];
+    for( var i in teamTwo){
+      t2.push({"name": teamTwo[i], "champId": champs[teamTwo[i]], "summoner": summoners[teamTwo[i]]})
+    }
+    var matchNew = {
+      "teamOne": t1,
+      "teamTwo": t2
+    }
+    var bet = {
+      "playerArr": ['herpofthederp', 'eufo']
+    }
+
+    var obj = {
+      "_id": match.playerCredentials.gameId,
+      "match": matchNew,
+      "bet": bet
+    }
+    var newMatch = new Match(obj);
+    newMatch.save(function(err, match){
+      return res.json(200, obj);  
+    })
+  }
+
+}
+
+function opposingWithAccountsAndActive(summonerName, match){
+  var opposing = findUsersOpponentTeam(summonerName, match);
+  // check if they have accounts
+  console.log(opposing);
+  for(var i in opposing){
+    console.log(opposing[i]);
+    User.findOne({"summoner.indexName": opposing[i]}, function(err, better){
+      if(better){
+        //AND NEEDS TO BE ACTIVE
+        console.log("FOUND SOMEONE TO BET WITH!");
+      }else{
+        console.log(opposing[i] + " does not have an account with us");
+      }
+    })
+  }
+}
 
 // Get a single match
 exports.show = function(req, res) {
@@ -155,28 +174,31 @@ function handleError(res, err) {
 }
 
 function findUsersOpponentTeam(summonerName, match){
-  return ['notCool1','notCool2','notCool3','eufo','notCool5']
-  // var one = match.game.teamOne.array;
-  // var teamOne = [].map.call(one ,function(player){
-  //   return player.summonerInternalName;
-  // })
-  // var two = match.game.teamTwo.array;
-  // var teamTwo = [].map.call(two, function(player){
-  //   return player.summonerInternalName;
-  // })
+  // return ['summoner1','summoner2','summoner3','eufo','summoner5']
+  var one = match.match.teamOne;
+  // console.log(one);
+  var teamOne = [].map.call(one ,function(player){
+    return player.name;
+  })
+  var two = match.match.teamTwo;
+  var teamTwo = [].map.call(two, function(player){
+    return player.name;
+  })
+  // console.log("t1: "+teamOne);
+  // console.log("t2: "+teamTwo);
 
-  // for(var i in teamOne){
-  //   console.log(teamOne[i]);
-  //   if (teamOne[i] == summonerName) {
-  //     console.log("He is in teamOne");
-  //     return teamTwo;
-  //   }
-  // }
-  // for(var i in teamTwo){
-  //   console.log(teamTwo[i]);
-  //   if (teamTwo[i] == summonerName) {
-  //     console.log("He is in teamTwo");
-  //     return teamOne;
-  //   }
-  // }
+  for(var i in teamOne){
+    // console.log(teamOne[i]);
+    if (teamOne[i] == summonerName) {
+      console.log("I am in teamOne");
+      return teamTwo;
+    }
+  }
+  for(var i in teamTwo){
+    // console.log(teamTwo[i]);
+    if (teamTwo[i] == summonerName) {
+      console.log("I am in teamTwo");
+      return teamOne;
+    }
+  }
 }
