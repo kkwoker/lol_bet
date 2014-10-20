@@ -57,5 +57,15 @@ module.exports = function (socketio) {
     // Call onConnect.
     onConnect(socket);
     console.info('[%s] CONNECTED', socket.address);
+
+    // Room selection
+    socket.on('join-room', function(data) {
+      socket.join(data.room);
+    });
+
+    //Bet test
+    socket.on('bet', function(data) {
+      socket.broadcast.to(data.room).emit('bet', { bet: data.bet });
+    })
   });
 };

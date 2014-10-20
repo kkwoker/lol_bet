@@ -1,11 +1,17 @@
-<div class="col-md-12">
-This is the match view.
+<div class="col-xs-12">
+Room <input type="text" ng-model="room"> <button class="btn btn-sm" ng-click="joinRoom()">Join</button>
+</div>
 
-NickName: <input type="text" ng-model="nickName">
-Message: <input type="text" ng-model="message">
-<button ng-click="sendMessage()">Send</button>
+<div class="col-xs-6">
+  <h2>My Bet</h2>
+  <h3>{{ myBet }}</h3>
+  
+  <button class="btn btn-sm pull-left" ng-click="decreaseBet()">-</button>
+  <button class="btn btn-sm pull-left" ng-click="increaseBet()">+</button>
+</div>
 
-<li ng-repeat="message in messages">
-  <p>{{ message }}</p>
-</li>
+<div class="col-xs-6">
+  <h2>Opponent Bet</h2>
+  <h3>{{ opponentBet }}</h3>
+</div>
 </div>

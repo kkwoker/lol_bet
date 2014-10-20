@@ -4,33 +4,29 @@ angular.module('lolBetApp')
   .controller('MatchCtrl', ['$scope', '$http', 'socket', 
     function ($scope, $http, socket) {
     console.log(socket);
+    $scope.myBet = 0;
+    $scope.opponentBet = 0;
 
-    $scope.sendMessage = function() {
-      console.log('sending');
-
-      $http.post('api/bets', { content: $scope.message });
-      $scope.message = '';
+    $scope.joinRoom = function() {
+      socket.socket.emit('join-room', { room: $scope.room });
     };
 
-    $http.get('/api/bets').success(function(messages) {
-      $scope.messages = messages;
- 
-      // Update array with any new or deleted items pushed from the socket
-      socket.syncUpdates('bet', $scope.messages, function(event, bet, messages) {
-        // This callback is fired after the comments array is updated by the socket listeners
- 
-        // sort the array every time its modified
-        messages.sort(function(a, b) {
-          a = new Date(a.date);
-          b = new Date(b.date);
-          return a>b ? -1 : a<b ? 1 : 0;
-        });
-      });
+    $scope.sendBet = function() {
+      socket.socket.emit('bet', { room: $scope.room, bet: $scope.myBet });
+    };
+
+    $scope.increaseBet = function() {
+      $scope.myBet++;
+      $scope.sendBet();
+    };
+
+    $scope.decreaseBet = function() {
+      $scope.myBet--;
+      $scope.sendBet();
+    };
+
+    socket.socket.on('bet', function(data) {
+      $scope.opponentBet = data.bet;
     });
 
-    $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('bet');
-    });
-
-    socket.syncUpdates();
   }]);
