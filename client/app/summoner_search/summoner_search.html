@@ -1,5 +1,16 @@
-<div class="col-md-12" ng-repeat="summoner in user">
-
-<p>{{"Summoner Name " + summoner[0] + " Profile Icon Id " + summoner[1] + " Summoner Level " + summoner[2]  }}</p>
-
+<div class="col-md-12">
+  <style>
+td {
+  padding:10px; border:1px solid gray;"
+}
+  </style>
+  Search:<input autofocus ng-model="query" placeholder="search Summoner"type="text"/>
+  <br/><br/>
+<table>
+  <tr><th>Summoner Name</th><th>Profile Icon Id</th><th>Summoner Level</th></tr>
+  <tr ng-repeat="summoner in user_object | filter:query | orderBy:sortField">
+    <td>{{summoner['name']}}</td><td>{{summoner['profile_icon_id']}}</td><td>{{summoner['summoner_level']}}</td>
+  </tr>
+</table>
 </div>
+

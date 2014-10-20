@@ -5,24 +5,25 @@ angular.module('lolBetApp')
     function ($scope, $http, $location, Auth) {
     $scope.message = 'Hello';
     $scope.user = [];
+    $scope.user_object = [];
+    $scope.sortField = 'name';
    
      $http.get('/api/users')
       .success(function(data){
-
         for (var i = 0; i < data.length; i++ ) {
           if (data[i]['summoner']) {
-
-            $scope.user.push([ data[i]['summoner']['name'], data[i]['summoner']['profileIconId'], data[i]['summoner']['summonerLevel'], data[i]['email']]);
+            $scope.user_object.push( { name: data[i]['summoner']['name'], profile_icon_id: data[i]['summoner']['profileIconId'], summoner_level: data[i]['summoner']['summonerLevel'] } );
           }
         }
+        console.log($scope.user_object);
         for (var y = 0; y < $scope.user.length; y++){
           console.log($scope.user[y]);
         }
-        
-    
-      }).error(function(data) {
+        }).error(function(data) {
         console.log(data);
       });
        }]);
+
+
 
 
