@@ -191,9 +191,14 @@ exports.gameCompletion = function(req, res){
   var url = "http://na.api.pvp.net/api/lol/na/v2.2/match/" + gameId + "?api_key=" + keys.RIOT_API_KEY;
   console.log(url);
   request(url, function(err, response, body){
-    var jsonBody = JSON.parse(body);
-    console.log("Request recieved");
-    return res.json(200, jsonBody);
+    console.log(response.statusCode);
+    if(response.statusCode == "404"){
+      return res.json(200, {"finished": false}) 
+    }else if(response.statusCode == "200"){
+      var jsonBody = JSON.parse(body);
+      jsonBody["finished"] = true;
+      return res.json(200, jsonBody);
+    }
   })
 }
 
