@@ -141,6 +141,18 @@ User.find({}).remove(function() {
     name: "Slooshi8",
     id: 20024304
   }
+},{
+  provider: "local",
+  email: "phantom@phantom",
+  password: "1234",
+  summoner: {
+    indexName: "phantoml0rd",
+    revisionDate: 1413823646000,
+    summonerLevel: 30,
+    profileIconId: 586,
+    name: "PhantomL0rd",
+    id: 19347723
+  }
 }
 
 

@@ -57,12 +57,6 @@ exports.search = function(req, res){
     return getSummoners(match, players, teamOne, teamTwo, summonerName);
     // return isAnyOpponentRegistered(match, players, teamOne, teamTwo, summonerName);
   }
-  // function isAnyOpponentRegistered(match, players, teamOne, teamTwo, summonerName){
-  //   findUsersOpponentTeam(summonerName, match)
-  //   User.findOne()
-
-  //   return getSummoners(match, players, teamOne, teamTwo);
-  // }
 
   function getSummoners(match, players, teamOne, teamTwo, summonerName){
     var playerString = players.join(',');
@@ -113,9 +107,6 @@ exports.search = function(req, res){
   function onlyIfOpponentisRegistered(match, summonerName){
     console.log(summonerName);
     var opposing = findUsersOpponentTeam(summonerName, match);
-
-
-
     async.map(opposing, function(player, callback) {
       console.log("Playername is " + player);
       User.findOne({"summoner.indexName": player}, function(err, bidder){
@@ -146,72 +137,13 @@ exports.search = function(req, res){
       })
     });
 
-    // console.log("CHECKING OPPONENTS");
-    // console.log(opposing);
-    // async.parallel([
-    //   lookInDBforPlayer.bind(opposing[0])
-    // ], function(err, result){
-    //   console.log(result);
-    //   return res.json(result);
-    // })
-
-    // function lookInDBforPlayer(callback, player){
-    //   console.log("Playername is " + player);
-    //   User.findOne({"summoner.indexName": player}, function(err, bidder){
-    //     if(bidder){
-    //       console.log(bidder + " FOUND SOMEONE TO BET WITH! " + player);
-    //       callback(null, player);
-    //     }else{
-    //       console.log(player + " does not have an account");
-    //       callback(null, '');
-    //     }
-    //   })
-    // }
-
-
-
-    // for(var i in opposing){
-    //   console.log(opposing[i]);
-
-    //   User.findOne({"summoner.indexName": opposing[i]}, function(err, bidder){
-    //     if(bidder){
-    //       console.log(bidder + " FOUND SOMEONE TO BET WITH!");
-    //     }else{
-    //       console.log(opposing[i] + " does not have an account with us");
-    //     }
-    //   })
-    // }
   }
 
 }
 
-// function opposingWithAccountsAndActive(summonerName, match){
-//   var opposing = findUsersOpponentTeam(summonerName, match);
-//   // check if they have accounts
-//   console.log(opposing);
-//   for(var i in opposing){
-//     console.log(opposing[i]);
-//     User.findOne({"summoner.indexName": opposing[i]}, function(err, better){
-//       if(better){
-//         //AND NEEDS TO BE ACTIVE
-//         console.log("FOUND SOMEONE TO BET WITH!");
-//       }else{
-//         console.log(opposing[i] + " does not have an account with us");
-//       }
-//     })
-//   }
-// }
 
 // Get a single match
 exports.show = function(req, res) {
-  // console.log("show");
-  // console.log(req.params.id);
-  // var summonerName = req.params.id;
-  
-    
-  
-  // if not send error
-
   Match.findById(req.params.id, function (err, match) {
     if(err) { return handleError(res, err); }
     if(!match) { return res.send(404); }
