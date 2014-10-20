@@ -14,9 +14,12 @@ $http.get('/api/users')
         for (var i = 0; i < data.length; i++ ) {
         if (data[i]['summoner']) {
             console.log( '/api/matches/search/'+data[i]['summoner']['indexName'] );
+          
           $http.get('/api/matches/search/'+data[i]['summoner']['indexName'])
             .success(function(data){
-          console.log(data);
+              console.log("hi",data['match']);
+              // for (var d = 0; )
+          
         }).error(function(data) {
           console.log(data);
         });
@@ -28,18 +31,13 @@ $http.get('/api/users')
         });
 
         
-
-   
-    $scope.typeOptions = [
+  $scope.typeOptions = [
       { name: 'Name', value: 'name' }, 
       { name: 'Profile Id', value: 'profile_icon_id'} ,
       { name: 'Summoner Level', value: 'summoner_level' }
     ];
 
-      // console.log($scope.user_object);
-      //   for (var y = 0; y < $scope.user.length; y++){
-      //     console.log($scope.user[y]);
-      //   }
+    
         
 }]);
 
@@ -50,9 +48,7 @@ angular.module('lolBetApp')
       $scope.the_summoner_id = "";
       $scope.summoner_view = [];
 
-   // $scope.checkOnline = function() {
-   //  console.log("test");
-   // }
+  
 
      var id = window.location.href.replace(/\D+/g, '' ); 
      var res = id.split("");
@@ -79,19 +75,6 @@ angular.module('lolBetApp')
   
 }]);
 
-// angular.module('lolBetApp')
-//   .controller('ClickCtrl', ['$scope', '$location','$routeParams', '$http', '$log', 'Auth', 
-//     function ($scope, $routeParams, $log, $http, $location, Auth) {
-
-//        $scope.go = function() {
-//         console.log("hi");
-
-//     $scope.msg = 'clicked';
-//   }
-
-// }]);
-
-    
 
 
 
