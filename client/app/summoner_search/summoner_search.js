@@ -7,7 +7,7 @@ angular.module('lolBetApp')
         templateUrl: 'app/summoner_search/summoner_search.html',
         controller: 'SummonerSearchCtrl'
       }).  
-      when('/summoner_search/:1', {
+      when('/summoner_search/:id', {
             templateUrl: 'app/summoner_search/summoner_search.html',
             controller: 'SummonerDetailCtrl'
   });
