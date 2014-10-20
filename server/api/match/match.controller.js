@@ -70,16 +70,29 @@ exports.search = function(req, res){
 
   function getLeagues(match, summoners, teamOne, teamTwo, summonerName){
     // map summoners into IDs
+    console.log("getLeagues");
     var summonerIds = _.map(summoners, function(player){
       return player.id;
     })
+
     var idString = summonerIds.join(',');
     var url = "https://na.api.pvp.net/api/lol/na/v2.5/league/by-summoner/" + idString + "/?api_key=" + keys.RIOT_API_KEY;
     request(url, function(error, response, body){
       var leagues = _.map(JSON.parse(body), function(player){
         return player[0].tier;
       })
-      return res.json(200, leagues);
+      console.log(leagues);
+      console.log(summoners);
+      // for(var i = 0 ; i < leagues.length ; i++){
+      var l = 0;
+      for(var i in summoners){
+        console.log(i);
+        console.log(summoners + " " + leagues[l]);
+        l++;
+        summoners[i]["league"] = leagues[l];
+      }
+
+      return parseMatch(match, summoners, teamOne, teamTwo, summonerName);
     })
   }
 
