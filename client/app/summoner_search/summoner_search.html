@@ -4,13 +4,14 @@ td {
   padding:10px; border:1px solid gray;"
 }
   </style>
-  Search:<input autofocus ng-model="query" placeholder="search Summoner"type="text"/>
-  <br/><br/>
-<table>
-  <tr><th>Summoner Name</th><th>Profile Icon Id</th><th>Summoner Level</th></tr>
-  <tr ng-repeat="summoner in user_object | filter:query | orderBy:sortField">
-    <td>{{summoner['name']}}</td><td>{{summoner['profile_icon_id']}}</td><td>{{summoner['summoner_level']}}</td>
-  </tr>
-</table>
+  Search:<input autofocus ng-model="query[queryBy]" placeholder="search Summoner" type="text"/>
+  Search By:<select ng-model='queryBy' required ng-options='option.value as option.name for option in typeOptions'></select> <br/><br/>
+
+  <table>
+    <tr><th>Summoner Name</th><th>Profile Id</th><th>Summoner Level</th></tr>
+    <tr ng-repeat="summoner in user_object | filter:query">
+      <td>{{summoner.name}}</td><td>{{summoner.profile_icon_id}}</td><td>{{summoner.summoner_level}}</td>
+    </tr>
+  </table>
 </div>
 
