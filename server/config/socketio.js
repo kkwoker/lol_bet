@@ -67,5 +67,6 @@ module.exports = function (socketio) {
     socket.on('bet', function(data) {
       socket.broadcast.to(data.room).emit('bet', { bet: data.bet });
     })
+
   });
 };
