@@ -12,9 +12,15 @@ td {
     <tr ng-repeat="summoner in user_object | filter:query">
       <td><a href="/summoner_search/{{summoner.profile_icon_id}}">{{summoner.name}}</a></td><td> <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/></td><td>{{summoner.summoner_level}}
      </td>
+    
+     <!-- localhost:3000/api/matches/search/c9-meteos" -->
     </tr>
   </table>
 </div>
+
+
+
+
 
 <div ngShow="summoner_view">
 
@@ -25,5 +31,8 @@ td {
      </td>
     </tr>
   </table>
+
+  
+  <br/><br/>
 </div>
 
