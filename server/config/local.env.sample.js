@@ -6,9 +6,10 @@
 // You will need to set these on the server you deploy to.
 
 module.exports = {
-  DOMAIN:           'http://localhost:9000',
-  SESSION_SECRET:   'lolbet-secret',
-
+  DOMAIN: 'http://localhost:9000',
+  SESSION_SECRET: "lolbet-secret",
+  RIOT_API_KEY:     'secret',
+  MASHAPE_API_KEY: 'secret',
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''
 };

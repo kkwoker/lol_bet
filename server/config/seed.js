@@ -77,22 +77,74 @@ User.find({}).remove(function() {
         summonerLevel: 30,
         revisionDate: 1413534892000
       }
-  },
-  // , {
-  //   provider: 'local',
-  //   name: 'Marlon',
-  //   email: 'marlon@marlon.com',
-  //   password: '1234',
-  //   summoner: {
-  //     id: 61353331,
-  //     name: "LOL BET",
-  //     profileIconId: 23,
-  //     summonerLevel: 2,
-  //     revisionDate: 1413615915000
-  //   }
-  // }
+  }
 
-  function() {
+
+  , {
+  provider: "local",
+  name: 'Chaox',
+  email: "chaox@chaox",
+  password: '1234',
+  summoner: {
+    indexName: "chaox",
+    revisionDate: 1413755370000,
+    summonerLevel: 30,
+    profileIconId: 693,
+    name: "Chaox",
+    id: 7460
+  }
+}, {
+  provider: "local",
+  email: "pounder@pounder",
+  password: "1234",
+  summoner: {
+    indexName: "butttpounder",
+    revisionDate: 1413755312000,
+    summonerLevel: 30,
+    profileIconId: 23,
+    name: "butttpounder",
+    id: 23850925
+  }
+}, {
+  provider: "local",
+  email: "fexir@fexir",
+  password: "1234",
+  summoner: {
+    indexName: "fexir",
+    revisionDate: 1413760658000,
+    summonerLevel: 30,
+    profileIconId: 28,
+    name: "Fexir",
+    id: 22344323
+  }
+}, {
+  provider: "local",
+  email: "mandatorycloud@man",
+  password: "1234",
+  summoner: {
+    indexName: "mandatorycloud",
+    revisionDate: 1413762747000,
+    summonerLevel: 30,
+    profileIconId: 687,
+    name: "mandatorycloud",
+    id: 200553
+  }
+},{
+  provider: "local",
+  email: "slooshi@sloosh",
+  password: "1234",
+  summoner: {
+    indexName: "slooshi8",
+    revisionDate: 1413762747000,
+    summonerLevel: 30,
+    profileIconId: 7,
+    name: "Slooshi8",
+    id: 20024304
+  }
+}
+
+
+,  function() {
       console.log('finished populating users');
     }
   );
