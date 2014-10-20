@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('lolBetApp')
-  .controller('HomeCtrl', ['$scope', '$http', '$interval', 'Auth', 
-    function ($scope, $http, $interval, Auth) {
+  .controller('HomeCtrl', ['$scope', '$http', '$timeout', 'Auth', 
+    function ($scope, $http, $timeout, Auth) {
     $scope.user = {};
       
     Auth.getCurrentUser().$promise
@@ -17,42 +17,31 @@ angular.module('lolBetApp')
 
     $scope.searchGames = function() {
       var url = '/api/matches/search/' + $scope.user.summoner.indexName;
-      var timer;
-      var stopTime;
-      var success;
 
       $scope.loading = true;
-      
-      $scope.getGame(url, success);
 
-      timer = $interval(function() {
-        $scope.getGame(url, success);
-      }, 5000);
+      function getGame() {
+        $http.get(url)
+          .success(function(data) {
+            $scope.loading = false;
+            console.log(data);
+          })
+          .error(function(response, status) {
+           $timeout(function() {
+              getGame();
+            }, 5000);
 
-      success = function(data) {
-        stopTime();
-        console.log(data);
-      };
-
-      stopTime = function() {
-        $interval.cancel(timer);
-        $scope.loading=false;
-      };
+            console.log(response, status);
+        });
+      }
 
       $(document).on('keyup', function(event) {
         if (event.keyCode === 27) { 
-         stopTime();
+         return false;
         }
       });
+
+      getGame();
     };
 
-    $scope.getGame = function(url, cb) {
-      $http.get(url)
-        .success(function(data) {
-          cb(data);
-        })
-        .error(function(response, status) {
-          console.log(response, status);
-      });
-    };
   }]);
