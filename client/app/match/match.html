@@ -1,3 +1,45 @@
-<div class="col-md-12">
-This is the match view.
-</div>
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+  <div class="container background-blur" ng-controller="HomeCtrl" ng-keyup="cancelSearch($event)">
+    <div class="search-loading" ng-show="loading">
+      <div class="loading-ball">
+        <div class="ball"></div>
+        <div class="ball1"></div>
+      </div>
+      <h3>Searching...</h3>
+      <p>(press esc to cancel)</p>
+    </div>
+    <div class="col-sm-12 col-md-10 col-md-offset-1 match-box">
+      <div class="col-sm-12 col-lg-8 match-box-left">
+        Match left
+        {{ match }}
+        <div class="col-sm-12 match-box-top">
+          <div class="col-sm-6 match-icon">
+            Image
+          </div>
+          <div class="col-sm-6 bet-details">
+            <h3>30 seconds</h3>
+            <h4>{{ opponent.bet }}</h4>
+            <p>$0 USD</p>
+            Bet Details
+          </div>
+        </div>
+        <hr>
+        <div class="col-sm-12 match-box-bottom">
+          <div class="col-sm-6 match-icon">
+            Image
+          </div>
+          <div class="col-sm-6 bet-details">
+            <input type="number" ng-model="player.bet">
+            <p>$0 USD</p>
+            <button class="btn-large btn-large-primary confirm">Lock In</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-lg-4 match-box-right">
+        Match Right
+      </div>
+    </div>
+  </div>
+</header>

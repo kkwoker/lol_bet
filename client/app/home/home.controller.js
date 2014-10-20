@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('lolBetApp')
-  .controller('HomeCtrl', ['$scope', '$http', '$timeout','$location', 'Auth', 
-    function ($scope, $http, $timeout, $location, Auth) {
+  .controller('HomeCtrl', ['$scope', '$http', '$timeout','$location', 'Auth', 'currentMatch', 
+    function ($scope, $http, $timeout, $location, Auth, currentMatch) {
     $scope.user = {};
-      
+
     Auth.getCurrentUser().$promise
       .then(function(data) {
         // success!
@@ -26,7 +26,8 @@ angular.module('lolBetApp')
         $http.get(url)
           .success(function(data) {
             $scope.loading = false;
-            $location.url('/match?m=' + data._id);
+            currentMatch.setMatch(data._id);
+            $location.url('/match');
             console.log(data);
           })
           .error(function(response, status) {
