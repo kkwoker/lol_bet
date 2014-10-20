@@ -88,8 +88,8 @@ exports.search = function(req, res){
       for(var i in summoners){
         console.log(i);
         console.log(summoners + " " + leagues[l]);
-        l++;
         summoners[i]["league"] = leagues[l];
+        l++;
       }
 
       return parseMatch(match, summoners, teamOne, teamTwo, summonerName);
