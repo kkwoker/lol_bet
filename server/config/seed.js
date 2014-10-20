@@ -153,7 +153,20 @@ User.find({}).remove(function() {
     name: "PhantomL0rd",
     id: 19347723
   }
+},{
+  provider: "local",
+  email: "diskon@diskon",
+  password: "1234",
+  summoner: {
+    indexName: "diskon",
+    revisionDate: 1413836870000,
+    summonerLevel: 30,
+    profileIconId: 604,
+    name: "Diskon",
+    id: 22063890
+  }
 }
+
 
 
 ,  function() {

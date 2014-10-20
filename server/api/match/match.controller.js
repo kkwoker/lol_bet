@@ -63,7 +63,23 @@ exports.search = function(req, res){
     var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + playerString + "?api_key=" + keys.RIOT_API_KEY;    
     request(url, function(error, response, body){
       var summoners = JSON.parse(body);
-      return parseMatch(match, summoners, teamOne, teamTwo, summonerName);
+      
+      return getLeagues(match, summoners, teamOne, teamTwo, summonerName);
+    })
+  }
+
+  function getLeagues(match, summoners, teamOne, teamTwo, summonerName){
+    // map summoners into IDs
+    var summonerIds = _.map(summoners, function(player){
+      return player.id;
+    })
+    var idString = summonerIds.join(',');
+    var url = "https://na.api.pvp.net/api/lol/na/v2.5/league/by-summoner/" + idString + "/?api_key=" + keys.RIOT_API_KEY;
+    request(url, function(error, response, body){
+      var leagues = _.map(JSON.parse(body), function(player){
+        return player[0].tier;
+      })
+      return res.json(200, leagues);
     })
   }
 
@@ -87,8 +103,11 @@ exports.search = function(req, res){
       "teamOne": t1,
       "teamTwo": t2
     }
+    var p1 = {}
+    p1[summonerName] = summoners[summonerName]
+    var p2 = {}
     var bet = {
-      "playerArr": [summonerName, 'eufo'],
+      "playerArr": [p1, p2],
       "bet": 0
     }
 
@@ -99,12 +118,12 @@ exports.search = function(req, res){
       "active": true
     }
 
-    return onlyIfOpponentisRegistered(obj, summonerName);
+    return onlyIfOpponentisRegistered(obj, summonerName, summoners);
 
     // return res.json(200, match);  
   }
 
-  function onlyIfOpponentisRegistered(match, summonerName){
+  function onlyIfOpponentisRegistered(match, summonerName, summoners){
     console.log(summonerName);
     var opposing = findUsersOpponentTeam(summonerName, match);
     async.map(opposing, function(player, callback) {
@@ -129,7 +148,7 @@ exports.search = function(req, res){
         }
       })
       console.log("bidders: " + bidders);
-      match.bet.playerArr[1] = bidders[0];
+      match.bet.playerArr[1][bidders[0]] = summoners[bidders[0]];
 
       var newMatch = new Match(match);
         newMatch.save(function(err, matchRes){
