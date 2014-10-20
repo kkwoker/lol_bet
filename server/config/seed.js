@@ -165,7 +165,58 @@ User.find({}).remove(function() {
     name: "Diskon",
     id: 22063890
   }
+},{
+  provider: "local",
+  email: "imaqtpie@imaqtpie",
+  password: "1234",
+  summoner: {
+    indexName: "imaqtpie",
+    revisionDate: 1413841825000,
+    summonerLevel: 30,
+    profileIconId: 677,
+    name: "Imaqtpie",
+    id: 19887289
+  }
+},{
+  provider: "local",
+  email: "dyrus@dyrus",
+  password: "1234",
+  summoner: {
+    indexName: "dyrus",
+    revisionDate: 1413843439000,
+    summonerLevel: 30,
+    profileIconId: 627,
+    name: "Dyrus",
+    id: 5908
+  }
+}, {
+  provider: "local",
+  email: "zionspartan@zionspartan",
+  password: "1234",
+  summoner: {
+    indexName: "zionspartan",
+    revisionDate: 1413843439000,
+    summonerLevel: 30,
+    profileIconId: 625,
+    name: "ZionSpartan",
+    id: 19738326
+  }
+}, {
+  provider: "local",
+  email: "cytosine@cytosine",
+  password: "1234",
+  summoner: {
+    indexName: "cytosine",
+    revisionDate: 1413843404000,
+    summonerLevel: 30,
+    profileIconId: 512,
+    name: "Cytosine",
+    id: 22149390
+  }
 }
+
+
+
 
 
 
