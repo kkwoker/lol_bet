@@ -6,11 +6,23 @@ td {
   </style>
   Search:<input autofocus ng-model="query[queryBy]" placeholder="search Summoner" type="text"/>
   Search By:<select ng-model='queryBy' required ng-options='option.value as option.name for option in typeOptions'></select> <br/><br/>
-
+<div ngHide="summoner_view">
   <table>
     <tr><th>Summoner Name</th><th>Profile Id</th><th>Summoner Level</th></tr>
     <tr ng-repeat="summoner in user_object | filter:query">
-      <td>{{summoner.name}}</td><td>{{summoner.profile_icon_id}}</td><td>{{summoner.summoner_level}}</td>
+      <td><a href="/summoner_search/{{summoner.profile_icon_id}}">{{summoner.name}}</a></td><td> <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/></td><td>{{summoner.summoner_level}}
+     </td>
+    </tr>
+  </table>
+</div>
+
+<div ngShow="summoner_view">
+
+  <table>
+ 
+    <tr ng-repeat="summoner in summoner_view">
+      <td>{{summoner.name}}</td><td> <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/></td><td>{{summoner.summoner_level}}
+     </td>
     </tr>
   </table>
 </div>

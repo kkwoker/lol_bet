@@ -6,6 +6,11 @@ angular.module('lolBetApp')
     $scope.message = 'Hello';
     $scope.user = [];
     $scope.user_object = [];
+
+
+
+
+
    
     $http.get('/api/users')
       .success(function(data){
@@ -28,6 +33,54 @@ angular.module('lolBetApp')
         }).error(function(data) {
           console.log(data);
         });
+}]);
+
+angular.module('lolBetApp')
+  .controller('SummonerDetailCtrl', ['$scope', '$location','$routeParams', '$http', '$log', 'Auth', 
+    function ($scope, $routeParams, $log, $http, $location, Auth) {
+      $scope.show_summoner = [];
+      $scope.the_summoner_id = "";
+      $scope.summoner_view = [];
+
+   
+
+     var id = window.location.href.replace(/\D+/g, '' ); 
+
+    
+     var res = id.split("");
+     // console.log(res[0]+res[1]+res[2]+res[3]);
+
+     if ( res[0] && res[1] && res[2] && res[3] ) {
+          var localPort = res[0]+res[1]+res[2]+res[3];
+
+          console.log(localPort);
+          for (var x = 4; x < id.length; x++ ) {
+         
+            $scope.the_summoner_id  += id[x];
+          }
+         
+      };
+
+     
+      
+
+       $http.get('/api/users')
+        .success(function(data){
+           console.log($scope.the_summoner_id);
+          for (var y = 0; y < data.length; y++ ) {
+         
+              if (data[y]['summoner']) {
+                if(data[y]['summoner']['profileIconId'] == $scope.the_summoner_id) {
+                  console.log( data[y]['summoner']['name'], data[y]['summoner']['profileIconId'], data[y]['summoner']['summonerLevel'] );
+                  $scope.summoner_view.push( { "name": data[y]['summoner']['name'], "profile_icon_id": data[y]['summoner']['profileIconId'], "summoner_level": data[y]['summoner']['summonerLevel'] } );
+                }
+              }
+
+           
+          };
+        });
+
+  
 }]);
 
     

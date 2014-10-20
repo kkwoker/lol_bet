@@ -6,6 +6,11 @@ angular.module('lolBetApp')
       .when('/summoner_search', {
         templateUrl: 'app/summoner_search/summoner_search.html',
         controller: 'SummonerSearchCtrl'
-      });
+      }).  
+      when('/summoner_search/:1', {
+            templateUrl: 'app/summoner_search/summoner_search.html',
+            controller: 'SummonerDetailCtrl'
   });
+    });
 
+ 
