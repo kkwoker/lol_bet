@@ -41,7 +41,8 @@ exports.search = function(req, res){
             return res.json(404, result.body);
           }else{
             console.log("MATCH FOUND");
-            return findPlayers(result.body, summonerName)
+            return res.json(200,result.body);
+            // return findPlayers(result.body, summonerName)
           }
         })
   }
