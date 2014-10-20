@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('lolBetApp')
-  .controller('HomeCtrl', ['$scope', '$http', 'Auth', function ($scope, $http, Auth) {
+  .controller('HomeCtrl', ['$scope', '$http', '$timeout','$location', 'Auth', 'currentMatch', 
+    function ($scope, $http, $timeout, $location, Auth, currentMatch) {
     $scope.user = {};
-      
+
     Auth.getCurrentUser().$promise
       .then(function(data) {
         // success!
@@ -15,21 +16,36 @@ angular.module('lolBetApp')
       });
 
     $scope.searchGames = function() {
-      var url = '/matches/search/' + $scope.user.summoner.indexName;
+      var url = '/api/matches/search/' + $scope.user.summoner.indexName;
+
       $scope.loading = true;
-      
-      $http.get(url)
-        .success(function(data) {
-          console.log(data);
-        })
-        .error(function(response, status) {
-          console.log(response, status);
-        }); 
+
+      function getGame() {
+        if (!$scope.loading) { return false; }
+
+        $http.get(url)
+          .success(function(data) {
+            $scope.loading = false;
+            currentMatch.setMatch(data._id);
+            $location.url('/match');
+            console.log(data);
+          })
+          .error(function(response, status) {
+           $timeout(function() {
+              getGame();
+            }, 5000);
+
+            console.log(response, status);
+        });
+      }
+
+      $(document).on('keyup', function(event) {
+        if (event.keyCode === 27) { 
+         $scope.loading = false;
+        }
+      });
+
+      getGame();
     };
 
-    $scope.cancelSearch = function(event) {
-      if (event.keyCode === 27) { 
-        $scope.loading=false;
-      }
-    };
   }]);
