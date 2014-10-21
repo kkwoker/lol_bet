@@ -153,10 +153,28 @@ Match.find({}).remove(function() {
     },
     bet: {
     bet: 0,
-    playerArr: [
-    "mandinh",
-    null
-    ]
+    playerArr:[
+      {
+      mandinh: {
+      league: "MASTER",
+      revisionDate: 1413833493000,
+      summonerLevel: 30,
+      profileIconId: 534,
+      name: "Man Dinh",
+      id: 16685
+      }
+      },
+      {
+      swaggiedaddy: {
+      league: "MASTER",
+      revisionDate: 1413833493000,
+      summonerLevel: 30,
+      profileIconId: 685,
+      name: "Swaggie Daddy",
+      id: 22683567
+      }
+      }
+]
     },
     active: true
     })

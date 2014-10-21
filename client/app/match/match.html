@@ -4,23 +4,22 @@
   <div class="container background-blur" ng-controller="HomeCtrl" ng-keyup="cancelSearch($event)">
     <div class="col-sm-12 col-md-10 col-md-offset-1 match-box">
       <div class="col-sm-12 col-lg-8 match-box-left">
-        Match left
-        {{ match }}
+        <div class="match-box-head">
+          <h3>Bet Time Remaining: 30 seconds</h3>
+        </div>
         <div class="col-sm-12 match-box-top">
           <div class="col-sm-6 match-icon">
-            Image
+            <img src="{{ opponent.iconUrl }}" alt="Player Icon">
           </div>
           <div class="col-sm-6 bet-details">
-            <h3>30 seconds</h3>
             <h4>{{ opponent.bet }}</h4>
             <p>$0 USD</p>
-            Bet Details
           </div>
         </div>
         <hr>
         <div class="col-sm-12 match-box-bottom">
           <div class="col-sm-6 match-icon">
-            Image
+            <img src="{{ player.iconUrl }}" alt="Player Icon">
           </div>
           <div class="col-sm-6 bet-details">
             <input type="number" ng-model="player.bet">
@@ -30,7 +29,33 @@
         </div>
       </div>
       <div class="col-sm-12 col-lg-4 match-box-right">
-        Match Right
+        <div class="col-sm-12 opponent-team">
+          <table class="table">
+            <thead>
+              <th>Icon</th>
+              <th>Name</th>
+              <th>Level</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="player in opponent.team">
+                <td><img src="https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/{{ player.summoner.profileIconId }}.png" alt=""></td>
+                <td>{{ player.summoner.name }}</td>
+                <td>{{ player.summoner.summonerLevel }}</td>  
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-sm-12 player-team">
+          <table class="table">
+            <tbody>
+              <tr ng-repeat="player in player.team">
+                <td><img src="https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/{{ player.summoner.profileIconId }}.png" alt=""></td>
+                <td>{{ player.summoner.name }}</td>
+                <td>{{ player.summoner.summonerLevel }}</td>  
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
