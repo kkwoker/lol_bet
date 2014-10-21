@@ -20,4 +20,9 @@ angular.module('lolBetApp')
     $scope.isActive = function(route) {
       return route === $location.path();
     };
+
+
   });
+  
+   
+
