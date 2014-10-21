@@ -3,8 +3,6 @@
 angular.module('lolBetApp')
   .controller('MatchCtrl', ['$scope', 'matchData', 'currentUser',
     function ($scope, matchData, currentUser) {
-    console.log(currentUser);
-    console.log(matchData);
     $scope.player = {
       name: currentUser.summoner.indexName,
       bet: 0,
@@ -35,7 +33,4 @@ angular.module('lolBetApp')
         }
       });
     });
-
-    console.log($scope.player);
-    console.log($scope.opponent);
   }]);
