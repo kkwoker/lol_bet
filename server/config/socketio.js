@@ -18,6 +18,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/champion/champion.socket').register(socket);
   require('../api/match/match.socket').register(socket);
   require('../api/summoner/summoner.socket').register(socket);
   require('../api/thing/thing.socket').register(socket);

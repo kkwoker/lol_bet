@@ -24,7 +24,8 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   display: inline-block;
   text-align: center;
   font-size: 16px;
-  border: 0;
+  border: 1;
+  margin-top: 10px;
 }
 .btn-large-primary {
   color: #222;
@@ -53,3 +54,9 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'match/match.scss';
 @import 'modal/modal.scss';
 // endinjector
+
+
+
+.champIcon{
+  width: 30px;
+}
