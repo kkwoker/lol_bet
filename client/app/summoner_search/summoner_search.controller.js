@@ -34,6 +34,8 @@ angular.module('lolBetApp')
       $scope.show_summoner = [];
       $scope.the_summoner_id = "";
       $scope.summoner_view = [];
+      $scope.online = "offline";
+
 
 
   
@@ -63,6 +65,7 @@ angular.module('lolBetApp')
                   $http.get('/api/matches/search/'+data[y]['summoner']['indexName'])
                     .success(function(data){
                       console.log(data);
+                      $scope.online = "online";
                   
                 }).error(function(data) {
                   console.log(data);
