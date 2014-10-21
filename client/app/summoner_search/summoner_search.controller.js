@@ -12,18 +12,8 @@ angular.module('lolBetApp')
 $http.get('/api/users')
       .success(function(data){
         for (var i = 0; i < data.length; i++ ) {
-        if (data[i]['summoner']) {
-            console.log( '/api/matches/search/'+data[i]['summoner']['indexName'] );
-          
-          $http.get('/api/matches/search/'+data[i]['summoner']['indexName'])
-            .success(function(data){
-              console.log("hi",data['match']);
-              // for (var d = 0; )
-          
-        }).error(function(data) {
-          console.log(data);
-        });
-        $scope.user_object.push( { "name": data[i]['summoner']['name'], "profile_icon_id": data[i]['summoner']['profileIconId'], "summoner_level": data[i]['summoner']['summonerLevel'] } );
+          if (data[i]['summoner']) {
+            $scope.user_object.push( { "name": data[i]['summoner']['name'], "profile_icon_id": data[i]['summoner']['profileIconId'], "summoner_level": data[i]['summoner']['summonerLevel'] } );
           }
         }
       }).error(function(data) {
@@ -36,9 +26,6 @@ $http.get('/api/users')
       { name: 'Profile Id', value: 'profile_icon_id'} ,
       { name: 'Summoner Level', value: 'summoner_level' }
     ];
-
-    
-        
 }]);
 
 angular.module('lolBetApp')
@@ -48,9 +35,9 @@ angular.module('lolBetApp')
       $scope.the_summoner_id = "";
       $scope.summoner_view = [];
 
-  
 
-     var id = window.location.href.replace(/\D+/g, '' ); 
+  
+    var id = window.location.href.replace(/\D+/g, '' ); 
      var res = id.split("");
       if ( res[0] && res[1] && res[2] && res[3] ) {
         var localPort = res[0]+res[1]+res[2]+res[3];
@@ -59,20 +46,32 @@ angular.module('lolBetApp')
         }
       };
 
+
      $http.get('/api/users')
         .success(function(data){
+          
            console.log($scope.the_summoner_id);
           for (var y = 0; y < data.length; y++ ) {
          
               if (data[y]['summoner']) {
+               
                 if(data[y]['summoner']['profileIconId'] == $scope.the_summoner_id) {
-                  $scope.summoner_view.push( { "name": data[y]['summoner']['name'], "profile_icon_id": data[y]['summoner']['profileIconId'], "summoner_level": data[y]['summoner']['summonerLevel'] } );
+                   console.log("hi",data[y]);
+                  console.log(data[y]['summoner']['indexName']);
+
+
+                  $http.get('/api/matches/search/'+data[y]['summoner']['indexName'])
+                    .success(function(data){
+                      console.log(data);
+                  
+                }).error(function(data) {
+                  console.log(data);
+                });
+                $scope.summoner_view.push( { "name": data[y]['summoner']['name'], "profile_icon_id": data[y]['summoner']['profileIconId'], "summoner_level": data[y]['summoner']['summonerLevel'] } );
                 }
               }
            };
-        });
-
-  
+        });  
 }]);
 
 
