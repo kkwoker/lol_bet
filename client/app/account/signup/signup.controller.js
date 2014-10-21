@@ -43,5 +43,6 @@ angular.module('lolBetApp')
         });
       }
     };
+}]);
 
-  }]);
+
