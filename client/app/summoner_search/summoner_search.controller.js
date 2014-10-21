@@ -8,7 +8,6 @@ angular.module('lolBetApp')
     $scope.user_object = [];
 
 
-
 $http.get('/api/users')
       .success(function(data){
         for (var i = 0; i < data.length; i++ ) {
@@ -35,7 +34,6 @@ angular.module('lolBetApp')
       $scope.the_summoner_id = "";
       $scope.summoner_view = [];
       $scope.online = "offline";
-
 
 
   
@@ -66,7 +64,6 @@ angular.module('lolBetApp')
                     .success(function(data){
                       console.log(data);
                       $scope.online = "online";
-                  
                 }).error(function(data) {
                   console.log(data);
                 });
@@ -76,10 +73,3 @@ angular.module('lolBetApp')
            };
         });  
 }]);
-
-
-
-
-
-
-
