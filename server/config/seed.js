@@ -169,18 +169,6 @@ Match.find({}).remove(function() {
 User.find({}).remove(function() {
   User.create({
     provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
-    password: 'test'
-  }, {
-    provider: 'local',
-    role: 'admin',
-    name: 'Admin',
-    email: 'admin@admin.com',
-    password: 'admin',
-    
-  },{
-    provider: 'local',
     role: 'admin',
     name: 'Admin',
     email: 'kkwoker@admin.com',
@@ -327,7 +315,9 @@ User.find({}).remove(function() {
     profileIconId: 627,
     name: "Dyrus",
     id: 5908
-  }
+  },
+  wallet: 102.015
+
 }, {
   provider: "local",
   email: "zionspartan@zionspartan",
