@@ -11,7 +11,7 @@
           </div>
         </div>
       <div ng-hide="summoner_view" class="ng-hide">
-        <table class="span5 table center-summoner_table">
+        <table class="span5 table">
           <tr ng-repeat="summoner in user_object | filter:query">
             <td><a href="/summoner_search/{{summoner.profile_icon_id}}">{{summoner.name}}</a></td><td> <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/></td><td>{{summoner.summoner_level}}
            </td>
@@ -22,7 +22,7 @@
 
       <div ngShow="summoner_view">
         <div>
-          <table class="span5 center-summoner_table">
+          <table class="span5 table">
             <tr ng-repeat="summoner in summoner_view">
               <td>{{summoner.name}}</td><td> <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/></td><td>{{summoner.summoner_level}}
              </td>
