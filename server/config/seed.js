@@ -32,6 +32,135 @@ Thing.find({}).remove(function() {
 });
 
 Match.find({}).remove(function() {
+  Match.create ({
+    __v: 0,
+    _id: "1593289310",
+    match: {
+    teamTwo: [
+    {
+    summoner: {
+    revisionDate: 1413833493000,
+    summonerLevel: 30,
+    profileIconId: 13,
+    name: "SpicyTicTac",
+    id: 25329778
+    },
+    champId: 236,
+    name: "spicytictac"
+    },
+    {
+    summoner: {
+    revisionDate: 1413833493000,
+    summonerLevel: 30,
+    profileIconId: 534,
+    name: "Man Dinh",
+    id: 16685
+    },
+    champId: 29,
+    name: "mandinh"
+    },
+    {
+    summoner: {
+    revisionDate: 1413742058000,
+    summonerLevel: 30,
+    profileIconId: 621,
+    name: "Im Novel",
+    id: 22089278
+    },
+    champId: 201,
+    name: "imnovel"
+    },
+    {
+    summoner: {
+    revisionDate: 1413832916000,
+    summonerLevel: 30,
+    profileIconId: 585,
+    name: "SV Xio",
+    id: 25316184
+    },
+    champId: 150,
+    name: "svxio"
+    },
+    {
+    summoner: {
+    revisionDate: 1413833217000,
+    summonerLevel: 30,
+    profileIconId: 599,
+    name: "KTCure",
+    id: 19055228
+    },
+    champId: 61,
+    name: "ktcure"
+    }
+    ],
+    teamOne: [
+    {
+    summoner: {
+    revisionDate: 1413833352000,
+    summonerLevel: 30,
+    profileIconId: 17,
+    name: "THE DEMON CHlLD",
+    id: 19148345
+    },
+    champId: 90,
+    name: "thedemonchlld"
+    },
+    {
+    summoner: {
+    revisionDate: 1413833493000,
+    summonerLevel: 30,
+    profileIconId: 685,
+    name: "Swaggie Daddy",
+    id: 22683567
+    },
+    champId: 68,
+    name: "swaggiedaddy"
+    },
+    {
+    summoner: {
+    revisionDate: 1413769472000,
+    summonerLevel: 30,
+    profileIconId: 538,
+    name: "1013rian",
+    id: 20851060
+    },
+    champId: 35,
+    name: "1013rian"
+    },
+    {
+    summoner: {
+    revisionDate: 1413751809000,
+    summonerLevel: 30,
+    profileIconId: 545,
+    name: "AznSneakyFellow ",
+    id: 23994633
+    },
+    champId: 267,
+    name: "aznsneakyfellow"
+    },
+    {
+    summoner: {
+    revisionDate: 1413781319000,
+    summonerLevel: 30,
+    profileIconId: 627,
+    name: "NÃ¬kÃ³lÃ i",
+    id: 37874755
+    },
+    champId: 42,
+    name: "nÃ¬kÃ³lÃ i"
+    }
+    ]
+    },
+    bet: {
+    bet: 0,
+    playerArr: [
+    "mandinh",
+    null
+    ]
+    },
+    active: true
+    })
+
 });
 
 
@@ -77,10 +206,7 @@ User.find({}).remove(function() {
         summonerLevel: 30,
         revisionDate: 1413534892000
       }
-  }
-
-
-  , {
+  }, {
   provider: "local",
   name: 'Chaox',
   email: "chaox@chaox",
@@ -92,6 +218,19 @@ User.find({}).remove(function() {
     profileIconId: 693,
     name: "Chaox",
     id: 7460
+  }
+}, {
+  provider: "local",
+  name: 'mandinh',
+  email: "mandinh@mandinh",
+  password: '1234',
+  summoner: {
+    indexName: "mandinh",
+    revisionDate: 1413833493000,
+    summonerLevel: 30,
+    profileIconId: 534,
+    name: "Man Dinh",
+    id: 16685
   }
 }, {
   provider: "local",
@@ -153,7 +292,83 @@ User.find({}).remove(function() {
     name: "PhantomL0rd",
     id: 19347723
   }
+},{
+  provider: "local",
+  email: "diskon@diskon",
+  password: "1234",
+  summoner: {
+    indexName: "diskon",
+    revisionDate: 1413836870000,
+    summonerLevel: 30,
+    profileIconId: 604,
+    name: "Diskon",
+    id: 22063890
+  }
+},{
+  provider: "local",
+  email: "imaqtpie@imaqtpie",
+  password: "1234",
+  summoner: {
+    indexName: "imaqtpie",
+    revisionDate: 1413841825000,
+    summonerLevel: 30,
+    profileIconId: 677,
+    name: "Imaqtpie",
+    id: 19887289
+  }
+},{
+  provider: "local",
+  email: "dyrus@dyrus",
+  password: "1234",
+  summoner: {
+    indexName: "dyrus",
+    revisionDate: 1413843439000,
+    summonerLevel: 30,
+    profileIconId: 627,
+    name: "Dyrus",
+    id: 5908
+  }
+}, {
+  provider: "local",
+  email: "zionspartan@zionspartan",
+  password: "1234",
+  summoner: {
+    indexName: "zionspartan",
+    revisionDate: 1413843439000,
+    summonerLevel: 30,
+    profileIconId: 625,
+    name: "ZionSpartan",
+    id: 19738326
+  }
+}, {
+  provider: "local",
+  email: "mandinh@mandinh",
+  password: "1234",
+  summoner: {
+    indexName: "mandinh",
+    revisionDate: 1413841323000,
+    summonerLevel: 30,
+    profileIconId: 534,
+    name: "Man Dinh",
+    id: 16685
+  }
+}, {
+  provider: "local",
+  email: "cytosine@cytosine",
+  password: "1234",
+  summoner: {
+    indexName: "cytosine",
+    revisionDate: 1413843404000,
+    summonerLevel: 30,
+    profileIconId: 512,
+    name: "Cytosine",
+    id: 22149390
+  }
 }
+
+
+
+
 
 
 ,  function() {
