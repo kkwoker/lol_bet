@@ -7,6 +7,8 @@ var unirest = require('unirest');
 var request = require('request');
 var keys = require('../../config/local.env.js');
 var async = require('async');
+var http = require('http');
+
 // Get list of matchs
 exports.index = function(req, res) {
   Match.find(function (err, matchs) {
@@ -17,8 +19,9 @@ exports.index = function(req, res) {
 
 exports.search = function(req, res){
   var summonerName = req.params.indexName;
-  var nameInTeam1or2 = [{"match.teamOne.name": summonerName}, {"match.teamTwo.name": summonerName}];
-  Match.findOne(nameInTeam1or2, function(err, match){
+  var nameInTeam1or2 = {$or : [{"match.teamOne.name": summonerName}, {"match.teamTwo.name": summonerName}]};
+  console.log(summonerName);
+  Match.findOne(nameInTeam1or2).where('active').equals(true).exec(function(err, match){
     if(match){
       console.log("Found a match in the database");
       return res.json(200, match);
@@ -38,32 +41,64 @@ exports.search = function(req, res){
             return res.json(404, result.body);
           }else{
             console.log("MATCH FOUND");
-            return findPlayers(result.body)
+            // return res.json(200,result.body);
+            return findPlayers(result.body, summonerName)
           }
         })
   }
 
-  function findPlayers(match){
-    var teamOne = [].map.call(match.game.teamOne.array ,function(player){
+  function findPlayers(match, summonerName){
+    var teamOne = _.map(match.game.teamOne.array ,function(player){
       return player.summonerInternalName;
     })
-    var teamTwo = [].map.call(match.game.teamTwo.array ,function(player){
+    var teamTwo = _.map(match.game.teamTwo.array ,function(player){
       return player.summonerInternalName;
     })
     var players = teamOne.concat(teamTwo);
-    return getSummoners(match, players, teamOne, teamTwo);
+    return getSummoners(match, players, teamOne, teamTwo, summonerName);
+    // return isAnyOpponentRegistered(match, players, teamOne, teamTwo, summonerName);
   }
 
-  function getSummoners(match, players, teamOne, teamTwo){
+  function getSummoners(match, players, teamOne, teamTwo, summonerName){
+    console.log("getSummoners");
     var playerString = players.join(',');
     var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + playerString + "?api_key=" + keys.RIOT_API_KEY;    
     request(url, function(error, response, body){
       var summoners = JSON.parse(body);
-      return parseMatch(match, summoners, teamOne, teamTwo);
+      for(var i in teamOne){
+        summoners[teamOne[i]]["teamId"] = "100";
+      }
+      for(var i in teamTwo){
+        summoners[teamTwo[i]]["teamId"] = "200";
+      }
+      return getLeagues(match, summoners, teamOne, teamTwo, summonerName);
     })
   }
 
-  function parseMatch(match, summoners, teamOne, teamTwo){
+  function getLeagues(match, summoners, teamOne, teamTwo, summonerName){
+    // map summoners into IDs
+    console.log("getLeagues");
+    var summonerIds = _.map(summoners, function(player){
+      return player.id;
+    })
+
+    var idString = summonerIds.join(',');
+    var url = "https://na.api.pvp.net/api/lol/na/v2.5/league/by-summoner/" + idString + "/?api_key=" + keys.RIOT_API_KEY;
+    request(url, function(error, response, body){
+      var leagues = _.map(JSON.parse(body), function(player){
+        return player[0].tier;
+      })
+      var l = 0;
+      for(var i in summoners){
+        summoners[i]["league"] = leagues[l];
+        l++;
+      }
+
+      return parseMatch(match, summoners, teamOne, teamTwo, summonerName);
+    })
+  }
+
+  function parseMatch(match, summoners, teamOne, teamTwo, summonerName){
     
     var arr = match.game.playerChampionSelections.array;
     var champs = {}
@@ -83,8 +118,12 @@ exports.search = function(req, res){
       "teamOne": t1,
       "teamTwo": t2
     }
+    var p1 = {}
+    p1[summonerName] = summoners[summonerName]
+    var p2 = {}
     var bet = {
-      "playerArr": ['herpofthederp', 'eufo']
+      "playerArr": [p1, p2],
+      "bet": 0
     }
 
     var obj = {
@@ -93,41 +132,50 @@ exports.search = function(req, res){
       "bet": bet,
       "active": true
     }
-    var newMatch = new Match(obj);
-    newMatch.save(function(err, match){
-      return res.json(200, obj);  
-    })
+
+    return onlyIfOpponentisRegistered(obj, summonerName, summoners);
+
+    // return res.json(200, match);  
+  }
+
+  function onlyIfOpponentisRegistered(match, summonerName, summoners){
+    console.log(summonerName);
+    var opposing = findUsersOpponentTeam(summonerName, match);
+    async.map(opposing, function(player, callback) {
+      User.findOne({"summoner.indexName": player}, function(err, bidder){
+        if(bidder){
+          console.log(bidder + " FOUND SOMEONE TO BET WITH! ");
+          callback(null, player);
+        }else{
+          callback(null);
+        }
+      })
+
+    }, function(err, result){
+      console.log(result);
+      var bidders = _.filter(result, function(player) { 
+        if(typeof player === 'undefined'){
+          return false;
+        }else{
+          return true;
+        }
+      })
+      console.log("bidders: " + bidders);
+      match.bet.playerArr[1][bidders[0]] = summoners[bidders[0]];
+
+      var newMatch = new Match(match);
+        newMatch.save(function(err, matchRes){
+        return res.json(200, matchRes);  
+      })
+    });
+
   }
 
 }
 
-function opposingWithAccountsAndActive(summonerName, match){
-  var opposing = findUsersOpponentTeam(summonerName, match);
-  // check if they have accounts
-  console.log(opposing);
-  for(var i in opposing){
-    console.log(opposing[i]);
-    User.findOne({"summoner.indexName": opposing[i]}, function(err, better){
-      if(better){
-        //AND NEEDS TO BE ACTIVE
-        console.log("FOUND SOMEONE TO BET WITH!");
-      }else{
-        console.log(opposing[i] + " does not have an account with us");
-      }
-    })
-  }
-}
 
 // Get a single match
 exports.show = function(req, res) {
-  // console.log("show");
-  // console.log(req.params.id);
-  // var summonerName = req.params.id;
-  
-    
-  
-  // if not send error
-
   Match.findById(req.params.id, function (err, match) {
     if(err) { return handleError(res, err); }
     if(!match) { return res.send(404); }
@@ -169,6 +217,24 @@ exports.destroy = function(req, res) {
   });
 };
 
+exports.gameCompletion = function(req, res){
+  var gameId = req.params.id;
+  console.log("Running game completion");
+  var url = "http://na.api.pvp.net/api/lol/na/v2.2/match/" + gameId + "?api_key=" + keys.RIOT_API_KEY;
+  console.log(url);
+  request(url, function(err, response, body){
+    console.log(response.statusCode);
+    if(response.statusCode == "404"){
+      return res.json(200, {"finished": false}) 
+    }else if(response.statusCode == "200"){
+      var jsonBody = JSON.parse(body);
+      jsonBody["finished"] = true;
+      return res.json(200, jsonBody);
+    }
+  })
+}
+
+
 function handleError(res, err) {
   return res.send(500, err);
 }
@@ -184,8 +250,8 @@ function findUsersOpponentTeam(summonerName, match){
   var teamTwo = [].map.call(two, function(player){
     return player.name;
   })
-  // console.log("t1: "+teamOne);
-  // console.log("t2: "+teamTwo);
+  console.log("t1: "+teamOne);
+  console.log("t2: "+teamTwo);
 
   for(var i in teamOne){
     // console.log(teamOne[i]);

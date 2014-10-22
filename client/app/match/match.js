@@ -5,6 +5,22 @@ angular.module('lolBetApp')
     $routeProvider
       .when('/match', {
         templateUrl: 'app/match/match.html',
-        controller: 'MatchCtrl'
+        controller: 'MatchCtrl',
+        resolve: {
+          matchData: function($http, currentMatch) {
+            var url = '/api/matches/' + currentMatch.getMatch();
+            var result = $http.get(url)
+              .success(function(data) {
+                return data;
+              })
+              .error(function(response) {
+                return response;
+            });
+            return result;
+          },
+          currentUser: function(Auth) {
+            return Auth.getCurrentUser().$promise;
+          }
+        }
       });
   });

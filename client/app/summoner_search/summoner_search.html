@@ -24,8 +24,10 @@
           <th>Name</th>
           <th>Link</th>
         </thead>
+
         <!--  | filter:query -->
         <tr ng-repeat="summoner in user_object | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage">
+
           <td>
             <a href="/summoner_search/{{summoner.profile_icon_id}}">{{summoner.name}}</a><br/>
             <img width="50" height="auto" src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
@@ -75,14 +77,5 @@
       </div>
     </div>
 
-  
-
-    
-
- 
   </div>
-
-
-
-  
 </header>
