@@ -48,8 +48,10 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 // injector
 @import 'account/login/login.scss';
 @import 'admin/admin.scss';
+@import 'btc_transaction/btc_transaction.scss';
 @import 'home/home.scss';
 @import 'main/main.scss';
 @import 'match/match.scss';
+@import 'summoner_search/summoner_search.scss';
 @import 'modal/modal.scss';
 // endinjector
