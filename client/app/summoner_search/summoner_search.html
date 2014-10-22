@@ -1,38 +1,69 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-  <header class="hero-unit" id="banner">
-    <div class="col-sm-12 col-md-8 col-md-offset-2 home-box">
-        <div class="home-header">
-          <div class="left">
-            <div ng-hide="summoner_view" class="ng-hide">
+<header class="hero-unit" id="banner">
+  <div class="col-sm-12 col-md-8 col-md-offset-2 home-box">
+    <div class="home-header">
+      <div class="left">
+        <div ng-hide="summoner_view" class="ng-hide">
               Search:<input autofocus ng-model="query[queryBy]" placeholder="search Summoner" type="text"/>
               Search By:<select ng-model='queryBy' required ng-options='option.value as option.name for option in typeOptions'></select> 
-            </div>
-          </div>
         </div>
-      <div ng-hide="summoner_view" class="ng-hide">
+      </div>
+    </div>
+
+    <div ng-hide="summoner_view" class="ng-hide">
+      <table class="span5 table">
+        <thead>
+          <th>Icon</th>
+          <th>Name</th>
+          <th>Link</th>
+        </thead>
+        <tr ng-repeat="summoner in user_object | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:query">
+          <td>
+            <a href="/summoner_search/{{summoner.profile_icon_id}}">{{summoner.name}}</a><br/>
+            <img width="50" height="auto" src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
+          </td>
+          <td>
+             <a href="/summoner_search/{{summoner.profile_icon_id}}">Profile</a>
+          </td>
+        </tr>
+        <caption class="pagination-links">
+          <ul class="pagination">
+            <li>
+              <a href="" ng-click="pagination.prevPage()">&laquo;</a>
+            </li>
+            <li ng-repeat="n in [] | range: pagination.numPages" ng-class="{active: n == pagination.page}">
+              <a href="" ng-click="pagination.toPageId(n)">{{n + 1}}</a>
+            </li>
+            <li>
+              <a href="" ng-click="pagination.nextPage()">&raquo;</a></li>
+            </ul>
+        </caption>
+      </table>
+    </div>
+
+    <div ngShow="summoner_view">
+      <div>
         <table class="span5 table">
-          <tr ng-repeat="summoner in user_object | filter:query">
-            <td><a href="/summoner_search/{{summoner.profile_icon_id}}">{{summoner.name}}</a></td><td> <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/></td><td>{{summoner.summoner_level}}
+
+          <tr ng-repeat="summoner in summoner_view">
+            <td style="text-align:center;">
+              <a href="/summoner_search/{{summoner.profile_icon_id}}">{{summoner.name}} level {{summoner.summoner_level}}</a><br/>
+              <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
            </td>
-          
+           <td>
+            <ul><br/>
+              <li>Games Played:</li>
+              <li>Win/Loss Ratio:</li>
+              <li>Bitcoins Earned:</li>
+              <li>Minions Killed:</li>
+            </ul>
+           </td>
           </tr>
+          <caption class="online">{{online}}</caption>
         </table>
       </div>
-
-      <div ngShow="summoner_view">
-        <div>
-          <table class="span5 table">
-            <tr ng-repeat="summoner in summoner_view">
-              <td>{{summoner.name}}</td><td> <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/></td><td>{{summoner.summoner_level}}
-             </td>
-            </tr>
-             <caption class="online">{{online}}</caption>
-          </table>
-         
-        </div>
-
-        
-        <br/><br/>
     </div>
-  </header>
+  </div>
+  
+</header>

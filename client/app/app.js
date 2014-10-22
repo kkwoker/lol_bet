@@ -6,7 +6,8 @@ angular.module('lolBetApp', [
   'ngSanitize',
   'ngRoute',
   'btford.socket-io',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'simplePagination'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
