@@ -25,7 +25,6 @@
       <div class="home-body">
         <div class="col-sm-12 col-md-4 home-body-left">
           <div class="col-sm-4">
-            <!-- <p>mBit Balance</p> -->
             <h4>m฿{{ user.wallet }}</h4>
             <button class="btn-large btn-large-primary">Deposit</button>
             <button class="btn-large btn-large-primary">Withdraw</button>
@@ -36,6 +35,7 @@
         <div class="col-sm-12 col-md-8 home-body-right" ng-controller="RecentMatchesCtrl">
           Recent Matches
           <div class="match">
+            <div ng-repeat="icon in team1Champs">
             <img class="champIcon" src="{{icon}}" alt="Champ1" ng-repeat="icon in team1Champs">
             VS
             <img class="champIcon" src="{{icon}}" alt="Champ2" ng-repeat="icon in team2Champs">
