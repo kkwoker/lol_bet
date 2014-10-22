@@ -225,6 +225,32 @@ User.find({}).remove(function() {
         revisionDate: 1413534892000
       }
   }, {
+    provider: 'local',
+    name: 'Swaggie Daddy',
+    email: 'swaggiedaddy@swaggiedaddy',
+    password: '1234',
+    summoner: {
+        id: 22683567,
+        indexName: "swaggiedaddy",
+        name: "Swaggie Daddy",
+        profileIconId: 685,
+        summonerLevel: 30,
+        revisionDate: 1413833493000
+      }
+  }, {
+    provider: 'local',
+    name: 'THE DEMON CHlLD',
+    email: 'thedemonchlld@thedemonchlld',
+    password: '1234',
+    summoner: {
+        id: 22683567,
+        indexName: "thedemonchlld",
+        name: "THE DEMON CHlLD",
+        profileIconId: 17,
+        summonerLevel: 30,
+        revisionDate: 1413833352000
+      }
+  }, {
   provider: "local",
   name: 'Chaox',
   email: "chaox@chaox",

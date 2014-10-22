@@ -1,16 +1,20 @@
 'use strict';
 
 angular.module('lolBetApp')
-  .controller('MatchCtrl', ['$scope', 'matchData', 'currentUser',
-    function ($scope, matchData, currentUser) {
+  .controller('MatchCtrl', ['$scope', '$interval', 'matchData', 'currentUser', 'socket',
+    function ($scope, $interval, matchData, currentUser, socket) {
     $scope.player = {
       name: currentUser.summoner.indexName,
       bet: 0,
+      lockedIn: false,
       iconUrl:'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + currentUser.summoner.profileIconId + '.png'
     };
     $scope.opponent = {
-      bet: 0
+      bet: 0,
+      lockedIn: false
     };
+
+    $scope.gameTime = $scope.gameTime || 30;
 
     // Get the opposing player
     angular.forEach(matchData.data.bet.playerArr, function(tvalue, tkey) {
@@ -33,4 +37,34 @@ angular.module('lolBetApp')
         }
       });
     });
+
+    // Send a bet
+    $scope.sendBet = function() {
+      socket.socket.emit('bet', { bet: $scope.player.bet, lockedIn: $scope.player.lockedIn });
+    };
+
+    // Lock in bet
+    $scope.lockIn = function() {
+      $scope.player.lockedIn = true;
+    };
+
+    // Join or create a betting room
+    socket.socket.on('connect', function() {
+      console.log('connected!');
+      socket.socket.emit('join-room', { room: matchData.data._id });
+
+      socket.socket.on('ready', function() {
+        console.log('ready to start betting!');
+        $scope.sendBet();
+        socket.socket.on('countdown', function(data){
+          $scope.gameTime = data.time;
+        });
+      });
+
+      socket.socket.on('bet', function(data) {
+        $scope.opponent.bet = data.bet;
+        $scope.opponent.lockedIn = data.lockedIn;
+      });
+    });
+
   }]);
