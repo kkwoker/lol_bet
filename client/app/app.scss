@@ -60,3 +60,12 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 .champIcon{
   width: 30px;
 }
+
+.champIcon:hover{
+  width: 40px;
+}
+
+.champDetails{
+  background-color: black;
+  font-size: 100px;
+}
