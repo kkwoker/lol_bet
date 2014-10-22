@@ -5,14 +5,15 @@
     <div class="col-sm-12 col-md-10 col-md-offset-1 match-box">
       <div class="col-sm-12 col-lg-8 match-box-left">
         <div class="match-box-head">
-          <h3>Bet Time Remaining: 30 seconds</h3>
+          <h3>Bet Time Remaining: {{ gameTime }} seconds</h3>
         </div>
         <div class="col-sm-12 match-box-top">
           <div class="col-sm-6 match-icon">
             <img src="{{ opponent.iconUrl }}" alt="Player Icon">
           </div>
           <div class="col-sm-6 bet-details">
-            <h4>{{ opponent.bet }}</h4>
+            <h4>{{ opponent.bet }}mBit</h4>
+            <p>{{ opponent.lockedIn }}</p>
             <p>$0 USD</p>
           </div>
         </div>
@@ -22,9 +23,10 @@
             <img src="{{ player.iconUrl }}" alt="Player Icon">
           </div>
           <div class="col-sm-6 bet-details">
-            <input type="number" ng-model="player.bet">
+            <h4>{{ player.bet }}mBit</h4>
+            <input type="number" ng-model="player.bet" ng-change="sendBet()">
             <p>$0 USD</p>
-            <button class="btn-large btn-large-primary confirm">Lock In</button>
+            <button class="btn-large btn-large-primary confirm" ng-click="lockIn()">Lock In {{ player.lockedIn }}</button>
           </div>
         </div>
       </div>
