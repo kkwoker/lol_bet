@@ -8,7 +8,7 @@ angular.module('lolBetApp')
     $scope.user = [];
     $scope.user_object = [];
     $scope.user_count = [];
-    $scope.pagination = Pagination.getNew(5);
+    $scope.pagination = Pagination.getNew(3);
     $scope.pageCount = pageCount;
     $scope.summoners;
   
