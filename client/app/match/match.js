@@ -17,6 +17,9 @@ angular.module('lolBetApp')
                 return response;
             });
             return result;
+          },
+          currentUser: function(Auth) {
+            return Auth.getCurrentUser().$promise;
           }
         }
       });

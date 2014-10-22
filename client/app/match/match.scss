@@ -5,4 +5,46 @@
   background-color: #e7e7e7;
   margin-top: 30px;
   box-shadow: 2px 2px 11px 4px #302020;
+  padding: 15px 0;
+
+  .match-box-left {
+
+    .match-box-top {
+      margin: 50px 0 25px;
+
+      .bet-details {
+        input {
+          width: 83px;
+          height: 50px;
+          font-size: 25px;
+          padding: 0 10px;
+        }
+      }
+    }
+
+    .match-box-bottom {
+      margin: 25px 0 50px;
+
+      .bet-details {
+        h4 {
+          font-size: 25px;
+        }
+      }
+    }
+  }
+  .match-box-right {
+    border-left: 1px solid #BDBDBD;
+
+    table {
+      margin-bottom: 0;
+
+      img {
+        width: 30px;
+      }
+    }
+
+    .opponent-team {
+      border-bottom: 1px solid #BDBDBD;
+    }
+  }
 }

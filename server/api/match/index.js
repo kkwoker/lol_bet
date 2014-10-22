@@ -5,7 +5,9 @@ var controller = require('./match.controller');
 
 var router = express.Router();
 
+
 router.get('/gameCompletion/:id', controller.gameCompletion);
+
 
 router.get('/', controller.index);
 router.get('/:id', controller.show);

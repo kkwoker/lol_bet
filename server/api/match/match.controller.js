@@ -41,6 +41,7 @@ exports.search = function(req, res){
             return res.json(404, result.body);
           }else{
             console.log("MATCH FOUND");
+            // return res.json(200,result.body);
             return findPlayers(result.body, summonerName)
           }
         })
@@ -106,12 +107,12 @@ exports.search = function(req, res){
     }
 
     var t1 = [];
-    for( var i in teamOne){
-      t1.push({"name": teamOne[i], "champId": champs[teamOne[i]], "summoner": summoners[teamOne[i]]})
+    for( var b in teamOne){
+      t1.push({"name": teamOne[b], "champId": champs[teamOne[b]], "summoner": summoners[teamOne[b]]})
     }
     var t2 = [];
-    for( var i in teamTwo){
-      t2.push({"name": teamTwo[i], "champId": champs[teamTwo[i]], "summoner": summoners[teamTwo[i]]})
+    for( var d in teamTwo){
+      t2.push({"name": teamTwo[d], "champId": champs[teamTwo[d]], "summoner": summoners[teamTwo[d]]})
     }
     var matchNew = {
       "teamOne": t1,
