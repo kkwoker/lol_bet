@@ -1,15 +1,15 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <header class="hero-unit" id="banner">
-  <div class="col-sm-12 col-md-8 col-md-offset-2 home-box">
+  <div class="col-sm-12 col-md-8 col-md-offset-2 home-box" style="overflow: scroll; height:80%; padding:10px;">
     <div class="home-header">
       <div class="left">
       
-      <button ng-click="summonerSearch = 'search'">
-        Summoner Search
+      <button ng-click="summonerSearch()" ng-hide="summonerSearch == 'search'" class="ng-hide" id="button_summon">
+        List All&nbsp;
       </button>
 
-      <div ng-show="summonerSearch == 'search'">
+      <div ng-show="summonerSearch == 'search'&&pagination">
       Search:<input autofocus ng-model="query[queryBy]" placeholder="search Summoner" type="text"/>
       Search By:<select ng-model='queryBy' required ng-options='option.value as option.name for option in typeOptions'></select> 
       </div>
@@ -20,13 +20,11 @@
     <div ng-hide="summoner_view" class="ng-hide" style="overflow: scroll;">
       <table class="span5 table">
         <thead>
-          <th>Icon</th>
           <th>Name</th>
-          <th>Link</th>
+          <th>Profile</th>
         </thead>
 
-        <!--  | filter:query -->
-        <tr ng-repeat="summoner in user_object | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage">
+        <tr ng-repeat="summoner in user_object | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:query">
 
           <td>
             <a href="/summoner_search/{{summoner.profile_icon_id}}">{{summoner.name}}</a><br/>
@@ -37,7 +35,7 @@
           </td>
         </tr>
         <caption class="pagination-links">
-          <ul class="pagination">
+          <ul class="pagination" ng-hide="summonerSearch == 'search'" class="ng-hide">
             <li>
               <a href="" ng-click="pagination.prevPage()">&laquo;</a>
             </li>
