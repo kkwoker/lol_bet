@@ -1,30 +1,42 @@
 'use strict';
 
+
 angular.module('lolBetApp')
-  .controller('SummonerSearchCtrl', ['$scope', '$http', '$location', 'Auth', 
-    function ($scope, $http, $location, Auth) {
+  .controller('SummonerSearchCtrl', ['$scope', '$http', '$location', 'Auth', 'Pagination',
+    function ($scope, $http, $location, Auth, Pagination) {
     $scope.message = 'Hello';
     $scope.user = [];
     $scope.user_object = [];
+    $scope.user_count = [];
+    $scope.pagination = Pagination.getNew(1);
+    $scope.summonerCount = summonerCount;
+    $scope.summoners;
+  
 
-
-$http.get('/api/users')
+  $http.get('/api/users')
       .success(function(data){
-        for (var i = 0; i < data.length; i++ ) {
-          if (data[i]['summoner']) {
-            $scope.user_object.push( { "name": data[i]['summoner']['name'], "profile_icon_id": data[i]['summoner']['profileIconId'], "summoner_level": data[i]['summoner']['summonerLevel'] } );
-          }
-        }
+    for (var i = 0; i < data.length; i++ ) {
+      if (data[i]['summoner']) {
+        $scope.user_count = i;
+        $scope.user_object.push( { "name": data[i]['summoner']['name'], "profile_icon_id": data[i]['summoner']['profileIconId'], "summoner_level": data[i]['summoner']['summonerLevel'] } );
+      }
+    }
+    console.log("count",$scope.user_count);
+    summonerCount($scope.user_count);
       }).error(function(data) {
           console.log(data);
         });
 
-        
-  $scope.typeOptions = [
+    function summonerCount (summonerCount) { 
+      $scope.pagination.numPages = Math.ceil(summonerCount/$scope.pagination.perPage);
+    }
+
+    $scope.typeOptions = [
       { name: 'Name', value: 'name' }, 
       { name: 'Profile Id', value: 'profile_icon_id'} ,
       { name: 'Summoner Level', value: 'summoner_level' }
     ];
+
 }]);
 
 angular.module('lolBetApp')
@@ -73,7 +85,6 @@ angular.module('lolBetApp')
            };
         });  
 }]);
-
 
 
 

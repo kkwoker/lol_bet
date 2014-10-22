@@ -15,9 +15,24 @@
           <tr ng-repeat="summoner in user_object | filter:query">
             <td><a href="/summoner_search/{{summoner.profile_icon_id}}">{{summoner.name}}</a></td><td> <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/></td><td>{{summoner.summoner_level}}
            </td>
-          
-          </tr>
+           </tr>
         </table>
+       {{summoners}}
+
+       <div ng-repeat="the_user in user_object | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage">
+        {{the_user}}
+      </div>
+
+  
+    <ul class="pagination">
+      <li><a href="" ng-click="pagination.prevPage()">&laquo;</a></li>
+      <li ng-repeat="n in [] | range: pagination.numPages" ng-class="{active: n == pagination.page}">
+      <a href="" ng-click="pagination.toPageId(n)">{{n + 1}}</a>
+    </li>
+      <li><a href="" ng-click="pagination.nextPage()">&raquo;</a></li>
+    </ul>
+    
+    
       </div>
 
       <div ngShow="summoner_view">
@@ -29,11 +44,13 @@
             </tr>
              <caption class="online">{{online}}</caption>
           </table>
+     
          
         </div>
 
         
         <br/><br/>
     </div>
+        
   </header>
 
