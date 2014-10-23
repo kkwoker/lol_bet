@@ -60,7 +60,9 @@ module.exports = function (socketio) {
     console.log('user-connected');
 
     socket.on('join-room', function(data) {
-      console.log('data sent: ' + data);
+      console.log('data sent: ');
+      console.log(data.room);
+      console.log(data.user);
 
       socket.join(data.room);
       socket.room = data.room;
@@ -79,14 +81,14 @@ module.exports = function (socketio) {
 
       // Start the betting if both players have joined the room
       if (socketio.sockets.in(data.room).sockets.length === 2) {
-        socketio.sockets.in(data.room).emit('ready', { ready: true });
+        socketio.sockets.in(data.room).emit('status', { ready: true });
         
         // Start the timer
-        var time = 30;
+        var time = 60;
         socketio.sockets.in(data.room).emit('countdown', { time: time });
         var countdown = setInterval(function() {
           time--;
-          socketio.sockets.in(data.room).emit('countdown', { time: time });  
+          socketio.sockets.in(data.room).emit('countdown', { time: time });
           if(time === 0){
             clearInterval(countdown);
           }
@@ -94,11 +96,16 @@ module.exports = function (socketio) {
       }
 
       console.log(socketio.sockets.in(data.room).sockets.length + " users in room " + data.room);
-      console.log('list of rooms: ' + socket.rooms);
+      console.log('list of rooms: ' + socketio.rooms);
+      console.log(socketio.sockets.rooms);
       console.log('socket\'s room: ' + socket.room);
 
       socket.on('bet', function(data) {
         socket.broadcast.to(socket.room).emit('bet', { bet: data.bet, lockedIn: data.lockedIn });
+      });
+
+      socket.on('betting-complete', function() {
+        socket.broadcast.to(socket.room).emit('betting-complete');
       });
     })
   });

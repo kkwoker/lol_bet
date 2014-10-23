@@ -5,7 +5,65 @@
   background-color: #e7e7e7;
   margin-top: 30px;
   box-shadow: 2px 2px 11px 4px #302020;
-  padding: 15px 0;
+  padding: 40px 0 20px;
+  
+  .pot {
+    border: 1px solid black;
+    border: 1px solid black;
+    border-radius: 109px;
+    height: 207px;
+    padding: 22px 27px;
+    text-align: center;
+  }
+
+  .player {
+    padding-right: 0;
+
+    .player-inner {
+      .match-icon {
+        float: left;
+        padding: 0;
+      }
+
+      .bet-input {
+        padding-top: 20px;
+
+        input {
+          width: 100%;
+          height: 45px;
+          padding: 7px 20px;
+          font-size: 20px;
+        }
+      }
+
+      .bet-details {
+        text-align: right;
+        float: right
+      }
+    }
+  }
+
+  .opponent {
+    text-align: right;
+    padding-left: 0;
+    
+    .opponent-inner {
+      .match-icon {
+        float: right;
+      }
+      .bet-details {
+        text-align: left;
+      }
+    }
+  }
+
+  .match-box-bottom {
+    table {
+      img {
+        width: 30px;
+      }
+    }
+  }
 
   .match-box-left {
 

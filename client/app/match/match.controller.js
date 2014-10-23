@@ -14,7 +14,7 @@ angular.module('lolBetApp')
       lockedIn: false
     };
 
-    $scope.gameTime = $scope.gameTime || 30;
+    $scope.gameTime  = $scope.gameTime  || 60;
 
     // Get the opposing player
     angular.forEach(matchData.data.bet.playerArr, function(tvalue, tkey) {
@@ -46,14 +46,17 @@ angular.module('lolBetApp')
     // Lock in bet
     $scope.lockIn = function() {
       $scope.player.lockedIn = true;
+      $scope.sendBet();
     };
 
     // Join or create a betting room
     socket.socket.on('connect', function() {
-      console.log('connected!');
-      socket.socket.emit('join-room', { room: matchData.data._id, user: currentUser._id });
+      socket.socket.emit('join-room', { 
+        room: matchData.data._id, 
+        user: currentUser._id, 
+        active: $scope.matchActive});
 
-      socket.socket.on('ready', function() {
+      socket.socket.on('status', function() {
         console.log('ready to start betting!');
         $scope.sendBet();
         socket.socket.on('countdown', function(data){
@@ -64,6 +67,16 @@ angular.module('lolBetApp')
       socket.socket.on('bet', function(data) {
         $scope.opponent.bet = data.bet;
         $scope.opponent.lockedIn = data.lockedIn;
+
+        if (($scope.opponent.lockedIn && $scope.player.lockedIn) && 
+          ($scope.opponent.bet === $scope.player.bet)) {
+          $scope.pot = data.bet;
+          socket.socket.emit('betting-complete');
+        }
+      });
+
+      socket.socket.on('betting-complete', function() {
+        $scope.pot = $scope.opponent.bet;
       });
     });
 

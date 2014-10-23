@@ -3,35 +3,39 @@
 <header class="hero-unit" id="banner">
   <div class="container background-blur" ng-controller="HomeCtrl" ng-keyup="cancelSearch($event)">
     <div class="col-sm-12 col-md-10 col-md-offset-1 match-box">
-      <div class="col-sm-12 col-lg-8 match-box-left">
-        <div class="match-box-head">
-          <h3>Bet Time Remaining: {{ gameTime }} seconds</h3>
-        </div>
-        <div class="col-sm-12 match-box-top">
-          <div class="col-sm-6 match-icon">
-            <img src="{{ opponent.iconUrl }}" alt="Player Icon">
-          </div>
-          <div class="col-sm-6 bet-details">
-            <h4>{{ opponent.bet }}mBit</h4>
-            <p>{{ opponent.lockedIn }}</p>
-            <p>$0 USD</p>
-          </div>
-        </div>
-        <hr>
-        <div class="col-sm-12 match-box-bottom">
-          <div class="col-sm-6 match-icon">
+      <div class="col-sm-12 col-md-5 player">
+        <div class="player-inner">
+          <h2>{{ player.name }}</h2>
+          <div class="col-md-4 match-icon">
             <img src="{{ player.iconUrl }}" alt="Player Icon">
           </div>
-          <div class="col-sm-6 bet-details">
-            <h4>{{ player.bet }}mBit</h4>
+          <div class="col-md-4 bet-input">
             <input type="number" ng-model="player.bet" ng-change="sendBet()">
+            <button class="btn-large btn-large-primary confirm" ng-click="lockIn()">Lock In</button>
+          </div>
+          <div class="col-sm-4 bet-details">
+            <h4>{{ player.bet }}mBit</h4>
             <p>$0 USD</p>
-            <button class="btn-large btn-large-primary confirm" ng-click="lockIn()">Lock In {{ player.lockedIn }}</button>
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-lg-4 match-box-right">
-        <div class="col-sm-12 opponent-team">
+      <div class="col-md-2 pot">
+        <p>30 seconds</p>
+      </div>
+      <div class="col-sm-12 col-md-5 opponent">
+        <div class="opponent-inner">
+          <h2>{{ opponent.name }}</h2>
+          <div class="col-sm-6 bet-details">
+            <h4>{{ opponent.bet }}mBit</h4>
+            <p>$0 USD</p>
+          </div>
+          <div class="match-icon">
+            <img src="{{ opponent.iconUrl }}" alt="Opponent Icon">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 match-box-bottom">
+        <div class="col-sm-12 col-md-5 opponent-team">
           <table class="table">
             <thead>
               <th>Icon</th>
@@ -47,8 +51,13 @@
             </tbody>
           </table>
         </div>
-        <div class="col-sm-12 player-team">
+        <div class="col-sm-12 col-md-5 col-md-offset-2 player-team">
           <table class="table">
+            <thead>
+              <th>Icon</th>
+              <th>Name</th>
+              <th>Level</th>
+            </thead>
             <tbody>
               <tr ng-repeat="player in player.team">
                 <td><img src="https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/{{ player.summoner.profileIconId }}.png" alt=""></td>
