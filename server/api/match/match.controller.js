@@ -159,14 +159,15 @@ exports.search = function(req, res){
       })
       console.log("bidders: " + bidders);
       match.bet.playerArr[1][bidders[0]] = summoners[bidders[0]];
-      if(summoners[bidders[0]]){
+      // if(summoners[bidders[0]]){
         var newMatch = new Match(match);
           newMatch.save(function(err, matchRes){
           return res.json(200, matchRes);  
         })
-      }else{
-        return res.json(200, {"error": "Match found but no one to bet with", "match": match})
-      }
+      // }else{
+      //   match["error"] = "Match found but no one to bet with";
+      //   return res.json(200, match)
+      // }
     });
 
   }
