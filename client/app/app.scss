@@ -62,3 +62,10 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 .left input[type="text"] {
   padding:5px;
 }
+
+p.online {
+  color:green;
+}
+p.offline {
+  color:red;
+}
