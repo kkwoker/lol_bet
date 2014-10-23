@@ -8,7 +8,6 @@
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Match = require('../api/match/match.model');
-var Champion = require('../api/champion/champion.model');
 
 
 

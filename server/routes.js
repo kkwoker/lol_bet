@@ -9,7 +9,6 @@ var errors = require('./components/errors');
 module.exports = function(app) {
 
   // Insert routes below
-  app.use('/api/champions', require('./api/champion'));
   app.use('/api/btc_transactions', require('./api/btc_transaction'));
   app.use('/api/matches', require('./api/match'));
   app.use('/api/summoners', require('./api/summoner'));
