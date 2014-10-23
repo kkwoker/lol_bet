@@ -61,3 +61,11 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'summoner_search/summoner_search.scss';
 @import 'modal/modal.scss';
 // endinjector
+
+.left { 
+  padding:10px;
+}
+
+.left input[type="text"] {
+  padding:5px;
+}
