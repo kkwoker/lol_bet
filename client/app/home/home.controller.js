@@ -9,6 +9,8 @@ angular.module('lolBetApp')
       .then(function(data) {
         // success!
         $scope.user = data;
+        $scope.user.bitcoins = $scope.user.wallet / 100000000;
+        $scope.user.mBits = $scope.user.wallet / 100000;
         $scope.user.avatarURL = 'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + $scope.user.summoner.profileIconId + '.png';
       }, function(response) {
         // failure

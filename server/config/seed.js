@@ -210,7 +210,8 @@ User.find({}).remove(function() {
         profileIconId: 662,
         summonerLevel: 30,
         revisionDate: 1411327378000
-      }
+      },
+    wallet: 140000000
   },{
     provider: 'local',
     name: 'Eric',
