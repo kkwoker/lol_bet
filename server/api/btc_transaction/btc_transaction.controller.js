@@ -30,8 +30,14 @@ exports.create = function(req, res) {
   var user_id = req.body.user_id;
   var callback_url = encodeURIComponent(keys.DOMAIN + '/btc_transactions/confirm');
   var url = 'https://blockchain.info/api/receive?method=create&address=' + keys.BITCOIN_ADDRESS +'&callback=' + callback_url;
+  console.log(callback_url);
 
   request(url, function(error, response, body) {
+    body = JSON.parse(body);
+    console.log(body);
+    console.log('destination: ' + body.destination);
+    console.log('input address: ' + body["input_address"]);
+    console.log('callback: ' + body["callback_url"]);
     if (error) { return res.json(400, error); };
     if (body["destination"] === keys.BITCOIN_ADDRESS) {
   
@@ -41,7 +47,7 @@ exports.create = function(req, res) {
 
       BtcTransaction.create(transaction, function(err, btc_transaction) {
         if(err) { return handleError(res, err); }
-        return res.json(201, btc_transaction);
+        return res.json(201, btc_transaction.input_address);
       });
     } else {
         console.log('error: Incorect receiving bitcoin address ' + body);
