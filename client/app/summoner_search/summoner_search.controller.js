@@ -1,17 +1,16 @@
 'use strict';
 
-
 angular.module('lolBetApp')
   .controller('SummonerSearchCtrl', ['$scope', '$http', '$location', 'Auth', 'Pagination',
     function ($scope, $http, $location, Auth, Pagination) {
-    $scope.message = 'Hello';
     $scope.user = [];
     $scope.user_object = [];
     $scope.user_count = [];
-    $scope.pagination = Pagination.getNew(6);
+    $scope.pagination = Pagination.getNew(5);
     $scope.pageCount = pageCount;
+    $scope.summonerSearch = summonerSearch;
     $scope.summoners;
-  
+    
 
   $http.get('/api/users')
       .success(function(data){
@@ -30,13 +29,19 @@ angular.module('lolBetApp')
       $scope.pagination.numPages = Math.ceil(summonerCount/$scope.pagination.perPage);
     }
 
+    function summonerSearch() {
+      $scope.summonerSearch = "search";
+      $scope.pagination = Pagination.getNew($scope.user_count);
+
+    }
+
     $scope.typeOptions = [
       { name: 'Name', value: 'name' }, 
       { name: 'Profile Id', value: 'profile_icon_id'} ,
       { name: 'Summoner Level', value: 'summoner_level' }
     ];
 
-}]);
+ }]);
 
   angular.module('lolBetApp')
     .controller('SummonerDetailCtrl', ['$scope', '$location','$routeParams', '$http', '$log', 'Auth', 
@@ -45,6 +50,7 @@ angular.module('lolBetApp')
       $scope.the_summoner_id = "";
       $scope.summoner_view = [];
       $scope.online = "offline";
+      $scope.summonerSearch = 'search';
 
 
   var id = window.location.href.replace(/\D+/g, '' ); 
@@ -56,12 +62,12 @@ angular.module('lolBetApp')
       }
     };
 
-
-  $http.get('/api/users')
+   $http.get('/api/users')
     .success(function(data){
       for (var y = 0; y < data.length; y++ ) {
         if (data[y]['summoner']) {
           if(data[y]['summoner']['profileIconId'] == $scope.the_summoner_id) {
+            console.log(data[y]['summoner']['indexName']);
             $http.get('/api/matches/search/'+data[y]['summoner']['indexName'])
               .success(function(data){
               $scope.online = "online";
@@ -74,3 +80,9 @@ angular.module('lolBetApp')
        };
     });  
 }]);
+
+
+
+
+
+

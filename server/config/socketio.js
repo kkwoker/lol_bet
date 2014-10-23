@@ -18,7 +18,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
-  require('../api/champion/champion.socket').register(socket);
+  require('../api/btc_transaction/btc_transaction.socket').register(socket);
   require('../api/match/match.socket').register(socket);
   require('../api/summoner/summoner.socket').register(socket);
   require('../api/thing/thing.socket').register(socket);
@@ -56,5 +56,50 @@ module.exports = function (socketio) {
     // Call onConnect.
     onConnect(socket);
     console.info('[%s] CONNECTED', socket.address);
+
+    console.log('user-connected');
+
+    socket.on('join-room', function(data) {
+      console.log('data sent: ' + data);
+
+      socket.join(data.room);
+      socket.room = data.room;
+      
+      /* Removing number of user detection for now
+      if (socketio.sockets.in(data.room).sockets.length < 2) {
+        socket.room = data.room;
+        socket.join(data.room);
+        console.log('joined room ' + data.room);
+        socket.emit('welcome', { message: 'hello' });
+      } else {
+        console.log('Blocked access to room:' + data.room)
+        console.log('too many users');
+      }
+      */
+
+      // Start the betting if both players have joined the room
+      if (socketio.sockets.in(data.room).sockets.length === 2) {
+        socketio.sockets.in(data.room).emit('ready', { ready: true });
+        
+        // Start the timer
+        var time = 30;
+        socketio.sockets.in(data.room).emit('countdown', { time: time });
+        var countdown = setInterval(function() {
+          time--;
+          socketio.sockets.in(data.room).emit('countdown', { time: time });  
+          if(time === 0){
+            clearInterval(countdown);
+          }
+        }, 1000);
+      }
+
+      console.log(socketio.sockets.in(data.room).sockets.length + " users in room " + data.room);
+      console.log('list of rooms: ' + socket.rooms);
+      console.log('socket\'s room: ' + socket.room);
+
+      socket.on('bet', function(data) {
+        socket.broadcast.to(socket.room).emit('bet', { bet: data.bet, lockedIn: data.lockedIn });
+      });
+    })
   });
 };

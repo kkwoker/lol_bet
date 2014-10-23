@@ -41,7 +41,6 @@ exports.search = function(req, res){
             return res.json(404, result.body);
           }else{
             console.log("MATCH FOUND");
-            // return res.json(200,result.body);
             return findPlayers(result.body, summonerName)
           }
         })
@@ -56,7 +55,6 @@ exports.search = function(req, res){
     })
     var players = teamOne.concat(teamTwo);
     return getSummoners(match, players, teamOne, teamTwo, summonerName);
-    // return isAnyOpponentRegistered(match, players, teamOne, teamTwo, summonerName);
   }
 
   function getSummoners(match, players, teamOne, teamTwo, summonerName){
@@ -66,10 +64,10 @@ exports.search = function(req, res){
     request(url, function(error, response, body){
       var summoners = JSON.parse(body);
       for(var i in teamOne){
-        summoners[teamOne[i]]["teamId"] = "100";
+        summoners[teamOne[i]]["teamId"] = "teamOne";
       }
       for(var i in teamTwo){
-        summoners[teamTwo[i]]["teamId"] = "200";
+        summoners[teamTwo[i]]["teamId"] = "teamTwo";
       }
       return getLeagues(match, summoners, teamOne, teamTwo, summonerName);
     })
@@ -152,7 +150,6 @@ exports.search = function(req, res){
       })
 
     }, function(err, result){
-      console.log(result);
       var bidders = _.filter(result, function(player) { 
         if(typeof player === 'undefined'){
           return false;
@@ -162,11 +159,15 @@ exports.search = function(req, res){
       })
       console.log("bidders: " + bidders);
       match.bet.playerArr[1][bidders[0]] = summoners[bidders[0]];
-
-      var newMatch = new Match(match);
-        newMatch.save(function(err, matchRes){
-        return res.json(200, matchRes);  
-      })
+      // if(summoners[bidders[0]]){
+        var newMatch = new Match(match);
+          newMatch.save(function(err, matchRes){
+          return res.json(200, matchRes);  
+        })
+      // }else{
+      //   match["error"] = "Match found but no one to bet with";
+      //   return res.json(200, match)
+      // }
     });
 
   }
@@ -217,22 +218,6 @@ exports.destroy = function(req, res) {
   });
 };
 
-exports.gameCompletion = function(req, res){
-  var gameId = req.params.id;
-  console.log("Running game completion");
-  var url = "http://na.api.pvp.net/api/lol/na/v2.2/match/" + gameId + "?api_key=" + keys.RIOT_API_KEY;
-  console.log(url);
-  request(url, function(err, response, body){
-    console.log(response.statusCode);
-    if(response.statusCode == "404"){
-      return res.json(200, {"finished": false}) 
-    }else if(response.statusCode == "200"){
-      var jsonBody = JSON.parse(body);
-      jsonBody["finished"] = true;
-      return res.json(200, jsonBody);
-    }
-  })
-}
 
 
 function handleError(res, err) {
@@ -267,4 +252,49 @@ function findUsersOpponentTeam(summonerName, match){
       return teamOne;
     }
   }
+}
+
+
+
+
+exports.gameCompletion = function(req, res){
+  var gameId = req.params.id;
+  // console.log("Running game completion");
+  var url = "http://na.api.pvp.net/api/lol/na/v2.2/match/" + gameId + "?api_key=" + keys.RIOT_API_KEY;
+  // console.log(url);
+  request(url, function(err, response, body){
+  //   console.log(response.statusCode);
+    if(response.statusCode == "404"){
+      return res.json(200, {"finished": false}) 
+    }else if(response.statusCode == "200"){
+      var jsonBody = JSON.parse(body);
+      var obj = {};
+      obj["finished"] = true;
+      obj["teamOne"] = jsonBody.teams[0].winner;
+      obj["teamTwo"] = jsonBody.teams[1].winner;
+      var winner;
+      if(obj["teamOne"]){
+        winner = "teamOne";
+      }else if (obj["teamTwo"]){
+        winner = "teamTwo"
+      }
+
+      // Move wallet money
+
+
+      // Update active state of match
+      Match.findById(gameId, function (err, match) {
+        if (err) { return res.json(200, obj); }
+        if(!match) { return res.send(404); }
+        var updated = _.merge(match, {"active": false, "winner": winner});
+        updated.save(function (err) {
+          if (err) { return handleError(res, err); }
+          return res.json(200, obj);
+        });
+      });
+
+      
+    }  
+  })
+  
 }
