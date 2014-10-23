@@ -59,7 +59,6 @@ angular.module('lolBetApp')
       for (var y = 0; y < data.length; y++ ) {
         if (data[y]['summoner']) {
           if(data[y]['summoner']['profileIconId'] == $scope.the_summoner_id) {
-            console.log(data[y]['summoner']['indexName']);
             $http.get('/api/matches/search/'+data[y]['summoner']['indexName'])
               .success(function(data){
               $scope.online = "online";
