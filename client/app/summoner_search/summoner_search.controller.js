@@ -4,22 +4,21 @@ angular.module('lolBetApp')
   .controller('SummonerSearchCtrl', ['$scope', '$http', '$location', 'Auth', 'Pagination',
     function ($scope, $http, $location, Auth, Pagination) {
     $scope.user = [];
-    $scope.user_object = [];
-    $scope.user_count = [];
+    $scope.userObject = [];
+    $scope.userCount = [];
     $scope.pagination = Pagination.getNew(5);
     $scope.pageCount = pageCount;
     $scope.searchSummoner = searchSummoner;
 
-    
-  $http.get('/api/users')
+    $http.get('/api/users')
       .success(function(data){
     for (var i = 0; i < data.length; i++ ) {
-      if (data[i]['summoner']) {
-        $scope.user_count = i;
-        $scope.user_object.push( { "name": data[i]['summoner']['name'], "profile_icon_id": data[i]['summoner']['profileIconId'], "summoner_level": data[i]['summoner']['summonerLevel'] } );
+      if (data[i].summoner) {
+        $scope.userCount = i;
+        $scope.userObject.push( { "name": data[i].summoner.name, "profile_icon_id": data[i].summoner.profileIconId, "summoner_level": data[i].summoner.summonerLevel, "indexName": data[i].summoner.indexName } );
       }
     }
-    pageCount($scope.user_count);
+    pageCount($scope.userCount);
       }).error(function(data) {
           console.log(data);
         });
@@ -30,46 +29,35 @@ angular.module('lolBetApp')
 
     function searchSummoner() {
       $scope.hideSearch = 'true';
-      $scope.pagination = Pagination.getNew($scope.user_count);
+      $scope.pagination = Pagination.getNew($scope.userCount);
     }
 
  }]);
 
-  angular.module('lolBetApp')
-    .controller('SummonerDetailCtrl', ['$scope', '$location','$routeParams', '$http', '$log', 'Auth', 
-    function ($scope, $routeParams, $log, $http, $location, Auth) {
-      $scope.show_summoner = [];
-      $scope.the_summoner_id = "";
-      $scope.summoner_view = [];
-      $scope.online = "offline";
-      $scope.summonerSearch = 'search';
+angular.module('lolBetApp')
+  .controller('SummonerDetailCtrl', ['$scope','$routeParams', '$location', '$log', '$http', '$rootScope', 'Auth',
+  function ($scope, $routeParams, $location, $log, $http, $rootScope, Auth) {
+    $scope.theSummonerId = "";
+    $scope.summonerView = [];
+    $scope.online = "offline";
+    $scope.summonerSearch = 'search';
+    $scope.summonerDetails = [];
 
-
-  var id = window.location.href.replace(/\D+/g, '' ); 
-   var res = id.split("");
-    if ( res[0] && res[1] && res[2] && res[3] ) {
-      var localPort = res[0]+res[1]+res[2]+res[3];
-      for (var x = 4; x < id.length; x++ ) {
-        $scope.the_summoner_id  += id[x];
-      }
-    };
-
-   $http.get('/api/users')
-    .success(function(data){
-      for (var y = 0; y < data.length; y++ ) {
-        if (data[y]['summoner']) {
-          if(data[y]['summoner']['profileIconId'] == $scope.the_summoner_id) {
-            $http.get('/api/matches/search/'+data[y]['summoner']['indexName'])
-              .success(function(data){
+    $http.get('/api/matches/search/'+$routeParams.param1)
+            .success(function(data){
               $scope.online = "online";
-                }).error(function(data) {
-              console.log(data);
-              });
-            $scope.summoner_view.push( { "name": data[y]['summoner']['name'], "profile_icon_id": data[y]['summoner']['profileIconId'], "summoner_level": data[y]['summoner']['summonerLevel'] } );
-            }
-          }
-       };
-    });  
+              }).error(function(data) {
+            console.log(data);
+            });
+
+    $http.get('/api/users')
+            .success(function(data){
+              var result = $.grep(data, function(e){ return e.summoner != null && e.summoner.indexName == $routeParams.param1; });
+              $scope.summonerDetails.push({"name": result[0].summoner.name, "profile_icon_id": result[0].summoner.profileIconId, "summoner_level": result[0].summoner.summonerLevel});
+             }).error(function(data) {
+            console.log(data);
+            });
+
 }]);
 
 
