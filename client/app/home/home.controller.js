@@ -51,8 +51,6 @@ angular.module('lolBetApp')
 
   }])
 
-
-
 .controller('RecentMatchesCtrl', ['$scope', '$http',
   function($scope, $http){
     console.log("HELLO");
@@ -61,53 +59,12 @@ angular.module('lolBetApp')
 
     $http.get(url)
       .success(function(data){
-        console.log(data);
-        // var n = _.map(data[0]. function(num){
-        //   return num.match.teamOne
-        // })
-        var champids1 = data[0].match.teamOne.map(function(val){
-          return val.champId;
+        $scope.team1Champs = data[0].match.teamOne.map(function(val){
+          return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
         })
-        var champids2 = data[0].match.teamTwo.map(function(val){
-          return val.champId;
+        $scope.team2Champs = data[0].match.teamTwo.map(function(val){
+          return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
         })
-
-        var champUrl = '/api/champions';
-        $http.get(champUrl)
-          .success(function(data){
-            var champs = data[0].data;
-            var team1ChampImages = [];
-            var team2ChampImages = [];
-            console.log(champs);
-            angular.forEach(champids1, function(id){
-              angular.forEach(champs, function(value, key){
-                if(id == value.id){
-                  team1ChampImages.push(value.image.full)
-                }
-              })
-            })
-            console.log(team1ChampImages);
-            angular.forEach(champids2, function(id){
-              angular.forEach(champs, function(value, key){
-                if(id == value.id){
-                  team2ChampImages.push(value.image.full)
-                }
-              })
-            })
-            console.log(team2ChampImages);
-            team1ChampImages = team1ChampImages.map(function(image){
-              return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + image;
-            })
-            team2ChampImages = team2ChampImages.map(function(image){
-              return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + image; 
-            })
-            $scope.team1Champs = team1ChampImages;
-            $scope.team2Champs = team2ChampImages;
-          })
       })
-      .error(function(response, status){
-        console.log(status, response);
-      });
-    
-  }
+    }
   ])

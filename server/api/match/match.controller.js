@@ -92,25 +92,48 @@ exports.search = function(req, res){
         l++;
       }
 
-      return parseMatch(match, summoners, teamOne, teamTwo, summonerName);
+      // return parseMatch(match, summoners, teamOne, teamTwo, summonerName);
+      return getChampNames(match, summoners, teamOne, teamTwo, summonerName);
     })
   }
 
-  function parseMatch(match, summoners, teamOne, teamTwo, summonerName){
-    
+  function getChampNames(match, summoners, teamOne, teamTwo, summonerName){
+    console.log("getChamps");
     var arr = match.game.playerChampionSelections.array;
     var champs = {}
     for(var i in arr){
       champs[arr[i].summonerInternalName] = arr[i].championId;
     }
+    var url = "https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=image&api_key=" + keys.RIOT_API_KEY;
+    request(url, function(error, response, body){
+      // console.log(body);
+      var jsonBody = JSON.parse(body);
+      var allChamps = jsonBody.data;
+      for(var i in champs){
+        for(var c in allChamps){
+          if(champs[i] == allChamps[c].id){
+            champs[i] = allChamps[c].image.full
+          }
+        }
+      }
+      console.log(champs);
+
+      return parseMatch(match, summoners, teamOne, teamTwo, summonerName, champs)
+    })
+      
+
+    
+  }
+
+  function parseMatch(match, summoners, teamOne, teamTwo, summonerName, champs){
 
     var t1 = [];
     for( var b in teamOne){
-      t1.push({"name": teamOne[b], "champId": champs[teamOne[b]], "summoner": summoners[teamOne[b]]})
+      t1.push({"name": teamOne[b], "champImg": champs[teamOne[b]], "summoner": summoners[teamOne[b]]})
     }
     var t2 = [];
     for( var d in teamTwo){
-      t2.push({"name": teamTwo[d], "champId": champs[teamTwo[d]], "summoner": summoners[teamTwo[d]]})
+      t2.push({"name": teamTwo[d], "champImg": champs[teamTwo[d]], "summoner": summoners[teamTwo[d]]})
     }
     var matchNew = {
       "teamOne": t1,
@@ -133,7 +156,6 @@ exports.search = function(req, res){
 
     return onlyIfOpponentisRegistered(obj, summonerName, summoners);
 
-    // return res.json(200, match);  
   }
 
   function onlyIfOpponentisRegistered(match, summonerName, summoners){
@@ -162,7 +184,8 @@ exports.search = function(req, res){
       // if(summoners[bidders[0]]){
         var newMatch = new Match(match);
           newMatch.save(function(err, matchRes){
-          return res.json(200, matchRes);  
+            console.log("returning match");
+            return res.json(200, matchRes);  
         })
       // }else{
       //   match["error"] = "Match found but no one to bet with";
