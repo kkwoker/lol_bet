@@ -271,22 +271,28 @@ exports.gameCompletion = function(req, res){
       obj["finished"] = true;
       obj["teamOne"] = jsonBody.teams[0].winner;
       obj["teamTwo"] = jsonBody.teams[1].winner;
+      var winner;
+      if(obj["teamOne"]){
+        winner = "teamOne";
+      }else if (obj["teamTwo"]){
+        winner = "teamTwo"
+      }
 
       // Move wallet money
 
 
       // Update active state of match
       Match.findById(gameId, function (err, match) {
-        if (err) { return handleError(res, err); }
+        if (err) { return res.json(200, obj); }
         if(!match) { return res.send(404); }
-        var updated = _.merge(match, {"active": false});
+        var updated = _.merge(match, {"active": false, "winner": winner});
         updated.save(function (err) {
           if (err) { return handleError(res, err); }
           return res.json(200, obj);
         });
       });
 
-      return res.json(200, obj);
+      
     }  
   })
   
