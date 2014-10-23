@@ -8,10 +8,9 @@ angular.module('lolBetApp')
     $scope.user_count = [];
     $scope.pagination = Pagination.getNew(5);
     $scope.pageCount = pageCount;
-    $scope.summonerSearch = summonerSearch;
-    $scope.summoners;
-    
+    $scope.searchSummoner = searchSummoner;
 
+    
   $http.get('/api/users')
       .success(function(data){
     for (var i = 0; i < data.length; i++ ) {
@@ -29,17 +28,10 @@ angular.module('lolBetApp')
       $scope.pagination.numPages = Math.ceil(summonerCount/$scope.pagination.perPage);
     }
 
-    function summonerSearch() {
-      $scope.summonerSearch = "search";
+    function searchSummoner() {
+      $scope.hideSearch = 'true';
       $scope.pagination = Pagination.getNew($scope.user_count);
-
     }
-
-    $scope.typeOptions = [
-      { name: 'Name', value: 'name' }, 
-      { name: 'Profile Id', value: 'profile_icon_id'} ,
-      { name: 'Summoner Level', value: 'summoner_level' }
-    ];
 
  }]);
 
