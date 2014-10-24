@@ -39,10 +39,15 @@
         </div>
         <div class="col-sm-12 col-md-8 home-body-right" ng-controller="RecentMatchesCtrl">
           Recent Matches
-          <div class="match">
-            <img class="champIcon" src="{{icon}}" alt="Champ1" ng-repeat="icon in team1Champs">
+          <div class="match" ng-repeat="match in matches">
+            <span class="team1">
+              <img class="champIcon" src="{{icon}}" alt="Champ1" ng-repeat="icon in match.team1Champs">
+            </span>
             VS
-            <img class="champIcon" src="{{icon}}" alt="Champ2" ng-repeat="icon in team2Champs">
+            <span class="team2">
+              <img class="champIcon" src="{{icon}}" alt="Champ2" ng-repeat="icon in match.team2Champs">
+            </span>
+            <span class="winner">{{match.winner}}</span>
           </div>
         </div>
       </div>

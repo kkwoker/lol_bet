@@ -53,18 +53,26 @@ angular.module('lolBetApp')
 
 .controller('RecentMatchesCtrl', ['$scope', '$http',
   function($scope, $http){
-    console.log("HELLO");
-    $scope.matches = {};
+    $scope.matches = [];
     var url = '/api/matches';
 
     $http.get(url)
       .success(function(data){
-        $scope.team1Champs = data[0].match.teamOne.map(function(val){
-          return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
-        })
-        $scope.team2Champs = data[0].match.teamTwo.map(function(val){
-          return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
-        })
+
+        for(var i in data){
+          $scope.matches[i] = {};
+          $scope.matches[i].team1Champs = data[i].match.teamOne.map(function(val){
+            // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
+            return '../../assets/images/champIcons/' + val.champImg;
+          })
+          $scope.matches[i].team2Champs = data[i].match.teamTwo.map(function(val){
+            // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
+            return '../../assets/images/champIcons/' + val.champImg;
+
+          })
+          $scope.matches[i].winner = data[i].winner;
+
+        }
       })
     }
   ])
