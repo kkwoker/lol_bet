@@ -30,7 +30,8 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   display: inline-block;
   text-align: center;
   font-size: 16px;
-  border: 0;
+  border: 1;
+  margin-top: 10px;
 }
 .btn-large-primary {
   color: #222;
@@ -61,3 +62,29 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'summoner_search/summoner_search.scss';
 @import 'modal/modal.scss';
 // endinjector
+
+
+
+.champIcon{
+  width: 30px;
+}
+
+.champIcon:hover{
+  width: 35px;
+}
+
+.left { 
+  padding:10px;
+}
+
+.left input[type="text"] {
+  padding:5px;
+}
+
+p.online {
+  color:green;
+}
+p.offline {
+  color:red;
+}
+

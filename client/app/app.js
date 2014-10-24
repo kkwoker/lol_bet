@@ -55,3 +55,11 @@ angular.module('lolBetApp', [
       });
     });
   });
+
+  $(".champIcon").hover(function(){
+    console.log("HOVER IN");
+    $("#show").addClass("champDetails")
+  }, function(){
+    console.log("HOVER OUT");
+    $("#show").removeClass("champDetails")
+  })

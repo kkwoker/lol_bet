@@ -9,6 +9,10 @@ var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Match = require('../api/match/match.model');
 
+
+
+
+
 Thing.find({}).remove(function() {
   Thing.create({
     name : 'Development Tools',
@@ -45,7 +49,7 @@ Match.find({}).remove(function() {
     name: "SpicyTicTac",
     id: 25329778
     },
-    champId: 236,
+    champImg: "Xerath.png",
     name: "spicytictac"
     },
     {
@@ -56,7 +60,7 @@ Match.find({}).remove(function() {
     name: "Man Dinh",
     id: 16685
     },
-    champId: 29,
+    champImg: "Lucian.png",
     name: "mandinh"
     },
     {
@@ -67,7 +71,7 @@ Match.find({}).remove(function() {
     name: "Im Novel",
     id: 22089278
     },
-    champId: 201,
+    champImg: "Udyr.png",
     name: "imnovel"
     },
     {
@@ -78,7 +82,7 @@ Match.find({}).remove(function() {
     name: "SV Xio",
     id: 25316184
     },
-    champId: 150,
+    champImg: "Thresh.png",
     name: "svxio"
     },
     {
@@ -89,7 +93,7 @@ Match.find({}).remove(function() {
     name: "KTCure",
     id: 19055228
     },
-    champId: 61,
+    champImg: "Teemo.png",
     name: "ktcure"
     }
     ],
@@ -102,7 +106,7 @@ Match.find({}).remove(function() {
     name: "THE DEMON CHlLD",
     id: 19148345
     },
-    champId: 90,
+    champImg: "Khazix.png",
     name: "thedemonchlld"
     },
     {
@@ -113,7 +117,7 @@ Match.find({}).remove(function() {
     name: "Swaggie Daddy",
     id: 22683567
     },
-    champId: 68,
+    champImg: "Gnar.png",
     name: "swaggiedaddy"
     },
     {
@@ -124,7 +128,7 @@ Match.find({}).remove(function() {
     name: "1013rian",
     id: 20851060
     },
-    champId: 35,
+    champImg: "Sona.png",
     name: "1013rian"
     },
     {
@@ -135,7 +139,7 @@ Match.find({}).remove(function() {
     name: "AznSneakyFellow ",
     id: 23994633
     },
-    champId: 267,
+    champImg: "Ryze.png",
     name: "aznsneakyfellow"
     },
     {
@@ -146,7 +150,7 @@ Match.find({}).remove(function() {
     name: "NÃ¬kÃ³lÃ i",
     id: 37874755
     },
-    champId: 42,
+    champImg: "Ezreal.png",
     name: "nÃ¬kÃ³lÃ i"
     }
     ]
@@ -177,7 +181,166 @@ Match.find({}).remove(function() {
 ]
     },
     active: true
-    })
+    },
+    {
+_id: "1600602919",
+match: {
+teamOne: [
+{
+name: "dmitriya",
+champImg: "Ahri.png",
+summoner: {
+id: 45459632,
+name: "Dmitriy A",
+profileIconId: 27,
+summonerLevel: 30,
+revisionDate: 1414099243000,
+teamId: "teamOne",
+league: "MASTER"
+}
+},
+{
+name: "tritan",
+champImg: "Lucian.png",
+summoner: {
+id: 30079,
+name: "Tritan",
+profileIconId: 22,
+summonerLevel: 30,
+revisionDate: 1414098296000,
+teamId: "teamOne",
+league: "MASTER"
+}
+},
+{
+name: "darkblight",
+champImg: "FiddleSticks.png",
+summoner: {
+id: 20924085,
+name: "DarkBlight",
+profileIconId: 505,
+summonerLevel: 30,
+revisionDate: 1414098437000,
+teamId: "teamOne",
+league: "MASTER"
+}
+},
+{
+name: "quasmire",
+champImg: "Morgana.png",
+summoner: {
+id: 50759302,
+name: "Quasmire",
+profileIconId: 607,
+summonerLevel: 30,
+revisionDate: 1414098296000,
+teamId: "teamOne",
+league: "MASTER"
+}
+},
+{
+name: "dyrus",
+champImg: "Singed.png",
+summoner: {
+id: 5908,
+name: "Dyrus",
+profileIconId: 627,
+summonerLevel: 30,
+revisionDate: 1414098769000,
+teamId: "teamOne",
+league: "DIAMOND"
+}
+}
+],
+teamTwo: [
+{
+name: "neonsurge",
+champImg: "LeeSin.png",
+summoner: {
+id: 34411039,
+name: "NeonSurge",
+profileIconId: 585,
+summonerLevel: 30,
+revisionDate: 1414098769000,
+teamId: "teamTwo",
+league: "MASTER"
+}
+},
+{
+name: "cris",
+champImg: "Irelia.png",
+summoner: {
+id: 21367804,
+name: "Cris",
+profileIconId: 7,
+summonerLevel: 30,
+revisionDate: 1413582627000,
+teamId: "teamTwo",
+league: "MASTER"
+}
+},
+{
+name: "cloudnguyen",
+champImg: "Ryze.png",
+summoner: {
+id: 30871780,
+name: "CloudNguyen",
+profileIconId: 523,
+summonerLevel: 30,
+revisionDate: 1414098769000,
+teamId: "teamTwo",
+league: "MASTER"
+}
+},
+{
+name: "jakehoffmann",
+champImg: "Janna.png",
+summoner: {
+id: 24153216,
+name: "jakehoffmann",
+profileIconId: 6,
+summonerLevel: 30,
+revisionDate: 1414098141000,
+teamId: "teamTwo",
+league: "MASTER"
+}
+},
+{
+name: "neryth",
+champImg: "MissFortune.png",
+summoner: {
+id: 19804152,
+name: "Neryth",
+profileIconId: 12,
+summonerLevel: 30,
+revisionDate: 1414099243000,
+teamId: "teamTwo",
+league: "MASTER"
+}
+}
+]
+},
+bet: {
+playerArr: [
+{
+dyrus: {
+id: 5908,
+name: "Dyrus",
+profileIconId: 627,
+summonerLevel: 30,
+revisionDate: 1414098769000,
+teamId: "teamOne",
+league: "DIAMOND"
+}
+},
+null
+],
+bet: 0
+},
+active: false,
+__v: 0,
+winner: "teamOne"
+})
 
 });
 
@@ -186,18 +349,6 @@ Match.find({}).remove(function() {
 
 User.find({}).remove(function() {
   User.create({
-    provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
-    password: 'test'
-  }, {
-    provider: 'local',
-    role: 'admin',
-    name: 'Admin',
-    email: 'admin@admin.com',
-    password: 'admin',
-    
-  },{
     provider: 'local',
     role: 'admin',
     name: 'Admin',
@@ -361,7 +512,9 @@ User.find({}).remove(function() {
     profileIconId: 627,
     name: "Dyrus",
     id: 5908
-  }
+  },
+  wallet: 102015000
+
 }, {
   provider: "local",
   email: "zionspartan@zionspartan",
@@ -410,3 +563,4 @@ User.find({}).remove(function() {
     }
   );
 });
+

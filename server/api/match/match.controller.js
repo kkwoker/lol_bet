@@ -41,7 +41,6 @@ exports.search = function(req, res){
             return res.json(404, result.body);
           }else{
             console.log("MATCH FOUND");
-            // return res.json(200,result.body);
             return findPlayers(result.body, summonerName)
           }
         })
@@ -56,7 +55,6 @@ exports.search = function(req, res){
     })
     var players = teamOne.concat(teamTwo);
     return getSummoners(match, players, teamOne, teamTwo, summonerName);
-    // return isAnyOpponentRegistered(match, players, teamOne, teamTwo, summonerName);
   }
 
   function getSummoners(match, players, teamOne, teamTwo, summonerName){
@@ -66,10 +64,10 @@ exports.search = function(req, res){
     request(url, function(error, response, body){
       var summoners = JSON.parse(body);
       for(var i in teamOne){
-        summoners[teamOne[i]]["teamId"] = "100";
+        summoners[teamOne[i]]["teamId"] = "teamOne";
       }
       for(var i in teamTwo){
-        summoners[teamTwo[i]]["teamId"] = "200";
+        summoners[teamTwo[i]]["teamId"] = "teamTwo";
       }
       return getLeagues(match, summoners, teamOne, teamTwo, summonerName);
     })
@@ -94,25 +92,48 @@ exports.search = function(req, res){
         l++;
       }
 
-      return parseMatch(match, summoners, teamOne, teamTwo, summonerName);
+      // return parseMatch(match, summoners, teamOne, teamTwo, summonerName);
+      return getChampNames(match, summoners, teamOne, teamTwo, summonerName);
     })
   }
 
-  function parseMatch(match, summoners, teamOne, teamTwo, summonerName){
-    
+  function getChampNames(match, summoners, teamOne, teamTwo, summonerName){
+    console.log("getChamps");
     var arr = match.game.playerChampionSelections.array;
     var champs = {}
     for(var i in arr){
       champs[arr[i].summonerInternalName] = arr[i].championId;
     }
+    var url = "https://na.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=image&api_key=" + keys.RIOT_API_KEY;
+    request(url, function(error, response, body){
+      // console.log(body);
+      var jsonBody = JSON.parse(body);
+      var allChamps = jsonBody.data;
+      for(var i in champs){
+        for(var c in allChamps){
+          if(champs[i] == allChamps[c].id){
+            champs[i] = allChamps[c].image.full
+          }
+        }
+      }
+      console.log(champs);
+
+      return parseMatch(match, summoners, teamOne, teamTwo, summonerName, champs)
+    })
+      
+
+    
+  }
+
+  function parseMatch(match, summoners, teamOne, teamTwo, summonerName, champs){
 
     var t1 = [];
     for( var b in teamOne){
-      t1.push({"name": teamOne[b], "champId": champs[teamOne[b]], "summoner": summoners[teamOne[b]]})
+      t1.push({"name": teamOne[b], "champImg": champs[teamOne[b]], "summoner": summoners[teamOne[b]]})
     }
     var t2 = [];
     for( var d in teamTwo){
-      t2.push({"name": teamTwo[d], "champId": champs[teamTwo[d]], "summoner": summoners[teamTwo[d]]})
+      t2.push({"name": teamTwo[d], "champImg": champs[teamTwo[d]], "summoner": summoners[teamTwo[d]]})
     }
     var matchNew = {
       "teamOne": t1,
@@ -135,7 +156,6 @@ exports.search = function(req, res){
 
     return onlyIfOpponentisRegistered(obj, summonerName, summoners);
 
-    // return res.json(200, match);  
   }
 
   function onlyIfOpponentisRegistered(match, summonerName, summoners){
@@ -152,7 +172,6 @@ exports.search = function(req, res){
       })
 
     }, function(err, result){
-      console.log(result);
       var bidders = _.filter(result, function(player) { 
         if(typeof player === 'undefined'){
           return false;
@@ -162,11 +181,16 @@ exports.search = function(req, res){
       })
       console.log("bidders: " + bidders);
       match.bet.playerArr[1][bidders[0]] = summoners[bidders[0]];
-
-      var newMatch = new Match(match);
-        newMatch.save(function(err, matchRes){
-        return res.json(200, matchRes);  
-      })
+      // if(summoners[bidders[0]]){
+        var newMatch = new Match(match);
+          newMatch.save(function(err, matchRes){
+            console.log("returning match");
+            return res.json(200, matchRes);  
+        })
+      // }else{
+      //   match["error"] = "Match found but no one to bet with";
+      //   return res.json(200, match)
+      // }
     });
 
   }
@@ -217,22 +241,6 @@ exports.destroy = function(req, res) {
   });
 };
 
-exports.gameCompletion = function(req, res){
-  var gameId = req.params.id;
-  console.log("Running game completion");
-  var url = "http://na.api.pvp.net/api/lol/na/v2.2/match/" + gameId + "?api_key=" + keys.RIOT_API_KEY;
-  console.log(url);
-  request(url, function(err, response, body){
-    console.log(response.statusCode);
-    if(response.statusCode == "404"){
-      return res.json(200, {"finished": false}) 
-    }else if(response.statusCode == "200"){
-      var jsonBody = JSON.parse(body);
-      jsonBody["finished"] = true;
-      return res.json(200, jsonBody);
-    }
-  })
-}
 
 
 function handleError(res, err) {
@@ -267,4 +275,49 @@ function findUsersOpponentTeam(summonerName, match){
       return teamOne;
     }
   }
+}
+
+
+
+
+exports.gameCompletion = function(req, res){
+  var gameId = req.params.id;
+  // console.log("Running game completion");
+  var url = "http://na.api.pvp.net/api/lol/na/v2.2/match/" + gameId + "?api_key=" + keys.RIOT_API_KEY;
+  // console.log(url);
+  request(url, function(err, response, body){
+  //   console.log(response.statusCode);
+    if(response.statusCode == "404"){
+      return res.json(200, {"finished": false}) 
+    }else if(response.statusCode == "200"){
+      var jsonBody = JSON.parse(body);
+      var obj = {};
+      obj["finished"] = true;
+      obj["teamOne"] = jsonBody.teams[0].winner;
+      obj["teamTwo"] = jsonBody.teams[1].winner;
+      var winner;
+      if(obj["teamOne"]){
+        winner = "teamOne";
+      }else if (obj["teamTwo"]){
+        winner = "teamTwo"
+      }
+
+      // Move wallet money
+
+
+      // Update active state of match
+      Match.findById(gameId, function (err, match) {
+        if (err) { return res.json(200, obj); }
+        if(!match) { return res.send(404); }
+        var updated = _.merge(match, {"active": false, "winner": winner});
+        updated.save(function (err) {
+          if (err) { return handleError(res, err); }
+          return res.json(200, obj);
+        });
+      });
+
+      
+    }  
+  })
+  
 }
