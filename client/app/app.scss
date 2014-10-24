@@ -3,11 +3,14 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
-
+@import url(http://fonts.googleapis.com/css?family=Averia+Serif+Libre);
 /**
  * App-wide Styles
  */
 
+ body {
+  font-family: 'Averia Serif Libre', cursive;
+ }
 .btc-logo {
   width: 25px;
   position: relative;
@@ -21,6 +24,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     padding: 0.2em 0;
 }
 .btn-large {
+  font-family: 'Averia Serif Libre', cursive;
   box-sizing: border-box;
   width: auto;
   font-weight: 500;
@@ -32,12 +36,28 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   font-size: 16px;
   border: 1;
   margin-top: 10px;
+
+  color: #222;
+  border-color: #f6c653 #bd6a23 #b6631f #e8ab4a;
+  /*background: #d79922 url("../assets/lol-textures.jpg") no-repeat 50% -846px;*/
+  background: linear-gradient(orange, rgb(255, 97, 0));
+  &:hover {
+    color: #222;
+    border-color: #fdeaba #bf712c #b66521 #edbd6e;
+    background: linear-gradient(#E57E1A, #ffb800);
+  }
+
+  &:active {
+    color: #222;
+    border-color: #e1b03d #7f3517 #772d16 #c17f30;
+    background: #D08901;
+  }
 }
 .btn-large-primary {
   color: #222;
   border-color: #f6c653 #bd6a23 #b6631f #e8ab4a;
-  background: #d79922;
-
+  background: linear-gradient(orange, rgb(255, 97, 0));
+  border: 1;
   &:hover {
     color: #222;
     border-color: #fdeaba #bf712c #b66521 #edbd6e;
@@ -65,13 +85,6 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 
 
-.champIcon{
-  width: 30px;
-}
-
-.champIcon:hover{
-  width: 35px;
-}
 
 .left { 
   padding:10px;

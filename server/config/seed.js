@@ -37,6 +37,163 @@ Thing.find({}).remove(function() {
 
 Match.find({}).remove(function() {
   Match.create ({
+__v: 0,
+_id: "1602950344",
+match: {
+teamTwo: [
+{
+summoner: {
+league: "CHALLENGER",
+teamId: "teamTwo",
+revisionDate: 1414178639000,
+summonerLevel: 30,
+profileIconId: 668,
+name: "coL kez",
+id: 30783632
+},
+champImg: "Pantheon.png",
+name: "colkez"
+},
+{
+summoner: {
+league: "CHALLENGER",
+teamId: "teamTwo",
+revisionDate: 1414137929000,
+summonerLevel: 30,
+profileIconId: 668,
+name: "coL Westrice",
+id: 19674238
+},
+champImg: "Maokai.png",
+name: "colwestrice"
+},
+{
+summoner: {
+league: "DIAMOND",
+teamId: "teamTwo",
+revisionDate: 1414178639000,
+summonerLevel: 30,
+profileIconId: 9,
+name: "Is Dat Lohpally",
+id: 21911338
+},
+champImg: "Sona.png",
+name: "isdatlohpally"
+},
+{
+summoner: {
+league: "CHALLENGER",
+teamId: "teamTwo",
+revisionDate: 1414178430000,
+summonerLevel: 30,
+profileIconId: 591,
+name: "goldenglue",
+id: 21490433
+},
+champImg: "Jayce.png",
+name: "goldenglue"
+},
+{
+summoner: {
+league: "DIAMOND",
+teamId: "teamTwo",
+revisionDate: 1414179221000,
+summonerLevel: 30,
+profileIconId: 709,
+name: "LinkinParkFan53",
+id: 22416752
+},
+champImg: "Corki.png",
+name: "linkinparkfan53"
+}
+],
+teamOne: [
+{
+summoner: {
+league: "MASTER",
+teamId: "teamOne",
+revisionDate: 1414179470000,
+summonerLevel: 30,
+profileIconId: 709,
+name: "Gleebglarbu",
+id: 19440665
+},
+champImg: "Nami.png",
+name: "gleebglarbu"
+},
+{
+summoner: {
+league: "CHALLENGER",
+teamId: "teamOne",
+revisionDate: 1414179383000,
+summonerLevel: 30,
+profileIconId: 557,
+name: "NintendudeX",
+id: 74673
+},
+champImg: "LeeSin.png",
+name: "nintendudex"
+},
+{
+summoner: {
+league: "CHALLENGER",
+teamId: "teamOne",
+revisionDate: 1414179383000,
+summonerLevel: 30,
+profileIconId: 9,
+name: "zorotonsoh",
+id: 21622356
+},
+champImg: "Lucian.png",
+name: "zorotonsoh"
+},
+{
+summoner: {
+league: "MASTER",
+teamId: "teamOne",
+revisionDate: 1414179383000,
+summonerLevel: 30,
+profileIconId: 557,
+name: "Fusion Sin",
+id: 29228409
+},
+champImg: "Irelia.png",
+name: "fusionsin"
+},
+{
+summoner: {
+league: "MASTER",
+teamId: "teamOne",
+revisionDate: 1414179383000,
+summonerLevel: 30,
+profileIconId: 682,
+name: "Fusion Chunky",
+id: 28039649
+},
+champImg: "Syndra.png",
+name: "fusionchunky"
+}
+]
+},
+bet: {
+bet: 0,
+playerArr: [
+{
+goldenglue: {
+league: "CHALLENGER",
+teamId: "teamTwo",
+revisionDate: 1414178430000,
+summonerLevel: 30,
+profileIconId: 591,
+name: "goldenglue",
+id: 21490433
+}
+},
+null
+]
+},
+active: true
+},{
     __v: 0,
     _id: new mongoose.Types.ObjectId,
     match: {
