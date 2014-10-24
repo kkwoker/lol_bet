@@ -4,7 +4,8 @@ angular.module('lolBetApp')
   .controller('MatchCtrl', ['$scope', '$interval', 'matchData', 'currentUser', 'socket',
     function ($scope, $interval, matchData, currentUser, socket) {
     $scope.player = {
-      name: currentUser.summoner.indexName,
+      indexName: currentUser.summoner.indexName,
+      name: currentUser.summoner.name,
       bet: 0,
       iconUrl:'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + currentUser.summoner.profileIconId + '.png'
     };
@@ -23,22 +24,22 @@ angular.module('lolBetApp')
     $scope.match.timer = $scope.match.timer || 60;
 
     // Get the opposing player
-    angular.forEach(matchData.data.bet.playerArr, function(tvalue, tkey) {
-      angular.forEach(tvalue, function(pvalue, pkey) {
-        if (pkey !== $scope.player.name) {
-          $scope.opponent.name = pkey;
-          $scope.opponent.iconUrl = 'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + pvalue.profileIconId + '.png';
-        }
-      });
+    angular.forEach(matchData.data.playerArr, function(tvalue, tindex) {
+      var key = Object.keys(tvalue)[0];
+      if (tvalue[key].name !== $scope.player.name) {
+        $scope.opponent.name = tvalue[key].name;
+        $scope.opponent.indexName = key;
+        $scope.opponent.iconUrl = 'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + tvalue[key].profileIconId + '.png';
+      }
     });
 
     // Get the player's team
     angular.forEach(matchData.data.match, function(tvalue, tkey) {
       angular.forEach(tvalue, function(pvalue, index) {
-        if (pvalue.name === $scope.player.name) {
+        if (pvalue.name === $scope.player.indexName) {
           $scope.player.team = tvalue;
         }
-        if (pvalue.name === $scope.opponent.name) {
+        if (pvalue.name === $scope.opponent.indexName) {
           $scope.opponent.team = tvalue;
         }
       });

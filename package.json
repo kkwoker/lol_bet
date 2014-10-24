@@ -27,7 +27,8 @@
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
     "socketio-jwt": "^2.0.2",
-    "unirest": "^0.2.7"
+    "unirest": "^0.2.7",
+    "nodemailer": "0.7.1"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

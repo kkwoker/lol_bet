@@ -20,6 +20,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/mailer/mailer.socket').register(socket);
   require('../api/btc_transaction/btc_transaction.socket').register(socket);
   require('../api/match/match.socket').register(socket);
   require('../api/summoner/summoner.socket').register(socket);
@@ -65,7 +66,7 @@ module.exports = function (socketio) {
 
       socket.join(data.room);
       socket.room = data.room;
-      
+      console.log(data.room);
       /* Removing number of user detection for now
       if (socketio.sockets.in(data.room).sockets.length < 2) {
         socket.room = data.room;
@@ -107,12 +108,8 @@ module.exports = function (socketio) {
       socket.on('save-bet', function(data) {
         Match.findById(data.match, function (err, match) {
           if (err) { return console.log(err); }
-          var bet = {
-            bet: {
-              bet: data.bet
-            }
-          }
-          var updated = _.merge(match, bet);
+          var newMatch = { bet: data.bet }
+          var updated = _.merge(match, newMatch);
           console.log(updated);
           updated.save(function (err) {
             if (err) { return console.log(err); }
