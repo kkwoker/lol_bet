@@ -24,7 +24,7 @@ angular.module('lolBetApp')
     $scope.match.timer = $scope.match.timer || 60;
 
     // Get the opposing player
-    angular.forEach(matchData.data.bet.playerArr, function(tvalue, tkey) {
+    angular.forEach(matchData.data.playerArr, function(tvalue, tkey) {
       angular.forEach(tvalue, function(pvalue, pkey) {
         if (pkey !== $scope.player.name) {
           $scope.opponent.name = pvalue.name;

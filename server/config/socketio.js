@@ -107,12 +107,8 @@ module.exports = function (socketio) {
       socket.on('save-bet', function(data) {
         Match.findById(data.match, function (err, match) {
           if (err) { return console.log(err); }
-          var newbet = {
-            bet: {
-              "bet": data.bet
-            }
-          }
-          var updated = _.merge(match, {bet: {"bet": data.bet}});
+          var newMatch = { bet: data.bet }
+          var updated = _.merge(match, newMatch);
           console.log(updated);
           updated.save(function (err) {
             if (err) { return console.log(err); }

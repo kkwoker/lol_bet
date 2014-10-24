@@ -244,6 +244,19 @@ User.find({}).remove(function() {
       }
   }, {
     provider: 'local',
+    name: 'HotshotGG',
+    email: 'hotshotgg@hotshotgg',
+    password: '1234',
+    summoner: {
+        id: 407750,
+        indexName: "hotshotgg",
+        name: "HotshotGG",
+        profileIconId: 621,
+        summonerLevel: 30,
+        revisionDate: 1414187406000
+      }
+  }, {
+    provider: 'local',
     name: 'Swaggie Daddy',
     email: 'swaggiedaddy@swaggiedaddy',
     password: '1234',
