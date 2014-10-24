@@ -36,9 +36,10 @@ angular.module('lolBetApp')
 
     $scope.$watch('sm_name', function(sName){
       $scope.summoner_name = sName;
-      if ($scope.unregisteredSummoner == 'found' && sName.length == 0){
+      if ($scope.unregisteredSummonerFound == 'yes' && sName.length == 0){
         $scope.emptyUser();
         $scope.cantFind = 'false';
+        $scope.unregisteredSummonerFound = "";
       }
     });
 
@@ -51,7 +52,7 @@ angular.module('lolBetApp')
       var url = '/api/summoners/'+summoner;
       $http.get(url)
       .success(function(data){
-        $scope.unregisteredSummoner="found";
+        $scope.unregisteredSummonerFound = "yes";
         for (var i in data) {
           $scope.user.push({ "name": data[i].name, "profile_icon_id": data[i].profileIconId, "summoner_level": data[i].summonerLevel, "indexName": data[i].indexName });
         }
