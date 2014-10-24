@@ -1,6 +1,6 @@
 /**
  * Main application file
- */
+ */ 
 
 'use strict';
 
@@ -11,6 +11,9 @@ var express = require('express');
 var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
+
+// New Relic config
+require('../newrelic');
 
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
