@@ -5,6 +5,8 @@
 'use strict';
 
 var config = require('./environment');
+var Match = require('../api/match/match.model');
+var _ = require('lodash');
 
 // When the user disconnects.. perform this
 function onDisconnect(socket) {
@@ -60,9 +62,6 @@ module.exports = function (socketio) {
     console.log('user-connected');
 
     socket.on('join-room', function(data) {
-      console.log('data sent: ');
-      console.log(data.room);
-      console.log(data.user);
 
       socket.join(data.room);
       socket.room = data.room;
@@ -84,29 +83,43 @@ module.exports = function (socketio) {
         socketio.sockets.in(data.room).emit('status', { ready: true });
         
         // Start the timer
-        var time = 60;
+        var time = 15;
         socketio.sockets.in(data.room).emit('countdown', { time: time });
         var countdown = setInterval(function() {
           time--;
           socketio.sockets.in(data.room).emit('countdown', { time: time });
           if(time === 0){
             clearInterval(countdown);
+            socketio.sockets.in(data.room).emit('betting-complete');
           }
         }, 1000);
       }
 
-      console.log(socketio.sockets.in(data.room).sockets.length + " users in room " + data.room);
-      console.log('list of rooms: ' + socketio.rooms);
-      console.log(socketio.sockets.rooms);
-      console.log('socket\'s room: ' + socket.room);
-
       socket.on('bet', function(data) {
+        socket.bet = data.bet;
         socket.broadcast.to(socket.room).emit('bet', { bet: data.bet, lockedIn: data.lockedIn });
       });
 
-      socket.on('betting-complete', function() {
-        socket.broadcast.to(socket.room).emit('betting-complete');
+      socket.on('set-pot', function(data) {
+        console.log('setting pot to: ' + data.bet);
+        socket.broadcast.to(socket.room).emit('set-pot', { bet: data.bet });
       });
+
+      socket.on('save-bet', function(data) {
+        Match.findById(data.match, function (err, match) {
+          if (err) { return console.log(err); }
+          var bet = {
+            bet: {
+              bet: data.bet
+            }
+          }
+          var updated = _.merge(match, bet);
+          console.log(updated);
+          updated.save(function (err) {
+            if (err) { return console.log(err); }
+          });
+        });
+      })
     })
   });
 };

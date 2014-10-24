@@ -14,7 +14,11 @@ angular.module('lolBetApp')
       lockedIn: false
     };
 
-    $scope.gameTime  = $scope.gameTime  || 60;
+    $scope.match = {
+      active: true
+    };
+
+    $scope.match.timer = $scope.match.timer || 60;
 
     // Get the opposing player
     angular.forEach(matchData.data.bet.playerArr, function(tvalue, tkey) {
@@ -60,7 +64,7 @@ angular.module('lolBetApp')
         console.log('ready to start betting!');
         $scope.sendBet();
         socket.socket.on('countdown', function(data){
-          $scope.gameTime = data.time;
+          $scope.match.timer = data.time;
         });
       });
 
@@ -71,13 +75,20 @@ angular.module('lolBetApp')
         if (($scope.opponent.lockedIn && $scope.player.lockedIn) && 
           ($scope.opponent.bet === $scope.player.bet)) {
           $scope.pot = data.bet;
-          socket.socket.emit('betting-complete');
+          socket.socket.emit('set-pot', { bet: $scope.pot });
         }
       });
 
+      socket.socket.on('set-pot', function(data) {
+        $scope.pot = data.bet;
+      });
+
       socket.socket.on('betting-complete', function() {
-        $scope.pot = $scope.opponent.bet;
+        $scope.match.active = false;
+        if ($scope.opponent.lockedIn && $scope.player.lockedIn) {
+          socket.socket.emit('save-bet', { match: matchData.data._id, bet: $scope.pot });
+        }
+        socket.socket.removeAllListeners();
       });
     });
-
   }]);

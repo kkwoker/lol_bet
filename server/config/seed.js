@@ -4,7 +4,7 @@
  */
 
 'use strict';
-
+var mongoose = require('mongoose');
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Match = require('../api/match/match.model');
@@ -34,7 +34,7 @@ Thing.find({}).remove(function() {
 Match.find({}).remove(function() {
   Match.create ({
     __v: 0,
-    _id: "1593289310",
+    _id: new mongoose.Types.ObjectId,
     match: {
     teamTwo: [
     {
