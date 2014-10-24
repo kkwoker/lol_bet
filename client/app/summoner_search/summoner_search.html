@@ -11,26 +11,25 @@
       </div>
     </div>
 
+
     <div ng-hide="summonerView" class="ng-hide">
 
-    <div ng-show="(filteredSummoners | filter:summoner_name).length == 0">
+      <div ng-show="(filteredSummoners | filter:summoner_name).length == 0">
+        <div ng-hide="cantFind=='true'" class="ng-hide">
+          Sorry, it appears that {{summoner_name}} isn't registered with us<br/>
+          Check if <strong>{{summoner_name}}</strong> has a League of Legends account?
+          <button ng-click="checkSummoner(summoner_name)">Search</button>
+        </div>
+        
+          <ul class="summonerFilter">
+            <li><a href="http://www.lolnexus.com/NA/search?name={{user[0].name}}">{{user[0].name}}</a></li>
+            <li><img src="https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{user[0].profile_icon_id}}.png"</img></li>
+            <li>{{user[0].summoner_level}}</li>
+          </ul>
+        </div>
 
-      <div ng-hide="cantFind=='true'" class="ng-hide">
-        Sorry, it appears that {{summoner_name}} isn't registered with us<br/>
-        Check if <strong>{{summoner_name}}</strong> has a League of Legends account?
-        <button ng-click="checkSummoner(summoner_name)">Search</button>
-      </div>
-      
-        <ul class="summonerFilter">
-          <li><a href="http://www.lolnexus.com/NA/search?name={{user[0].name}}">{{user[0].name}}</a></li>
-          <li><img src="https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{user[0].profile_icon_id}}.png"</img></li>
-          <li>{{user[0].summoner_level}}</li>
-        </ul>
- 
-    </div>
-
-      <table class="span5 table">
-        <thead ng-hide="cantFind=='true'" class="ng-hide">
+      <table class="span5 table" ng-show="(filteredSummoners | filter:summoner_name).length != 0">
+        <thead>
           <th>Name</th>
           <th>Profile</th>
         </thead>
