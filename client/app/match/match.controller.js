@@ -6,16 +6,17 @@ angular.module('lolBetApp')
     $scope.player = {
       name: currentUser.summoner.indexName,
       bet: 0,
-      lockedIn: false,
       iconUrl:'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + currentUser.summoner.profileIconId + '.png'
     };
     $scope.opponent = {
       bet: 0,
-      lockedIn: false
+      lockedIn: 0
     };
 
     $scope.match = {
-      active: true
+      start: true,
+      confirmed: false,
+      complete: false
     };
     console.log(matchData);
 
@@ -43,6 +44,7 @@ angular.module('lolBetApp')
       });
     });
 
+    
     // Send a bet
     $scope.sendBet = function() {
       socket.socket.emit('bet', { bet: $scope.player.bet, lockedIn: $scope.player.lockedIn });
@@ -50,8 +52,8 @@ angular.module('lolBetApp')
 
     // Lock in bet
     $scope.lockIn = function() {
-      $scope.player.lockedIn = true;
-      $scope.sendBet();
+      $scope.player.lockedIn = $scope.player.bet;
+      socket.socket.emit('bet', { bet: $scope.player.bet, lockedIn: $scope.player.lockedIn });
     };
 
     // Join or create a betting room
@@ -59,7 +61,7 @@ angular.module('lolBetApp')
       socket.socket.emit('join-room', { 
         room: matchData.data._id, 
         user: currentUser._id, 
-        active: $scope.matchActive});
+      });
 
       socket.socket.on('status', function() {
         console.log('ready to start betting!');
@@ -73,19 +75,24 @@ angular.module('lolBetApp')
         $scope.opponent.bet = data.bet;
         $scope.opponent.lockedIn = data.lockedIn;
 
-        if (($scope.opponent.lockedIn && $scope.player.lockedIn) && 
-          ($scope.opponent.bet === $scope.player.bet)) {
-          $scope.pot = data.bet;
-          socket.socket.emit('set-pot', { bet: $scope.pot });
+        if (($scope.opponent.lockedIn && $scope.player.lockedIn)) {
+          $scope.pot = data.lockedIn < $scope.player.lockedIn ? data.lockedIn : $scope.player.lockedIn;
+          $scope.match.start = false;
+          $scope.match.confirmed = true;
+          socket.socket.emit('set-pot', { pot: $scope.pot });
         }
       });
 
       socket.socket.on('set-pot', function(data) {
-        $scope.pot = data.bet;
+        $scope.match.start = false;
+        $scope.match.confirmed = true;
+        $scope.pot = data.pot;
       });
 
       socket.socket.on('betting-complete', function() {
-        $scope.match.active = false;
+        $scope.match.start = false;
+        $scope.match.confirmed = false;
+        $scope.match.complete = true;
         if ($scope.opponent.lockedIn && $scope.player.lockedIn) {
           socket.socket.emit('save-bet', { match: matchData.data._id, bet: $scope.pot });
         }

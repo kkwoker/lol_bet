@@ -96,13 +96,12 @@ module.exports = function (socketio) {
       }
 
       socket.on('bet', function(data) {
-        socket.bet = data.bet;
         socket.broadcast.to(socket.room).emit('bet', { bet: data.bet, lockedIn: data.lockedIn });
       });
 
       socket.on('set-pot', function(data) {
-        console.log('setting pot to: ' + data.bet);
-        socket.broadcast.to(socket.room).emit('set-pot', { bet: data.bet });
+        console.log('setting pot to: ' + data.pot);
+        socket.broadcast.to(socket.room).emit('set-pot', { pot: data.pot });
       });
 
       socket.on('save-bet', function(data) {
@@ -118,6 +117,11 @@ module.exports = function (socketio) {
           updated.save(function (err) {
             if (err) { return console.log(err); }
           });
+        });
+
+        Match.findById(data.match, function(err, match) {
+          console.log('saved match:')
+          console.log(match);
         });
       })
     })

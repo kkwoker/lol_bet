@@ -3,10 +3,13 @@
 <header class="hero-unit" id="banner">
   <div class="container background-blur" ng-controller="HomeCtrl" ng-keyup="cancelSearch($event)">
     <div class="col-sm-12 col-md-10 col-md-offset-1 match-box">
-      <div class="col-sm-12 status active animate" ng-show="match.active">
-        <h3>Place your bets!!</h3>
+      <div class="col-sm-12 status start animate" ng-show="match.start">
+        <h3>Ready to start. Lock in your bet!!</h3>
       </div>
-      <div class="col-sm-12 status complete animate flip-in" ng-hide="match.active">
+      <div class="col-sm-12 status confirmed animate flip-in" ng-show="match.confirmed">
+        <h3>Bet confirmed! You can still increase your bet if you'd like.</h3>
+      </div>
+      <div class="col-sm-12 status complete animate flip-in" ng-show="match.complete">
         <h3>Betting has completed. Good Luck!</h3>
       </div>
       <div class="col-sm-12 col-md-5 player">
@@ -15,9 +18,9 @@
           <div class="col-md-4 match-icon">
             <img src="{{ player.iconUrl }}" alt="Player Icon">
           </div>
-          <div class="col-md-4 bet-input" >
-            <input type="number" ng-model="player.bet" ng-change="sendBet()">
-            <button class="btn-large btn-large-primary confirm" ng-click="lockIn()">Lock In</button>
+          <div class="col-md-4 bet-input" ng-hide="match.complete">
+            <input type="number" min="0" ng-model="player.bet" ng-change="sendBet()">
+            <button class="btn-large btn-large-primary confirm" ng-class="{ active: player.lockedIn == player.bet }" ng-click="lockIn()">Lock In</button>
           </div>
           <div class="col-sm-4 bet-details">
             <h4><small>Max bet: </small>{{ player.bet }}mBit</h4>
@@ -27,7 +30,10 @@
       </div>
       <div class="col-md-2 pot">
         <p>{{ match.timer }} seconds</p>
-        <h3>{{ pot }}mBit</h3>
+        <div class="confirmed" ng-show="pot">
+          <h3>{{ pot }}mBit</h3>
+          <p>CONFIRMED</p> 
+        </div>
       </div>
       <div class="col-sm-12 col-md-5 opponent">
         <div class="opponent-inner">

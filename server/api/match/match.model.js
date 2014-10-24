@@ -7,7 +7,7 @@ var MatchSchema = new Schema({
 	_id: String,
   name: String,
   match: {},
-  bet: {},
+  bet: { bet: Number, playerArr: Array },
   info: String,
   active: Boolean,
   winner: String
