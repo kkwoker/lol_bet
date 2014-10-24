@@ -8,8 +8,9 @@ angular.module('lolBetApp')
     $scope.userCount = [];
     $scope.pagination = Pagination.getNew(5);
     $scope.pageCount = pageCount;
-    $scope.searchSummoner = searchSummoner;
-
+    $scope.listSummoners = listSummoners;
+    $scope.checkSummoner = checkSummoner;
+    
     $http.get('/api/users')
       .success(function(data){
     for (var i = 0; i < data.length; i++ ) {
@@ -27,12 +28,28 @@ angular.module('lolBetApp')
       $scope.pagination.numPages = Math.ceil(summonerCount/$scope.pagination.perPage);
     }
 
-    function searchSummoner() {
+    function listSummoners() {
       $scope.hideSearch = 'true';
       $scope.pagination = Pagination.getNew($scope.userCount);
     }
 
- }]);
+    $scope.$watch('sm_name', function(v){
+      $scope.summoner_name = v;
+    });
+
+    function checkSummoner(summoner) {
+      $scope.cantFind = 'true';
+      var url = '/api/summoners/'+summoner;
+      $http.get(url)
+      .success(function(data){
+        for (var i in data) {
+          $scope.user.push({ "name": data[i].name, "profile_icon_id": data[i].profileIconId, "summoner_level": data[i].summonerLevel, "indexName": data[i].indexName });
+        }
+      }).error(function(data){
+        console.log(data);
+      });
+    }
+}]);
 
 angular.module('lolBetApp')
   .controller('SummonerDetailCtrl', ['$scope','$routeParams', '$location', '$log', '$http', '$rootScope', 'Auth',
@@ -44,19 +61,19 @@ angular.module('lolBetApp')
     $scope.summonerDetails = [];
 
     $http.get('/api/matches/search/'+$routeParams.param1)
-            .success(function(data){
-              $scope.online = "online";
-              }).error(function(data) {
-            console.log(data);
-            });
+      .success(function(data){
+        $scope.online = "online";
+      }).error(function(data) {
+        console.log(data);
+      });
 
     $http.get('/api/users')
-            .success(function(data){
-              var result = $.grep(data, function(e){ return e.summoner != null && e.summoner.indexName == $routeParams.param1; });
-              $scope.summonerDetails.push({"name": result[0].summoner.name, "profile_icon_id": result[0].summoner.profileIconId, "summoner_level": result[0].summoner.summonerLevel});
-             }).error(function(data) {
-            console.log(data);
-            });
+      .success(function(data){
+      var result = $.grep(data, function(e){ return e.summoner != null && e.summoner.indexName == $routeParams.param1; });
+      $scope.summonerDetails.push({"name": result[0].summoner.name, "profile_icon_id": result[0].summoner.profileIconId, "summoner_level": result[0].summoner.summonerLevel});
+    }).error(function(data) {
+      console.log(data);
+    });
 
 }]);
 

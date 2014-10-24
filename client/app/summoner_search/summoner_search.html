@@ -5,20 +5,36 @@
     <div class="home-header" >
       <div class="left">
         <p class="{{online}}">{{online}}</p>
-        <input autofocus ng-hide="summonerView" class="ng-hide" ng-click="searchSummoner()" ng-model="query" placeholder="search Summoner" type="text"/>
+        <form novalidate class="simple-form">
+          <input ng-hide="summonerView" ng-click="listSummoners()" class="ng-hide" type="text" ng-model="sm_name" ng-change="summoner_name=sn_number" placeholder="Search Summoners"/>
+        </form>
       </div>
     </div>
 
     <div ng-hide="summonerView" class="ng-hide" style="overflow: scroll;">
       <table class="span5 table">
-        <thead>
+        <thead ng-hide="cantFind=='true'" class="ng-hide">
           <th>Name</th>
           <th>Profile</th>
         </thead>
+          
+          <tr ng-repeat="summoner in filteredSummoners = ( userObject | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:summoner_name)">
+         
+          <div ng-show="(filteredSummoners | filter:summoner_name).length == 0">
+           <div ng-hide="cantFind=='true'" class="ng-hide">
+              Sorry, the summoner does not have an account with us<br/>
+              Check if <strong>{{summoner_name}}</strong> has a League of Legends account?
+              <button ng-click="checkSummoner(summoner_name)">Search</button>
+            </div>
+          
+            <ul class="summonerFilter">
+              <li><a href="http://www.lolnexus.com/NA/search?name={{user[0].name}}">{{user[0].name}}</a></li>
+              <li><img src="https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{user[0].profile_icon_id}}.png"</img></li>
+              <li>{{user[0].summoner_level}}</li>
+            </ul>
+          </div>
 
-        <tr ng-repeat="summoner in userObject | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:query">
-
-          <td>
+           <td>
             {{summoner.name}}<br/>
             <img width="50" height="auto" src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
           </td>
@@ -48,7 +64,7 @@
 
           <tr ng-repeat="summoner in summonerDetails">
             <td style="text-align:center;">
-              <a href="/summoner_search/{{summoner.profile_icon_id}}">{{summoner.name}} level {{summoner.summoner_level}}</a><br/>
+              {{summoner.name}} level {{summoner.summoner_level}}<br/>
               <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
            </td>
            <td>
@@ -60,7 +76,6 @@
             </ul>
            </td>
           </tr>
-          <!-- <caption class="online">{{online}}</caption> -->
         </table>
       </div>
     </div>
