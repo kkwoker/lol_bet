@@ -9,7 +9,8 @@ var MatchSchema = new Schema({
   match: {},
   bet: {},
   info: String,
-  active: Boolean
+  active: Boolean,
+  winner: String
 });
 
 module.exports = mongoose.model('Match', MatchSchema);

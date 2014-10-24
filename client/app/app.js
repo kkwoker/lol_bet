@@ -5,6 +5,7 @@ angular.module('lolBetApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'ngAnimate',
   'btford.socket-io',
   'ui.bootstrap',
   'simplePagination'
@@ -55,3 +56,11 @@ angular.module('lolBetApp', [
       });
     });
   });
+
+  $(".champIcon").hover(function(){
+    console.log("HOVER IN");
+    $("#show").addClass("champDetails")
+  }, function(){
+    console.log("HOVER OUT");
+    $("#show").removeClass("champDetails")
+  })

@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('lolBetApp')
   .controller('HomeCtrl', ['$scope', '$http', '$timeout','$location', 'Auth', 'currentMatch', 
     function ($scope, $http, $timeout, $location, Auth, currentMatch) {
@@ -50,4 +49,30 @@ angular.module('lolBetApp')
       getGame();
     };
 
-  }]);
+  }])
+
+.controller('RecentMatchesCtrl', ['$scope', '$http',
+  function($scope, $http){
+    $scope.matches = [];
+    var url = '/api/matches';
+
+    $http.get(url)
+      .success(function(data){
+
+        for(var i in data){
+          $scope.matches[i] = {};
+          $scope.matches[i].team1Champs = data[i].match.teamOne.map(function(val){
+            // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
+            return '../../assets/images/champIcons/' + val.champImg;
+          })
+          $scope.matches[i].team2Champs = data[i].match.teamTwo.map(function(val){
+            // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
+            return '../../assets/images/champIcons/' + val.champImg;
+
+          })
+          $scope.matches[i].winner = data[i].winner;
+
+        }
+      })
+    }
+  ])
