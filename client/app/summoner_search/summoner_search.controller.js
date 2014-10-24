@@ -10,6 +10,7 @@ angular.module('lolBetApp')
     $scope.pageCount = pageCount;
     $scope.listSummoners = listSummoners;
     $scope.checkSummoner = checkSummoner;
+    $scope.emptyUser = emptyUser;
     
     $http.get('/api/users')
       .success(function(data){
@@ -33,15 +34,24 @@ angular.module('lolBetApp')
       $scope.pagination = Pagination.getNew($scope.userCount);
     }
 
-    $scope.$watch('sm_name', function(v){
-      $scope.summoner_name = v;
+    $scope.$watch('sm_name', function(sName){
+      $scope.summoner_name = sName;
+      if ($scope.unregisteredSummoner == 'found' && sName.length == 0){
+        $scope.emptyUser();
+        $scope.cantFind = 'false';
+      }
     });
+
+    function emptyUser() {
+      $scope.user = [];
+    }
 
     function checkSummoner(summoner) {
       $scope.cantFind = 'true';
       var url = '/api/summoners/'+summoner;
       $http.get(url)
       .success(function(data){
+        $scope.unregisteredSummoner="found";
         for (var i in data) {
           $scope.user.push({ "name": data[i].name, "profile_icon_id": data[i].profileIconId, "summoner_level": data[i].summonerLevel, "indexName": data[i].indexName });
         }
