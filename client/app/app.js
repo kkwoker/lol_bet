@@ -5,6 +5,7 @@ angular.module('lolBetApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'ngAnimate',
   'btford.socket-io',
   'ui.bootstrap',
   'simplePagination'

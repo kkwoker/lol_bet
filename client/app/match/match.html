@@ -3,6 +3,12 @@
 <header class="hero-unit" id="banner">
   <div class="container background-blur" ng-controller="HomeCtrl" ng-keyup="cancelSearch($event)">
     <div class="col-sm-12 col-md-10 col-md-offset-1 match-box">
+      <div class="col-sm-12 status active animate bouncy-slide-top" ng-show="match.active">
+        <h3>Place your bets!!</h3>
+      </div>
+      <div class="col-sm-12 status complete animate bouncy-slide-top" ng-hide="match.active">
+        <h3>Betting has completed. Good Luck!</h3>
+      </div>
       <div class="col-sm-12 col-md-5 player">
         <div class="player-inner">
           <h2>{{ player.name }}</h2>
