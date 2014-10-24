@@ -17,6 +17,7 @@ angular.module('lolBetApp')
     $scope.match = {
       active: true
     };
+    console.log(matchData);
 
     $scope.match.timer = $scope.match.timer || 60;
 

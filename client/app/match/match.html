@@ -3,10 +3,10 @@
 <header class="hero-unit" id="banner">
   <div class="container background-blur" ng-controller="HomeCtrl" ng-keyup="cancelSearch($event)">
     <div class="col-sm-12 col-md-10 col-md-offset-1 match-box">
-      <div class="col-sm-12 status active animate bouncy-slide-top" ng-show="match.active">
+      <div class="col-sm-12 status active animate" ng-show="match.active">
         <h3>Place your bets!!</h3>
       </div>
-      <div class="col-sm-12 status complete animate bouncy-slide-top" ng-hide="match.active">
+      <div class="col-sm-12 status complete animate flip-in" ng-hide="match.active">
         <h3>Betting has completed. Good Luck!</h3>
       </div>
       <div class="col-sm-12 col-md-5 player">
@@ -15,7 +15,7 @@
           <div class="col-md-4 match-icon">
             <img src="{{ player.iconUrl }}" alt="Player Icon">
           </div>
-          <div class="col-md-4 bet-input" ng-show="match.active">
+          <div class="col-md-4 bet-input" >
             <input type="number" ng-model="player.bet" ng-change="sendBet()">
             <button class="btn-large btn-large-primary confirm" ng-click="lockIn()">Lock In</button>
           </div>
@@ -51,7 +51,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="player in player.team">
-                <td><img src="https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/{{ player.summoner.profileIconId }}.png" alt=""></td>
+                <td><img src="../../assets/images/champIcons/{{ player.champImg }}" alt=""></td>
                 <td>{{ player.summoner.name }}</td>
                 <td>{{ player.summoner.summonerLevel }}</td>  
               </tr>
@@ -69,7 +69,7 @@
               <tr ng-repeat="player in opponent.team">
                 <td>{{ player.summoner.summonerLevel }}</td>
                 <td>{{ player.summoner.name }}</td>
-                <td><img src="https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/{{ player.summoner.profileIconId }}.png" alt=""></td> 
+                <td><img src="../../assets/images/champIcons/{{ player.champImg }}" alt=""></td> 
               </tr>
             </tbody>
           </table>
