@@ -24,14 +24,13 @@ angular.module('lolBetApp')
     $scope.match.timer = $scope.match.timer || 60;
 
     // Get the opposing player
-    angular.forEach(matchData.data.playerArr, function(tvalue, tkey) {
-      angular.forEach(tvalue, function(pvalue, pkey) {
-        if (pkey !== $scope.player.name) {
-          $scope.opponent.name = pvalue.name;
-          $scope.opponent.indexName = pkey;
-          $scope.opponent.iconUrl = 'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + pvalue.profileIconId + '.png';
-        }
-      });
+    angular.forEach(matchData.data.playerArr, function(tvalue, tindex) {
+      var key = Object.keys(tvalue)[0];
+      if (tvalue[key].name !== $scope.player.name) {
+        $scope.opponent.name = tvalue[key].name;
+        $scope.opponent.indexName = key;
+        $scope.opponent.iconUrl = 'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + tvalue[key].profileIconId + '.png';
+      }
     });
 
     // Get the player's team
