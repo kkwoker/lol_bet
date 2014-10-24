@@ -8,6 +8,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express');
+var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
 
@@ -19,6 +20,15 @@ if(config.seedDB) { require('./config/seed'); }
 
 // Setup server
 var app = express();
+
+var smtpTransport = nodemailer.createTransport("SMTP",{
+service: "Gmail",
+auth: {
+user: "lolbetapp@gmail.com",
+pass: "purplespacemonkey"
+}
+});
+
 var server = require('http').createServer(app);
 var socketio = require('socket.io')(server, {
   serveClient: (config.env === 'production') ? false : true,

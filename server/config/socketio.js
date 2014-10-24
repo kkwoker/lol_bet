@@ -18,6 +18,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/mailer/mailer.socket').register(socket);
   require('../api/btc_transaction/btc_transaction.socket').register(socket);
   require('../api/match/match.socket').register(socket);
   require('../api/summoner/summoner.socket').register(socket);

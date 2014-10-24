@@ -1,6 +1,6 @@
 .btc-deposit-body {
   text-align: center;
-  padding: 50px;
+  padding: 20px 50px 10px 50px;
   
   input {
     width: 409px;
@@ -9,3 +9,35 @@
     font-size: 19px;
   }
 }
+
+.btc-withdraw-body {
+  text-align: center;
+  padding: 20px 50px 10px 50px;
+
+}
+
+.requestSubmit {
+  display: block;
+  margin: auto;
+}
+
+.withdrawHeader {
+  clear: left;
+}
+
+.depositHeader {
+  margin-top: 10px;
+  clear: left;
+}
+
+.depositWithdrawButtons {
+  float:left; 
+  margin-bottom: 10px
+}
+
+.btcInput {
+    width: 409px;
+    text-align: center;
+    height: 47px;
+    font-size: 19px;
+  }
