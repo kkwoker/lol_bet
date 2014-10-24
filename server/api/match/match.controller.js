@@ -150,7 +150,8 @@ exports.search = function(req, res){
     var obj = {
       "_id": match.playerCredentials.gameId,
       "match": matchNew,
-      "bet": bet,
+      "bet": 0,
+      "playerArr": [p1, p2],
       "active": true
     }
 
@@ -180,7 +181,7 @@ exports.search = function(req, res){
         }
       })
       console.log("bidders: " + bidders);
-      match.bet.playerArr[1][bidders[0]] = summoners[bidders[0]];
+      match.playerArr[1][bidders[0]] = summoners[bidders[0]];
       // if(summoners[bidders[0]]){
         var newMatch = new Match(match);
           newMatch.save(function(err, matchRes){

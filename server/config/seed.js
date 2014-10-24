@@ -36,313 +36,179 @@ Thing.find({}).remove(function() {
 });
 
 Match.find({}).remove(function() {
-  Match.create ({
-    __v: 0,
-    _id: new mongoose.Types.ObjectId,
-    match: {
-    teamTwo: [
-    {
-    summoner: {
-    revisionDate: 1413833493000,
-    summonerLevel: 30,
-    profileIconId: 13,
-    name: "SpicyTicTac",
-    id: 25329778
-    },
-    champImg: "Xerath.png",
-    name: "spicytictac"
-    },
-    {
-    summoner: {
-    revisionDate: 1413833493000,
-    summonerLevel: 30,
-    profileIconId: 534,
-    name: "Man Dinh",
-    id: 16685
-    },
-    champImg: "Lucian.png",
-    name: "mandinh"
-    },
-    {
-    summoner: {
-    revisionDate: 1413742058000,
-    summonerLevel: 30,
-    profileIconId: 621,
-    name: "Im Novel",
-    id: 22089278
-    },
-    champImg: "Udyr.png",
-    name: "imnovel"
-    },
-    {
-    summoner: {
-    revisionDate: 1413832916000,
-    summonerLevel: 30,
-    profileIconId: 585,
-    name: "SV Xio",
-    id: 25316184
-    },
-    champImg: "Thresh.png",
-    name: "svxio"
-    },
-    {
-    summoner: {
-    revisionDate: 1413833217000,
-    summonerLevel: 30,
-    profileIconId: 599,
-    name: "KTCure",
-    id: 19055228
-    },
-    champImg: "Teemo.png",
-    name: "ktcure"
-    }
-    ],
-    teamOne: [
-    {
-    summoner: {
-    revisionDate: 1413833352000,
-    summonerLevel: 30,
-    profileIconId: 17,
-    name: "THE DEMON CHlLD",
-    id: 19148345
-    },
-    champImg: "Khazix.png",
-    name: "thedemonchlld"
-    },
-    {
-    summoner: {
-    revisionDate: 1413833493000,
-    summonerLevel: 30,
-    profileIconId: 685,
-    name: "Swaggie Daddy",
-    id: 22683567
-    },
-    champImg: "Gnar.png",
-    name: "swaggiedaddy"
-    },
-    {
-    summoner: {
-    revisionDate: 1413769472000,
-    summonerLevel: 30,
-    profileIconId: 538,
-    name: "1013rian",
-    id: 20851060
-    },
-    champImg: "Sona.png",
-    name: "1013rian"
-    },
-    {
-    summoner: {
-    revisionDate: 1413751809000,
-    summonerLevel: 30,
-    profileIconId: 545,
-    name: "AznSneakyFellow ",
-    id: 23994633
-    },
-    champImg: "Ryze.png",
-    name: "aznsneakyfellow"
-    },
-    {
-    summoner: {
-    revisionDate: 1413781319000,
-    summonerLevel: 30,
-    profileIconId: 627,
-    name: "NÃ¬kÃ³lÃ i",
-    id: 37874755
-    },
-    champImg: "Ezreal.png",
-    name: "nÃ¬kÃ³lÃ i"
-    }
-    ]
-    },
-    bet: {
-    bet: 0,
-    playerArr:[
-      {
-      mandinh: {
-      league: "MASTER",
-      revisionDate: 1413833493000,
-      summonerLevel: 30,
-      profileIconId: 534,
-      name: "Man Dinh",
-      id: 16685
-      }
-      },
-      {
-      swaggiedaddy: {
-      league: "MASTER",
-      revisionDate: 1413833493000,
-      summonerLevel: 30,
-      profileIconId: 685,
-      name: "Swaggie Daddy",
-      id: 22683567
-      }
-      }
-]
-    },
-    active: true
-    },
-    {
-_id: "1600602919",
+  Match.create (
+{
+__v: 0,
+_id: "1603168623",
 match: {
-teamOne: [
-{
-name: "dmitriya",
-champImg: "Ahri.png",
-summoner: {
-id: 45459632,
-name: "Dmitriy A",
-profileIconId: 27,
-summonerLevel: 30,
-revisionDate: 1414099243000,
-teamId: "teamOne",
-league: "MASTER"
-}
-},
-{
-name: "tritan",
-champImg: "Lucian.png",
-summoner: {
-id: 30079,
-name: "Tritan",
-profileIconId: 22,
-summonerLevel: 30,
-revisionDate: 1414098296000,
-teamId: "teamOne",
-league: "MASTER"
-}
-},
-{
-name: "darkblight",
-champImg: "FiddleSticks.png",
-summoner: {
-id: 20924085,
-name: "DarkBlight",
-profileIconId: 505,
-summonerLevel: 30,
-revisionDate: 1414098437000,
-teamId: "teamOne",
-league: "MASTER"
-}
-},
-{
-name: "quasmire",
-champImg: "Morgana.png",
-summoner: {
-id: 50759302,
-name: "Quasmire",
-profileIconId: 607,
-summonerLevel: 30,
-revisionDate: 1414098296000,
-teamId: "teamOne",
-league: "MASTER"
-}
-},
-{
-name: "dyrus",
-champImg: "Singed.png",
-summoner: {
-id: 5908,
-name: "Dyrus",
-profileIconId: 627,
-summonerLevel: 30,
-revisionDate: 1414098769000,
-teamId: "teamOne",
-league: "DIAMOND"
-}
-}
-],
 teamTwo: [
 {
-name: "neonsurge",
-champImg: "LeeSin.png",
 summoner: {
-id: 34411039,
-name: "NeonSurge",
-profileIconId: 585,
-summonerLevel: 30,
-revisionDate: 1414098769000,
+league: "MASTER",
 teamId: "teamTwo",
-league: "MASTER"
-}
+revisionDate: 1414185514000,
+summonerLevel: 30,
+profileIconId: 28,
+name: "CatVomit",
+id: 36476938
+},
+champImg: "Xerath.png",
+name: "catvomit"
 },
 {
-name: "cris",
-champImg: "Irelia.png",
 summoner: {
-id: 21367804,
-name: "Cris",
-profileIconId: 7,
-summonerLevel: 30,
-revisionDate: 1413582627000,
+league: "DIAMOND",
 teamId: "teamTwo",
-league: "MASTER"
-}
+revisionDate: 1414187449000,
+summonerLevel: 30,
+profileIconId: 18,
+name: "TeddyNO",
+id: 59283145
+},
+champImg: "Gangplank.png",
+name: "teddyno"
 },
 {
-name: "cloudnguyen",
-champImg: "Ryze.png",
 summoner: {
-id: 30871780,
-name: "CloudNguyen",
-profileIconId: 523,
-summonerLevel: 30,
-revisionDate: 1414098769000,
+league: "MASTER",
 teamId: "teamTwo",
-league: "MASTER"
-}
+revisionDate: 1414186034000,
+summonerLevel: 30,
+profileIconId: 709,
+name: "ShorterACE",
+id: 52424
+},
+champImg: "Rengar.png",
+name: "shorterace"
 },
 {
-name: "jakehoffmann",
+summoner: {
+league: "MASTER",
+teamId: "teamTwo",
+revisionDate: 1414187406000,
+summonerLevel: 30,
+profileIconId: 546,
+name: "Harkua",
+id: 294827
+},
+champImg: "Lucian.png",
+name: "harkua"
+},
+{
+summoner: {
+league: "MASTER",
+teamId: "teamTwo",
+revisionDate: 1414146912000,
+summonerLevel: 30,
+profileIconId: 502,
+name: "Chaullenger",
+id: 20026563
+},
+champImg: "Maokai.png",
+name: "chaullenger"
+}
+],
+teamOne: [
+{
+summoner: {
+league: "MASTER",
+teamId: "teamOne",
+revisionDate: 1414187406000,
+summonerLevel: 30,
+profileIconId: 621,
+name: "HotshotGG",
+id: 407750
+},
+champImg: "Leblanc.png",
+name: "hotshotgg"
+},
+{
+summoner: {
+league: "CHALLENGER",
+teamId: "teamOne",
+revisionDate: 1414146385000,
+summonerLevel: 30,
+profileIconId: 522,
+name: "Caffeine King",
+id: 19958872
+},
+champImg: "Jayce.png",
+name: "caffeineking"
+},
+{
+summoner: {
+league: "DIAMOND",
+teamId: "teamOne",
+revisionDate: 1414187406000,
+summonerLevel: 30,
+profileIconId: 657,
+name: "54Bomb99",
+id: 31937841
+},
+champImg: "Graves.png",
+name: "54bomb99"
+},
+{
+summoner: {
+league: "MASTER",
+teamId: "teamOne",
+revisionDate: 1414187608000,
+summonerLevel: 30,
+profileIconId: 657,
+name: "GangstaSwerve",
+id: 40984753
+},
+champImg: "Rammus.png",
+name: "gangstaswerve"
+},
+{
+summoner: {
+league: "MASTER",
+teamId: "teamOne",
+revisionDate: 1414106298000,
+summonerLevel: 30,
+profileIconId: 572,
+name: "LM Porky",
+id: 20577176
+},
 champImg: "Janna.png",
-summoner: {
-id: 24153216,
-name: "jakehoffmann",
-profileIconId: 6,
-summonerLevel: 30,
-revisionDate: 1414098141000,
-teamId: "teamTwo",
-league: "MASTER"
-}
-},
-{
-name: "neryth",
-champImg: "MissFortune.png",
-summoner: {
-id: 19804152,
-name: "Neryth",
-profileIconId: 12,
-summonerLevel: 30,
-revisionDate: 1414099243000,
-teamId: "teamTwo",
-league: "MASTER"
-}
+name: "lmporky"
 }
 ]
 },
-bet: {
+bet: 0,
+active: true,
 playerArr: [
 {
-dyrus: {
-id: 5908,
-name: "Dyrus",
-profileIconId: 627,
-summonerLevel: 30,
-revisionDate: 1414098769000,
+hotshotgg: {
+league: "MASTER",
 teamId: "teamOne",
-league: "DIAMOND"
+revisionDate: 1414187406000,
+summonerLevel: 30,
+profileIconId: 621,
+name: "HotshotGG",
+id: 407750
 }
 },
-null
-],
-bet: 0
-},
-active: false,
-__v: 0,
-winner: "teamOne"
-})
+{
+harkua: {
+league: "MASTER",
+teamId: "teamTwo",
+revisionDate: 1414187406000,
+summonerLevel: 30,
+profileIconId: 546,
+name: "Harkua",
+id: 294827
+}
+}
+]
+}
 
-});
+
+
+
+    );//END
+})
 
 
 
@@ -551,6 +417,20 @@ User.find({}).remove(function() {
     name: "Cytosine",
     id: 22149390
   }
+}, {
+  provider: "local",
+  email: "harkua@harkua",
+  password: "1234",
+  summoner: {
+    indexName: "harkua",
+    revisionDate: 1414187406000,
+    summonerLevel: 30,
+    profileIconId: 546,
+    name: "Harkua",
+    id: 294827
+  },
+  wallet: 0,
+  role: "user",
 }
 
 

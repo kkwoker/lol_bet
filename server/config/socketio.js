@@ -65,7 +65,7 @@ module.exports = function (socketio) {
 
       socket.join(data.room);
       socket.room = data.room;
-      
+      console.log(data.room);
       /* Removing number of user detection for now
       if (socketio.sockets.in(data.room).sockets.length < 2) {
         socket.room = data.room;
@@ -107,12 +107,12 @@ module.exports = function (socketio) {
       socket.on('save-bet', function(data) {
         Match.findById(data.match, function (err, match) {
           if (err) { return console.log(err); }
-          var bet = {
+          var newbet = {
             bet: {
-              bet: data.bet
+              "bet": data.bet
             }
           }
-          var updated = _.merge(match, bet);
+          var updated = _.merge(match, {bet: {"bet": data.bet}});
           console.log(updated);
           updated.save(function (err) {
             if (err) { return console.log(err); }
