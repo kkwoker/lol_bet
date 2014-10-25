@@ -14,6 +14,9 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
  // Navbar styles
 
+.navbar-default .container-fluid {
+  padding-left: 50px;
+}
  .control-group.sign-in {
   float: right;
   margin-right: 50px;
