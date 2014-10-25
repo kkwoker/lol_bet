@@ -57,7 +57,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="player in player.team">
-                <td><img src="../../assets/images/champIcons/{{ player.champImg }}" alt=""></td>
+                <td><img src="/assets/images/champIcons/{{ player.champImg }}.png" alt=""></td>
                 <td>{{ player.summoner.name }}</td>
                 <td>{{ player.summoner.summonerLevel }}</td>  
               </tr>
@@ -75,7 +75,7 @@
               <tr ng-repeat="player in opponent.team">
                 <td>{{ player.summoner.summonerLevel }}</td>
                 <td>{{ player.summoner.name }}</td>
-                <td><img src="../../assets/images/champIcons/{{ player.champImg }}" alt=""></td> 
+                <td><img src="/assets/images/champIcons/{{ player.champImg }}.png" alt=""></td> 
               </tr>
             </tbody>
           </table>
