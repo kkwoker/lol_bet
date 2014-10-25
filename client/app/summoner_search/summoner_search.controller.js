@@ -54,6 +54,7 @@ angular.module('lolBetApp')
       .success(function(data){
         $scope.unregisteredSummonerFound = "yes";
         for (var i in data) {
+          console.log(data[i].id);
           $scope.user.push({ "name": data[i].name, "profile_icon_id": data[i].profileIconId, "summoner_level": data[i].summonerLevel, "indexName": data[i].indexName });
         }
       }).error(function(data){
@@ -70,6 +71,28 @@ angular.module('lolBetApp')
     $scope.online = "offline";
     $scope.summonerSearch = 'search';
     $scope.summonerDetails = [];
+    $scope.summonerStats = [];
+    $scope.getStats = getStats;
+
+
+    function getStats(id){
+      $http.get('/api/stats/'+id)
+      .success(function(data){
+
+        for (var i = 0; i < data.champions.length; i++) {
+          if( data.champions[i].id == 0) {
+            console.log(data.champions[i]);
+            $scope.showStats = "true";
+            $scope.summonerStats.push({"champions_killed": data.champions[i].stats.mostChampionKillsPerSession, "total_sessions_played": data.champions[i].stats.totalSessionsPlayed,
+            "max_num_deaths": data.champions[i].stats.maxNumDeaths, "total_sessions_won": data.champions[i].stats.totalSessionsWon, "total_sessions_lost": data.champions[i].stats.totalSessionsLost,
+            "max_killing_spree": data.champions[i].stats.maxLargestKillingSpree, "total_damage_dealt": data.champions[i].stats.totalDamageDealt, "total_damage_taken": data.champions[i].stats.totalDamageTaken,
+            "total_minions_killed": data.champions[i].stats.totalMinionKills });
+          }
+        }
+       }).error(function(data) {
+        console.log(data);
+      });
+    }
 
     $http.get('/api/matches/search/'+$routeParams.param1)
       .success(function(data){
@@ -81,7 +104,7 @@ angular.module('lolBetApp')
     $http.get('/api/users')
       .success(function(data){
       var result = $.grep(data, function(e){ return e.summoner != null && e.summoner.indexName == $routeParams.param1; });
-      $scope.summonerDetails.push({"name": result[0].summoner.name, "profile_icon_id": result[0].summoner.profileIconId, "summoner_level": result[0].summoner.summonerLevel});
+      $scope.summonerDetails.push({"name": result[0].summoner.name, "profile_icon_id": result[0].summoner.profileIconId, "summoner_level": result[0].summoner.summonerLevel, "id": result[0].summoner.id});
     }).error(function(data) {
       console.log(data);
     });

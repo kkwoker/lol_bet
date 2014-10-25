@@ -70,16 +70,32 @@
               <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
            </td>
            <td>
-            <ul><br/>
-              <li>Games Played:</li>
-              <li>Win/Loss Ratio:</li>
-              <li>Bitcoins Earned:</li>
-              <li>Minions Killed:</li>
-            </ul>
+            <button ng-click="getStats(summoner.id)">See {{summoner.name}}'s' Ranked Stats</button>
+            
            </td>
           </tr>
         </table>
       </div>
+      <table class="span5 table">
+        <tr ng-repeat="summoner in summonerStats">
+          <td>
+            Total Sessions Played: {{summoner.total_sessions_played}}<br/>
+            Total Sessions Won: {{summoner.total_sessions_won}}<br/>
+            Total Sessions Lost: {{summoner.total_sessions_lost}}
+          </td>
+          <td>
+            Max Champions killed: {{summoner.champions_killed}}<br/>
+            Highest Killing Spree: {{summoner.max_killing_spree}}<br/>
+            Max Number of Deaths: {{summoner.max_num_deaths}}
+          </td>
+          <td>
+            Total Damage Dealt: {{summoner.total_damage_dealt}}<br/>
+            Total Damage Taken: {{summoner.total_damage_taken}}<br/>
+            Total Minions Killed: {{summoner.total_minions_killed}}
+          </td>
+
+        </tr>
+      </table>
     </div>
 
   </div>
