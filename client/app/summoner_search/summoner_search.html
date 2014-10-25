@@ -41,7 +41,7 @@
             <img width="50" height="auto" src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
           </td>
           <td>
-             <a href="/summoner_search/{{summoner.indexName}}">Profile</a>
+             <a href="/summoner_search/{{summoner.indexName}}/{{summoner.id}}">Profile</a>
           </td>
         </tr>
         <caption class="pagination-links">
@@ -61,22 +61,14 @@
     </div>
 
     <div ngShow="summonerView">
-      <div>
-        <table class="span5 table">
 
-          <tr ng-repeat="summoner in summonerDetails">
-            <td style="text-align:center;">
-              {{summoner.name}} level {{summoner.summoner_level}}<br/>
-              <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
-           </td>
-           <td>
-            <button ng-click="getStats(summoner.id)">See {{summoner.name}}'s' Ranked Stats</button>
-            
-           </td>
-          </tr>
-        </table>
-      </div>
-      <table class="span5 table">
+    <div>
+        <div ng-repeat="summoner in summonerDetails" >
+              <span class="summoner-details"> {{summoner.name}} level: {{summoner.summoner_level}}</span>
+              <img  align="left" src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
+        </div>
+      <table class="span5 table" id="stats_table">
+        <tr><th>Ranked Statistics</th></tr>
         <tr ng-repeat="summoner in summonerStats">
           <td>
             Total Sessions Played: {{summoner.total_sessions_played}}<br/>
@@ -96,6 +88,7 @@
 
         </tr>
       </table>
+    </div>
     </div>
 
   </div>

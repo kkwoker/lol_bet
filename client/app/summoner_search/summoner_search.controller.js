@@ -16,8 +16,10 @@ angular.module('lolBetApp')
       .success(function(data){
     for (var i = 0; i < data.length; i++ ) {
       if (data[i].summoner) {
+
         $scope.userCount = i;
-        $scope.userObject.push( { "name": data[i].summoner.name, "profile_icon_id": data[i].summoner.profileIconId, "summoner_level": data[i].summoner.summonerLevel, "indexName": data[i].summoner.indexName } );
+        $scope.userObject.push( { "name": data[i].summoner.name, "profile_icon_id": data[i].summoner.profileIconId, 
+          "summoner_level": data[i].summoner.summonerLevel, "indexName": data[i].summoner.indexName, "id": data[i].summoner.id } );
       }
     }
     pageCount($scope.userCount);
@@ -72,17 +74,12 @@ angular.module('lolBetApp')
     $scope.summonerSearch = 'search';
     $scope.summonerDetails = [];
     $scope.summonerStats = [];
-    $scope.getStats = getStats;
-
-
-    function getStats(id){
-      $http.get('/api/stats/'+id)
+  
+    $http.get('/api/stats/'+$routeParams.param2)
       .success(function(data){
-
         for (var i = 0; i < data.champions.length; i++) {
           if( data.champions[i].id == 0) {
             console.log(data.champions[i]);
-            $scope.showStats = "true";
             $scope.summonerStats.push({"champions_killed": data.champions[i].stats.mostChampionKillsPerSession, "total_sessions_played": data.champions[i].stats.totalSessionsPlayed,
             "max_num_deaths": data.champions[i].stats.maxNumDeaths, "total_sessions_won": data.champions[i].stats.totalSessionsWon, "total_sessions_lost": data.champions[i].stats.totalSessionsLost,
             "max_killing_spree": data.champions[i].stats.maxLargestKillingSpree, "total_damage_dealt": data.champions[i].stats.totalDamageDealt, "total_damage_taken": data.champions[i].stats.totalDamageTaken,
@@ -92,7 +89,7 @@ angular.module('lolBetApp')
        }).error(function(data) {
         console.log(data);
       });
-    }
+    
 
     $http.get('/api/matches/search/'+$routeParams.param1)
       .success(function(data){
