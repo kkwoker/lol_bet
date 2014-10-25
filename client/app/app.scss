@@ -11,6 +11,14 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  body {
   font-family: 'Averia Serif Libre', cursive;
  }
+
+ // Navbar styles
+
+ .control-group.sign-in {
+  float: right;
+  margin-right: 50px;
+ }
+ 
 .btc-logo {
   width: 25px;
   position: relative;

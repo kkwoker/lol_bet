@@ -29,7 +29,7 @@ exports.create = function(req, res) {
   console.log("connected test");
   var transaction = {};
   var user_id = req.body.user_id;
-  var callback_url = encodeURIComponent(keys.DOMAIN + '/btc_transactions/confirm');
+  var callback_url = encodeURIComponent(keys.DOMAIN + '/api/btc_transactions/confirm');
   var url = 'https://blockchain.info/api/receive?method=create&address=' + keys.BITCOIN_ADDRESS +'&callback=' + callback_url;
   console.log(callback_url);
 
