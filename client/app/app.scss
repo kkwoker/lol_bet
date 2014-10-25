@@ -9,8 +9,22 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  */
 
  body {
-  font-family: 'Averia Serif Libre', cursive;
+  font-family: 'Averia Serif Libre', san-serif;
  }
+
+ // Navbar styles
+
+.navbar-default .container-fluid {
+  padding: 0 50px;
+}
+ .control-group.sign-in {
+  float: right;
+  
+  input {
+    width: 200px;
+  }
+ }
+ 
 .btc-logo {
   width: 25px;
   position: relative;
