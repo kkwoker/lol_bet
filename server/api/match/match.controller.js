@@ -112,7 +112,7 @@ exports.search = function(req, res){
       for(var i in champs){
         for(var c in allChamps){
           if(champs[i] == allChamps[c].id){
-            champs[i] = allChamps[c].image.full
+            champs[i] = allChamps[c].key;
           }
         }
       }
