@@ -22,22 +22,24 @@ angular.module('lolBetApp')
       $scope.loading = true;
 
       function getGame() {
-        if (!$scope.loading) { return false; }
-
         $http.get(url)
           .success(function(data) {
+            if (!data._id) { 
+              $timeout(function() {
+                if ($scope.loading) { getGame(); }
+              }, 2000);
+            }
             $scope.loading = false;
             currentMatch.setMatch(data._id);
             $location.url('/match');
-            console.log(data);
           })
           .error(function(response, status) {
-           $timeout(function() {
-              getGame();
-            }, 5000);
-
             console.log(response, status);
+            $timeout(function() {
+              if ($scope.loading) { getGame(); }
+            }, 5000);
         });
+
       }
 
       $(document).on('keyup', function(event) {
@@ -48,7 +50,6 @@ angular.module('lolBetApp')
 
       getGame();
     };
-
   }])
 
 .controller('RecentMatchesCtrl', ['$scope', '$http',
@@ -64,15 +65,15 @@ angular.module('lolBetApp')
           $scope.matches[i].team1Champs = data[i].match.teamOne.map(function(val){
             // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
             return '../../assets/images/champIcons/' + val.champImg;
-          })
+          });
           $scope.matches[i].team2Champs = data[i].match.teamTwo.map(function(val){
             // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
             return '../../assets/images/champIcons/' + val.champImg;
 
-          })
+          });
           $scope.matches[i].winner = data[i].winner;
 
         }
-      })
+      });
     }
-  ])
+  ]);

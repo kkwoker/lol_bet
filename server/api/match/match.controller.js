@@ -36,7 +36,7 @@ exports.search = function(req, res){
     unirest.get("https://community-league-of-legends.p.mashape.com/api/v1.0/na/summoner/retrieveInProgressSpectatorGameInfo/"+ summonerName)
         .header("X-Mashape-Key", keys.MASHAPE_API_KEY)
         .end(function (result) {
-          if(result.body.success){
+          if(result.body && result.body.success){
             console.log("THERE IS NO MATCH");
             return res.json(404, result.body);
           }else{
