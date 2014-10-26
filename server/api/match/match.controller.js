@@ -285,7 +285,7 @@ exports.gameCompletion = function(req, res){
   // console.log(url);
   request(url, function(err, response, body){
   //   console.log(response.statusCode);
-    if(response.statusCode == "404"){
+    if(response && response.statusCode == "404"){
       return res.json(200, {"finished": false}) 
     }else if(response.statusCode == "200"){
       var jsonBody = JSON.parse(body);
@@ -305,6 +305,7 @@ exports.gameCompletion = function(req, res){
 
       // Update active state of match
       Match.findById(gameId, function (err, match) {
+        console.log(match);
         if (err) { return res.json(200, obj); }
         if(!match) { return res.send(404); }
         var updated = _.merge(match, {"active": false, "winner": winner});

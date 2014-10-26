@@ -4,29 +4,32 @@
   <div class="col-sm-12 col-md-8 col-md-offset-2 home-box" style="overflow: scroll; height:80%; padding:10px;">
     <div class="home-header" >
       <div class="left">
-        <p class="{{online}}">{{online}}</p>
+      <p ng-show="online">
+        Game Status: <span class="{{online}}">{{online}}</span><br/>
+      </p>
         <form novalidate class="simple-form">
-          <input ng-hide="summonerView" ng-click="listSummoners()" class="ng-hide" type="text" ng-model="sm_name" ng-change="summoner_name=sn_number" placeholder="Search Summoners"/>
-        </form>
+          <input autofocus ng-hide="summonerView" ng-click="listSummoners()" class="ng-hide" type="text" ng-model="sm_name" ng-change="summoner_name=sn_number" placeholder="Search Summoners"/>
+        </form><br/>
+        <a ng-show="online || unregisteredSummonerFound==='yes'" class="back" ng-click="route.reload()" href="/summoner_search">Back</a>
       </div>
     </div>
-
 
     <div ng-hide="summonerView" class="ng-hide">
 
       <div ng-show="(filteredSummoners | filter:summoner_name).length == 0">
-        <div ng-hide="cantFind=='true'" class="ng-hide">
+        <div ng-hide="cantFind=='true'">
           Sorry, it appears that {{summoner_name}} isn't registered with us<br/>
           Check if <strong>{{summoner_name}}</strong> has a League of Legends account?
           <button ng-click="checkSummoner(summoner_name)">Search</button>
         </div>
-        
-          <ul class="summonerFilter">
-            <li><a href="http://www.lolnexus.com/NA/search?name={{user[0].name}}">{{user[0].name}}</a></li>
-            <li><img src="https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{user[0].profile_icon_id}}.png"</img></li>
-            <li>{{user[0].summoner_level}}</li>
-          </ul>
+
+        <div class="summoner-details" ng-show="unregisteredSummonerFound === 'yes'">
+          <p> 
+          <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{user[0].profile_icon_id}}.png'/>
+          {{user[0].name}}<br/>level: {{user[0].summoner_level}}
+          </p>
         </div>
+      </div>
 
       <table class="span5 table" ng-show="(filteredSummoners | filter:summoner_name).length != 0">
         <thead>
@@ -41,7 +44,7 @@
             <img width="50" height="auto" src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
           </td>
           <td>
-             <a href="/summoner_search/{{summoner.indexName}}">Profile</a>
+             <a href="/summoner_search/{{summoner.indexName}}/{{summoner.id}}">Profile</a>
           </td>
         </tr>
         <caption class="pagination-links">
@@ -60,27 +63,36 @@
 
     </div>
 
-    <div ngShow="summonerView">
-      <div>
-        <table class="span5 table">
-
-          <tr ng-repeat="summoner in summonerDetails">
-            <td style="text-align:center;">
-              {{summoner.name}} level {{summoner.summoner_level}}<br/>
-              <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
-           </td>
-           <td>
-            <ul><br/>
-              <li>Games Played:</li>
-              <li>Win/Loss Ratio:</li>
-              <li>Bitcoins Earned:</li>
-              <li>Minions Killed:</li>
-            </ul>
-           </td>
-          </tr>
-        </table>
-      </div>
+    {{noSummoner}}
+    <div class="summoner-details" ng-repeat="summoner in summonerDetails" >
+      <p> 
+        <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
+        {{summoner.name}}<br/>level: {{summoner.summoner_level}}
+      </p>
     </div>
+  <table ng-show="foundStats == 'true'" class="span5 table" id="stats_table">
+    <tr><th>Ranked Statistics</th></tr>
+    <tr ng-repeat="summoner in summonerStats">
+      <td>
+        Total Sessions Played: {{summoner.total_sessions_played}}<br/>
+        Total Sessions Won: {{summoner.total_sessions_won}}<br/>
+        Total Sessions Lost: {{summoner.total_sessions_lost}}
+      </td>
+      <td>
+        Max Champions killed: {{summoner.champions_killed}}<br/>
+        Highest Killing Spree: {{summoner.max_killing_spree}}<br/>
+        Max Number of Deaths: {{summoner.max_num_deaths}}
+      </td>
+      <td>
+        Total Damage Dealt: {{summoner.total_damage_dealt}}<br/>
+        Total Damage Taken: {{summoner.total_damage_taken}}<br/>
+        Total Minions Killed: {{summoner.total_minions_killed}}
+      </td>
+
+    </tr>
+  </table>
+</div>
+</div>
 
   </div>
 </header>

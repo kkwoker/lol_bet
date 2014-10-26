@@ -7,8 +7,10 @@ angular.module('lolBetApp')
         templateUrl: 'app/match/match.html',
         controller: 'MatchCtrl',
         resolve: {
-          matchData: function($http, currentMatch) {
-            var url = '/api/matches/' + currentMatch.getMatch();
+          matchData: function($http, $location, currentMatch) {
+            var match = currentMatch.getMatch();
+            if (!match) { $location.url('/home'); }
+            var url = '/api/matches/' + match;
             var result = $http.get(url)
               .success(function(data) {
                 return data;

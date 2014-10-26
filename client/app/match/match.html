@@ -12,6 +12,9 @@
       <div class="col-sm-12 status complete animate flip-in" ng-show="match.complete">
         <h3>Betting has completed. Good Luck!</h3>
       </div>
+      <div class="col-sm-12 status error animate flip-in" ng-show="error">
+        <h3>{{ error }}</h3>
+      </div>
       <div class="col-sm-12 col-md-5 player">
         <div class="player-inner">
           <h2>{{ player.name }}</h2>
@@ -20,12 +23,18 @@
           </div>
           <div class="col-md-4 bet-input" ng-hide="match.complete">
             <input type="number" min="0" ng-model="player.bet" ng-change="sendBet()">
-            <button class="btn-large btn-large-primary confirm" ng-class="{ active: player.lockedIn == player.bet }" ng-click="lockIn()">Lock In</button>
+            <button class="btn-large btn-large-primary confirm" ng-class="{ active: player.lockedIn == player.bet }" ng-click="lockIn()">{{ player.lockedIn == player.bet ? 'Locked' : 'Lock In' }}</button>
+          </div>
+          <div class="col-md-4 bet-input" ng-show="match.complete">
+            <button class="btn-large btn-large-primary complete" ng-click="gameComplete()">Game Complete</button>
           </div>
           <div class="col-sm-4 bet-details">
             <h4><small>Max bet: </small>{{ player.bet }}mBit</h4>
             <p>$0 USD</p>
           </div>
+        </div>
+        <div class="col-sm-12">
+          <p>Wallet {{ player.wallet }}</p>
         </div>
       </div>
       <div class="col-md-2 pot">
@@ -57,7 +66,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="player in player.team">
-                <td><img src="../../assets/images/champIcons/{{ player.champImg }}" alt=""></td>
+                <td><img src="/assets/images/champIcons/{{ player.champImg }}.png" alt=""></td>
                 <td>{{ player.summoner.name }}</td>
                 <td>{{ player.summoner.summonerLevel }}</td>  
               </tr>
@@ -75,7 +84,7 @@
               <tr ng-repeat="player in opponent.team">
                 <td>{{ player.summoner.summonerLevel }}</td>
                 <td>{{ player.summoner.name }}</td>
-                <td><img src="../../assets/images/champIcons/{{ player.champImg }}" alt=""></td> 
+                <td><img src="/assets/images/champIcons/{{ player.champImg }}.png" alt=""></td> 
               </tr>
             </tbody>
           </table>
