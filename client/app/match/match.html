@@ -22,6 +22,9 @@
             <input type="number" min="0" ng-model="player.bet" ng-change="sendBet()">
             <button class="btn-large btn-large-primary confirm" ng-class="{ active: player.lockedIn == player.bet }" ng-click="lockIn()">Lock In</button>
           </div>
+          <div class="col-md-4 bet-input" ng-show="match.complete">
+            <button class="btn-large btn-large-primary confirm" ng-click="gameComplete()">Game Complete</button>
+          </div>
           <div class="col-sm-4 bet-details">
             <h4><small>Max bet: </small>{{ player.bet }}mBit</h4>
             <p>$0 USD</p>

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('lolBetApp')
-  .controller('MatchCtrl', ['$scope', '$interval', 'matchData', 'currentUser', 'socket',
-    function ($scope, $interval, matchData, currentUser, socket) {
+  .controller('MatchCtrl', ['$scope', '$interval', '$http', '$location', 'matchData', 'currentMatch', 'currentUser', 'socket',
+    function ($scope, $interval, $http, $location, matchData, currentMatch, currentUser, socket) {
     $scope.player = {
       indexName: currentUser.summoner.indexName,
       name: currentUser.summoner.name,
@@ -44,6 +44,24 @@ angular.module('lolBetApp')
         }
       });
     });
+
+    // Check for game's completion
+    $scope.gameComplete = function() {
+      console.log('checking for game completion');
+      var url = '/api/matches/gameCompletion/' + matchData.data._id;
+      $http.get(url)
+        .success(function(data) {
+          console.log(data);
+          if (data.finished) {
+            currentMatch.setMatch('');
+            $location.url('/home');
+          }
+        })
+        .error(function(response, status) {
+          console.log(response);
+          console.log(status);
+      });
+    };
 
     
     // Send a bet
