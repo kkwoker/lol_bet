@@ -118,3 +118,94 @@ p.offline {
 ul.summonerFilter{
   list-style-type:none;
 }
+
+.nav-styles{
+  z-index: 1;
+  position: absolute;
+  background: rgba(24, 24, 24, 0.86);
+  height: 700px;
+  top: 0px;
+  left: -185px;
+  transition: all 1s;
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  and (orientation : landscape) { 
+    font-size: 14px;
+    left: -150px;
+    z-index: 10000;
+    top: 0px;
+  }
+}
+
+.nav-show{
+  left: 0px;
+  color: green;
+  transition: all 1s;
+}
+
+.slider-button{
+  position: absolute;
+  float: right;
+  color: white;
+  left: 30px;
+  top: 7px;
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  and (orientation : landscape) { 
+    left: 160px;
+    top: -150px;
+  }
+
+}
+
+
+/* Hamburgers yum */
+#nav-toggle { 
+  position: absolute;
+  left: 50%; 
+  top: 50%; 
+  left: -25px;
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  { 
+
+  }
+}
+
+#nav-toggle { cursor: pointer; padding: 10px 35px 16px 0px; }
+#nav-toggle span, #nav-toggle span:before, #nav-toggle span:after {
+
+  cursor: pointer;
+  border-radius: 1px;
+  height: 5px;
+  width: 35px;
+  background: white;
+  position: absolute;
+  display: block;
+  content: '';
+}
+#nav-toggle span:before {
+  top: -10px; 
+}
+#nav-toggle span:after {
+  bottom: -10px;
+}
+
+#nav-toggle span, #nav-toggle span:before, #nav-toggle span:after {
+  transition: all 500ms ease-in-out;
+}
+#nav-toggle.active span {
+  background-color: transparent;
+}
+#nav-toggle.active span:before, #nav-toggle.active span:after {
+  top: 0;
+}
+#nav-toggle.active span:before {
+  transform: rotate(45deg);
+}
+#nav-toggle.active span:after {
+  transform: rotate(-45deg);
+}

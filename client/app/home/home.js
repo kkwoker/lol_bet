@@ -8,3 +8,5 @@ angular.module('lolBetApp')
         controller: 'HomeCtrl'
       });
   });
+
+
