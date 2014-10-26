@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('lolBetApp')
-  .controller('SummonerSearchCtrl', ['$scope', '$http', '$location', 'Auth', 'Pagination',
-    function ($scope, $http, $location, Auth, Pagination) {
+  .controller('SummonerSearchCtrl', ['$scope', '$http', '$location', '$route', 'Auth', 'Pagination',
+    function ($scope, $http, $location, $route, Auth, Pagination) {
     $scope.user = [];
     $scope.userObject = [];
     $scope.userCount = [];
@@ -13,6 +13,8 @@ angular.module('lolBetApp')
     $scope.emptyUser = emptyUser;
     $scope.displayStats = displayStats;
     $scope.summonerStats = [];
+    $scope.route = $route;
+   
     
     $http.get('/api/users')
       .success(function(data){

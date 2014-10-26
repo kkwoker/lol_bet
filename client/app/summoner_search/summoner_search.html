@@ -6,11 +6,11 @@
       <div class="left">
       <p ng-show="online">
         Game Status: <span class="{{online}}">{{online}}</span><br/>
-        <a class="back" href="/summoner_search">Back</a>
       </p>
         <form novalidate class="simple-form">
           <input autofocus ng-hide="summonerView" ng-click="listSummoners()" class="ng-hide" type="text" ng-model="sm_name" ng-change="summoner_name=sn_number" placeholder="Search Summoners"/>
-        </form>
+        </form><br/>
+        <a ng-show="online || unregisteredSummonerFound==='yes'" class="back" ng-click="route.reload()" href="/summoner_search">Back</a>
       </div>
     </div>
 
