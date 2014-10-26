@@ -90,18 +90,13 @@
       </td>
     </tr>
   </table>
-<!--   <table ng-show="foundStats == 'true'" class="span5 table" id="stats_table">
-    <tr><th>Summary Statistics</th></tr>
-    <tr ng-repeat="summoner in summonerAggregatedStats">
-      <td>{{summoner.playerStatSummaryType}}</td>
-      <td><div ng-repeat="(key, value) in summoner.aggregatedStats">{{key+ " : "+value}}</div></td>
-    </tr>
-  </table> -->
+
   <div ng-show="foundStats == 'true'">
   <p style="font-size:1.05em;">Summary Statistics</p>
-  <p style="font-size:.85em;">(Hover over Summary type to display stats)</p>
+
   <p style="float:left; padding:5px; margin:5px;" ng-repeat="summoner in summonerAggregatedStats">
     <strong>{{summoner.playerStatSummaryType}}</strong>
+    <span ng-repeat="(key,value) in summoner.aggregatedStats">{{key+" "+value}}</span>
   </p>
 </div>
 </div>
@@ -109,3 +104,4 @@
 
   </div>
 </header>
+
