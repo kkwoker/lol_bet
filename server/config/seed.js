@@ -52,7 +52,7 @@ profileIconId: 28,
 name: "CatVomit",
 id: 36476938
 },
-champImg: "Xerath.png",
+champImg: "Xerath",
 name: "catvomit"
 },
 {
@@ -65,7 +65,7 @@ profileIconId: 18,
 name: "TeddyNO",
 id: 59283145
 },
-champImg: "Gangplank.png",
+champImg: "Gangplank",
 name: "teddyno"
 },
 {
@@ -78,7 +78,7 @@ profileIconId: 709,
 name: "ShorterACE",
 id: 52424
 },
-champImg: "Rengar.png",
+champImg: "Rengar",
 name: "shorterace"
 },
 {
@@ -91,7 +91,7 @@ profileIconId: 546,
 name: "Harkua",
 id: 294827
 },
-champImg: "Lucian.png",
+champImg: "Lucian",
 name: "harkua"
 },
 {
@@ -104,7 +104,7 @@ profileIconId: 502,
 name: "Chaullenger",
 id: 20026563
 },
-champImg: "Maokai.png",
+champImg: "Maokai",
 name: "chaullenger"
 }
 ],
@@ -119,7 +119,7 @@ profileIconId: 621,
 name: "HotshotGG",
 id: 407750
 },
-champImg: "Leblanc.png",
+champImg: "Leblanc",
 name: "hotshotgg"
 },
 {
@@ -132,7 +132,7 @@ profileIconId: 522,
 name: "Caffeine King",
 id: 19958872
 },
-champImg: "Jayce.png",
+champImg: "Jayce",
 name: "caffeineking"
 },
 {
@@ -145,7 +145,7 @@ profileIconId: 657,
 name: "54Bomb99",
 id: 31937841
 },
-champImg: "Graves.png",
+champImg: "Graves",
 name: "54bomb99"
 },
 {
@@ -158,7 +158,7 @@ profileIconId: 657,
 name: "GangstaSwerve",
 id: 40984753
 },
-champImg: "Rammus.png",
+champImg: "Rammus",
 name: "gangstaswerve"
 },
 {
@@ -171,7 +171,7 @@ profileIconId: 572,
 name: "LM Porky",
 id: 20577176
 },
-champImg: "Janna.png",
+champImg: "Janna",
 name: "lmporky"
 }
 ]
@@ -254,7 +254,8 @@ User.find({}).remove(function() {
         profileIconId: 621,
         summonerLevel: 30,
         revisionDate: 1414187406000
-      }
+      },
+    wallet: 19738326
   }, {
     provider: 'local',
     name: 'Swaggie Daddy',
@@ -442,7 +443,7 @@ User.find({}).remove(function() {
     name: "Harkua",
     id: 294827
   },
-  wallet: 0,
+  wallet: 140000000,
   role: "user",
 }
 

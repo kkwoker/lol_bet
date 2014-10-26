@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('lolBetApp')
-  .controller('MatchCtrl', ['$scope', '$interval', 'matchData', 'currentUser', 'socket',
-    function ($scope, $interval, matchData, currentUser, socket) {
+  .controller('MatchCtrl', ['$scope', '$interval', '$http', '$location', 'matchData', 'currentMatch', 'currentUser', 'socket',
+    function ($scope, $interval, $http, $location, matchData, currentMatch, currentUser, socket) {
     $scope.player = {
       indexName: currentUser.summoner.indexName,
       name: currentUser.summoner.name,
@@ -45,6 +45,24 @@ angular.module('lolBetApp')
       });
     });
 
+    // Check for game's completion
+    $scope.gameComplete = function() {
+      console.log('checking for game completion');
+      var url = '/api/matches/gameCompletion/' + matchData.data._id;
+      $http.get(url)
+        .success(function(data) {
+          console.log(data);
+          if (data.finished) {
+            currentMatch.setMatch('');
+            $location.url('/home');
+          }
+        })
+        .error(function(response, status) {
+          console.log(response);
+          console.log(status);
+      });
+    };
+
     
     // Send a bet
     $scope.sendBet = function() {
@@ -60,8 +78,9 @@ angular.module('lolBetApp')
     // Join or create a betting room
     socket.socket.on('connect', function() {
       socket.socket.emit('join-room', { 
-        room: matchData.data._id, 
-        user: currentUser._id, 
+        room: matchData.data._id,
+        user: currentUser._id,
+        status: $scope.match.complete
       });
 
       socket.socket.on('status', function() {
