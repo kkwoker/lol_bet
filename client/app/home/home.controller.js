@@ -42,12 +42,6 @@ angular.module('lolBetApp')
 
       }
 
-      $(document).on('keyup', function(event) {
-        if (event.keyCode === 27) { 
-         $scope.loading = false;
-        }
-      });
-
       getGame();
     };
   }])

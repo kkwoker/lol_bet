@@ -55,15 +55,25 @@
   left: 0px;
   top: 0;
   padding: 200px;
+  
+  .loading-box {
+    width: 425px;
+    margin: 0 auto;
+    background: rgba(36, 36, 30, 1);
+    padding: 15px 0;
 
-  .loading-ball {
+    .loading-ball {
       position: relative;
-      right: 14px;
       top: 17px;  
-  }
+    }
 
-  h3 {
-      color: #E2E1E1;
+    h3 {
+        color: #E2E1E1;
+    }
+
+    button {
+      border-radius: 0;
+    }
   }
 }
 
