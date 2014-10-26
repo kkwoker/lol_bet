@@ -109,14 +109,14 @@ angular.module('lolBetApp')
         $scope.pot = data.pot;
       });
 
-      socket.socket.on('betting-complete', function() {
+      socket.socket.on('betting-complete', function(data) {
         $scope.match.start = false;
         $scope.match.confirmed = false;
         $scope.match.complete = true;
+        $scope.pot = $scope.pot || data.pot;
         if ($scope.opponent.lockedIn && $scope.player.lockedIn) {
           socket.socket.emit('save-bet', { match: matchData.data._id, bet: $scope.pot });
         }
-        socket.socket.removeAllListeners();
       });
     });
   }]);

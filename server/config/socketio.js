@@ -70,7 +70,7 @@ module.exports = function (socketio) {
 
       Match.findById(data.room, function(err, match) {
         if (match.bet !== 0) {
-          socket.emit('betting-complete');
+          socket.emit('betting-complete', { pot: match.bet });
           socket.disconnect();
         }
       });
@@ -125,6 +125,8 @@ module.exports = function (socketio) {
             if (err) { return console.log(err); }
           });
         });
+
+        socket.disconnect();
       })
     })
   });
