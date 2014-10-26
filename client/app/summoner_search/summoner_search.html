@@ -6,7 +6,7 @@
       <div class="left">
         <p class="{{online}}">{{online}}</p>
         <form novalidate class="simple-form">
-          <input ng-hide="summonerView" ng-click="listSummoners()" class="ng-hide" type="text" ng-model="sm_name" ng-change="summoner_name=sn_number" placeholder="Search Summoners"/>
+          <input autofocus ng-hide="summonerView" ng-click="listSummoners()" class="ng-hide" type="text" ng-model="sm_name" ng-change="summoner_name=sn_number" placeholder="Search Summoners"/>
         </form>
       </div>
     </div>
@@ -60,36 +60,34 @@
 
     </div>
 
-    <div ngShow="summonerView">
-
-    <div>
-        <div ng-repeat="summoner in summonerDetails" >
-              <span class="summoner-details"> {{summoner.name}} level: {{summoner.summoner_level}}</span>
-              <img  align="left" src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
-        </div>
-      <table class="span5 table" id="stats_table">
-        <tr><th>Ranked Statistics</th></tr>
-        <tr ng-repeat="summoner in summonerStats">
-          <td>
-            Total Sessions Played: {{summoner.total_sessions_played}}<br/>
-            Total Sessions Won: {{summoner.total_sessions_won}}<br/>
-            Total Sessions Lost: {{summoner.total_sessions_lost}}
-          </td>
-          <td>
-            Max Champions killed: {{summoner.champions_killed}}<br/>
-            Highest Killing Spree: {{summoner.max_killing_spree}}<br/>
-            Max Number of Deaths: {{summoner.max_num_deaths}}
-          </td>
-          <td>
-            Total Damage Dealt: {{summoner.total_damage_dealt}}<br/>
-            Total Damage Taken: {{summoner.total_damage_taken}}<br/>
-            Total Minions Killed: {{summoner.total_minions_killed}}
-          </td>
-
-        </tr>
-      </table>
+    {{noSummoner}}
+    <div ng-repeat="summoner in summonerDetails" >
+          <span class="summoner-details"> {{summoner.name}} level: {{summoner.summoner_level}}</span>
+          <img  align="left" src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
     </div>
-    </div>
+  <table ng-show="foundStats == 'true'" class="span5 table" id="stats_table">
+    <tr><th>Ranked Statistics</th></tr>
+    <tr ng-repeat="summoner in summonerStats">
+      <td>
+        Total Sessions Played: {{summoner.total_sessions_played}}<br/>
+        Total Sessions Won: {{summoner.total_sessions_won}}<br/>
+        Total Sessions Lost: {{summoner.total_sessions_lost}}
+      </td>
+      <td>
+        Max Champions killed: {{summoner.champions_killed}}<br/>
+        Highest Killing Spree: {{summoner.max_killing_spree}}<br/>
+        Max Number of Deaths: {{summoner.max_num_deaths}}
+      </td>
+      <td>
+        Total Damage Dealt: {{summoner.total_damage_dealt}}<br/>
+        Total Damage Taken: {{summoner.total_damage_taken}}<br/>
+        Total Minions Killed: {{summoner.total_minions_killed}}
+      </td>
+
+    </tr>
+  </table>
+</div>
+</div>
 
   </div>
 </header>
