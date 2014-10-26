@@ -27,6 +27,10 @@
     &.complete {
       background: rgba(14, 169, 16, 0.54);
     }
+
+    &.error {
+      background: rgba(242, 33, 33, 0.54);
+    }
   }
 
   .pot {

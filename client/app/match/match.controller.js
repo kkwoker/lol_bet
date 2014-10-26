@@ -7,6 +7,7 @@ angular.module('lolBetApp')
       indexName: currentUser.summoner.indexName,
       name: currentUser.summoner.name,
       bet: 0,
+      wallet: currentUser.wallet / 100000,
       iconUrl:'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + currentUser.summoner.profileIconId + '.png'
     };
     $scope.opponent = {
@@ -20,7 +21,7 @@ angular.module('lolBetApp')
       complete: false
     };
     console.log(matchData);
-
+    console.log(currentUser);
     $scope.match.timer = $scope.match.timer || 60;
 
     // Get the opposing player
@@ -71,8 +72,13 @@ angular.module('lolBetApp')
 
     // Lock in bet
     $scope.lockIn = function() {
-      $scope.player.lockedIn = $scope.player.bet;
-      socket.socket.emit('bet', { bet: $scope.player.bet, lockedIn: $scope.player.lockedIn });
+      if ($scope.player.bet < $scope.player.wallet) {
+        $scope.error = '';
+        $scope.player.lockedIn = $scope.player.bet;
+        socket.socket.emit('bet', { bet: $scope.player.bet, lockedIn: $scope.player.lockedIn });
+      } else {
+        $scope.error = 'Error: That\'s more than you have';
+      }
     };
 
     // Join or create a betting room

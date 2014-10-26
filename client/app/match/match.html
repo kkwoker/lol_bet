@@ -12,6 +12,9 @@
       <div class="col-sm-12 status complete animate flip-in" ng-show="match.complete">
         <h3>Betting has completed. Good Luck!</h3>
       </div>
+      <div class="col-sm-12 status error animate flip-in" ng-show="error">
+        <h3>{{ error }}</h3>
+      </div>
       <div class="col-sm-12 col-md-5 player">
         <div class="player-inner">
           <h2>{{ player.name }}</h2>
@@ -29,6 +32,9 @@
             <h4><small>Max bet: </small>{{ player.bet }}mBit</h4>
             <p>$0 USD</p>
           </div>
+        </div>
+        <div class="col-sm-12">
+          <p>Wallet {{ player.wallet }}</p>
         </div>
       </div>
       <div class="col-md-2 pot">
