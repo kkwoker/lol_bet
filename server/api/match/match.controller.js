@@ -20,13 +20,12 @@ exports.index = function(req, res) {
 exports.search = function(req, res){
   var summonerName = req.params.indexName;
   var nameInTeam1or2 = {$or : [{"match.teamOne.name": summonerName}, {"match.teamTwo.name": summonerName}]};
-  console.log(summonerName);
+  console.log("Searching match for : " + summonerName);
   Match.findOne(nameInTeam1or2).where('active').equals(true).exec(function(err, match){
     if(match){
       console.log("Found a match in the database");
       return res.json(200, match);
     }else{
-      console.log("Did not find a match in the database");
       return lookForMatchAtRiot(summonerName);
     }
   })
@@ -37,16 +36,16 @@ exports.search = function(req, res){
         .header("X-Mashape-Key", keys.MASHAPE_API_KEY)
         .end(function (result) {
           if(result.body && result.body.success){
-            console.log("THERE IS NO MATCH");
+            console.log("Could not find a match at Riot");
             return res.json(404, result.body);
           }else{
-            console.log("MATCH FOUND");
             return findPlayers(result.body, summonerName)
           }
         })
   }
 
   function findPlayers(match, summonerName){
+    console.log("Parsing match");
     var teamOne = _.map(match.game.teamOne.array ,function(player){
       return player.summonerInternalName;
     })
@@ -58,7 +57,7 @@ exports.search = function(req, res){
   }
 
   function getSummoners(match, players, teamOne, teamTwo, summonerName){
-    console.log("getSummoners");
+    console.log("....getSummoners");
     var playerString = players.join(',');
     var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + playerString + "?api_key=" + keys.RIOT_API_KEY;    
     request(url, function(error, response, body){
@@ -75,7 +74,7 @@ exports.search = function(req, res){
 
   function getLeagues(match, summoners, teamOne, teamTwo, summonerName){
     // map summoners into IDs
-    console.log("getLeagues");
+    console.log("....getLeagues");
     var summonerIds = _.map(summoners, function(player){
       return player.id;
     })
@@ -91,14 +90,12 @@ exports.search = function(req, res){
         summoners[i]["league"] = leagues[l];
         l++;
       }
-
-      // return parseMatch(match, summoners, teamOne, teamTwo, summonerName);
       return getChampNames(match, summoners, teamOne, teamTwo, summonerName);
     })
   }
 
   function getChampNames(match, summoners, teamOne, teamTwo, summonerName){
-    console.log("getChamps");
+    console.log("....getChamps");
     var arr = match.game.playerChampionSelections.array;
     var champs = {}
     for(var i in arr){
@@ -165,7 +162,7 @@ exports.search = function(req, res){
     async.map(opposing, function(player, callback) {
       User.findOne({"summoner.indexName": player}, function(err, bidder){
         if(bidder){
-          console.log(bidder + " FOUND SOMEONE TO BET WITH! ");
+          console.log(" Found a player to bet with! ");
           callback(null, player);
         }else{
           callback(null);
