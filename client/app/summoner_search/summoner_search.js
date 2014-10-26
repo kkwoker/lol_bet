@@ -5,12 +5,14 @@ angular.module('lolBetApp')
     $routeProvider
       .when('/summoner_search', {
         templateUrl: 'app/summoner_search/summoner_search.html',
-        controller: 'SummonerSearchCtrl'
+        controller: 'SummonerSearchCtrl',
+        authenticate: true
       }).  
       when('/summoner_search/:param1/:param2', {
             templateUrl: 'app/summoner_search/summoner_search.html',
-            controller: 'SummonerDetailCtrl'
-  });
+            controller: 'SummonerDetailCtrl',
+            authenticate: true
+      });
     });
 
 
