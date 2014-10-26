@@ -10,7 +10,7 @@ var BtcTransactionSchema = new Schema({
   amount: Number,
   transaction_hash: String,
   success: Boolean,
-
+  confirmations: Number
 });
 
 module.exports = mongoose.model('BtcTransaction', BtcTransactionSchema);
