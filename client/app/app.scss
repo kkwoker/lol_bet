@@ -11,6 +11,14 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  body {
   font-family: 'Averia Serif Libre', san-serif;
  }
+ 
+ a {
+  color: white;
+ }
+
+ button a {
+  color: black;
+ }
 
  // Navbar styles
 
