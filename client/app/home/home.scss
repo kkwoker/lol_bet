@@ -182,3 +182,34 @@
   text-align: center;
 
 }
+
+
+.search-button {
+  text-transform: uppercase;
+  padding: 11px 20px 8px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  color: black;
+
+  border-color: #f6c653 #bd6a23 #b6631f #e8ab4a;
+  background: linear-gradient(orange, rgb(255, 97, 0));
+  &:hover {
+    color: #222;
+    border-color: #fdeaba #bf712c #b66521 #edbd6e;
+    background: linear-gradient(#E57E1A, #ffb800);
+  }
+
+  &:active {
+    color: #222;
+    border-color: #e1b03d #7f3517 #772d16 #c17f30;
+    background: #D08901;
+  }
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  and (orientation : landscape) { 
+    font-size: 14px;
+
+  }
+}
+

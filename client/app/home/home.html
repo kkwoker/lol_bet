@@ -17,31 +17,27 @@
           <h3 class="summoner-name">{{ user.summoner.name }}</h3>
         </div>
         <div class="right">
-          <button class="btn-large" ng-click="searchGames()">
+          <button class="search-button" ng-click="searchGames()">
             Search for games!
           </button>
         </div>
       </div>
       <div class="home-body">
-        <div class="col-sm-12 col-md-4 home-body-left">
-          <div class="col-sm-12">
+        <div class="col-sm-4 col-md-4 home-body-left">
+          <div class="col-sm-9 col-md-12">
             <h4> <img class="btc-logo" src="/assets/images/BC_Logo.png"> {{ user.bitcoins }}</h4>
-          </div>
-          <div class="col-sm-12">
             <h6> $10.00 USD</h6>
-            
-          </div>
-
-          <div class="col-sm-12 button">
-
             <a ng-href="/btc_transaction">
-              <button class="btn-large btn-large-primary">Deposit / Withdraw</button>
+              <button class="search-button">Deposit/Withdraw</button>
             </a>
           </div>
-          
+
         </div>
-        <div class="col-sm-12 col-md-8 home-body-right" ng-controller="RecentMatchesCtrl">
-          <div class="recent-match-title">Recent Matches</div>
+        <div class="recent-match-title" style="color: red;">Recent Matches</div>
+
+
+        <div class="col-sm-8 col-md-8 home-body-right" ng-controller="RecentMatchesCtrl">
+          
           <div class="match" ng-repeat="match in matches">
             <!-- <span class="winner">{{match.winner}}</span> -->
             <span class="team1">
