@@ -102,7 +102,9 @@ angular.module('lolBetApp')
     $scope.summonerSearch = 'search';
     $scope.summonerDetails = [];
     $scope.summonerStats = [];
-  
+    $scope.summonerAggregatedStats = [];
+    
+    // ranked stats
     $http.get('/api/stats/'+$routeParams.param2)
       .success(function(data){
         for (var i = 0; i < data.champions.length; i++) {
@@ -118,7 +120,20 @@ angular.module('lolBetApp')
        }).error(function(data) {
         console.log(data);
       });
-    
+
+      // aggregated stats
+      $http.get('/api/summarys/'+$routeParams.param2)
+        .success(function(data){
+          for (var i = 0; i < data.playerStatSummaries.length; i++) {
+            //console.log(data.playerStatSummaries[i].aggregatedStats);
+           // $scope.summonerAggregatedStats.push({"key": data.playerStatSummaries[i].playerStatSummaryType, "keya": data.playerStatSummaries[i].aggregatedStats});
+           $scope.summonerAggregatedStats.push(data.playerStatSummaries[i]);
+          }
+         console.log($scope.summonerAggregatedStats);
+        }).error(function(data){
+          console.log(data);
+      });
+
 
     $http.get('/api/matches/search/'+$routeParams.param1)
       .success(function(data){

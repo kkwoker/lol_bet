@@ -20,6 +20,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/summary/summary.socket').register(socket);
 
   require('../api/mailer/mailer.socket').register(socket);
 
