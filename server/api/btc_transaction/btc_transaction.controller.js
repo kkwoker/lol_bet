@@ -67,10 +67,15 @@ exports.confirm = function(req, res) {
     console.log(btc_transaction);
     if (err) { return handleError(res, err); }
     if(!btc_transaction) { return res.send(404); }
-    // var updated = _.merge(btc_transaction, req.body);
-    if (req.query.confirmations >= 4) {
+    
+    if (btc_transaction[0].success === true) {
+      btc_transaction[0].confirmations = req.query.confirmations;
+    } else if (req.query.confirmations >= 4) {
+      btc_transaction[0].confirmations = req.query.confirmations;
       btc_transaction[0].pending = false;
       btc_transaction[0].success = true;
+      btc_transaction[0].value = req.query.value
+
       User.findOne({_id: btc_transaction[0].user_id}).find( function(err, user) {
         user[0].wallet += parseInt(req.query.value);
         user[0].save(function(err){
