@@ -64,9 +64,15 @@ module.exports = function (socketio) {
 
     socket.on('join-room', function(data) {
 
+      Match.findById(data.room, function(err, match) {
+        if (match.bet !== 0) {
+          socket.emit('betting-complete');
+          socket.disconnect();
+        }
+      });
+
       socket.join(data.room);
       socket.room = data.room;
-      console.log(data.room);
       /* Removing number of user detection for now
       if (socketio.sockets.in(data.room).sockets.length < 2) {
         socket.room = data.room;
@@ -114,11 +120,6 @@ module.exports = function (socketio) {
           updated.save(function (err) {
             if (err) { return console.log(err); }
           });
-        });
-
-        Match.findById(data.match, function(err, match) {
-          console.log('saved match:')
-          console.log(match);
         });
       })
     })

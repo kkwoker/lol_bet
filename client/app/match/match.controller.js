@@ -78,8 +78,9 @@ angular.module('lolBetApp')
     // Join or create a betting room
     socket.socket.on('connect', function() {
       socket.socket.emit('join-room', { 
-        room: matchData.data._id, 
-        user: currentUser._id, 
+        room: matchData.data._id,
+        user: currentUser._id,
+        status: $scope.match.complete
       });
 
       socket.socket.on('status', function() {

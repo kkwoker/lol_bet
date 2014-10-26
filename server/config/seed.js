@@ -254,7 +254,8 @@ User.find({}).remove(function() {
         profileIconId: 621,
         summonerLevel: 30,
         revisionDate: 1414187406000
-      }
+      },
+    wallet: 19738326
   }, {
     provider: 'local',
     name: 'Swaggie Daddy',
@@ -442,7 +443,7 @@ User.find({}).remove(function() {
     name: "Harkua",
     id: 294827
   },
-  wallet: 0,
+  wallet: 140000000,
   role: "user",
 }
 
