@@ -108,12 +108,25 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   padding:5px;
 }
 
-p.online {
+.online {
   color:green;
 }
-p.offline {
+.offline {
   color:red;
 }
 ul.summonerFilter{
   list-style-type:none;
 }
+.summoner-details {
+  text-align:center;
+  font-size: 1.6em;
+}
+#stats_table td:hover {
+  color:blue;
+  cursor:pointer;
+}
+.summoner-details img {
+  float:left;
+}
+
+
