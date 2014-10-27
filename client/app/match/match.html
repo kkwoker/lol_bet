@@ -1,5 +1,5 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
 <header class="hero-unit" id="banner">
   <div class="container background-blur" ng-controller="HomeCtrl" ng-keyup="cancelSearch($event)">
     <div class="col-sm-12 col-md-10 col-md-offset-1 match-box">
@@ -10,24 +10,26 @@
         <h3>Bet confirmed! You can still increase your bet if you'd like.</h3>
       </div>
       <div class="col-sm-12 status complete animate flip-in" ng-show="match.complete">
-        <h3>Betting has completed. Good Luck!</h3>
+        <h3>Betting has completed. Good Luck!
+          <button class="complete" ng-show="match.complete" ng-click="gameComplete()">Get results</button>
+        </h3>
       </div>
       <div class="col-sm-12 status error animate flip-in" ng-show="error">
         <h3>{{ error }}</h3>
       </div>
-      <div class="col-sm-12 col-md-5 player">
+      <div class="col-sm-5 col-md-5 player">
         <div class="player-inner">
           <h2>{{ player.name }}</h2>
-          <div class="col-md-4 match-icon">
+          <div class="col-sm-4 col-md-4 match-icon">
             <img src="{{ player.iconUrl }}" alt="Player Icon">
           </div>
-          <div class="col-md-4 bet-input" ng-hide="match.complete">
+          <div class="col-sm-4 col-md-4 bet-input" ng-hide="match.complete">
             <input type="number" min="0" ng-model="player.bet" ng-change="sendBet()">
             <button class="btn-large btn-large-primary confirm" ng-class="{ active: player.lockedIn == player.bet }" ng-click="lockIn()">{{ player.lockedIn == player.bet ? 'Locked' : 'Lock In' }}</button>
           </div>
-          <div class="col-md-4 bet-input" ng-show="match.complete">
+<!--           <div class="col-sm-4 col-md-4 bet-input" ng-show="match.complete">
             <button class="btn-large btn-large-primary complete" ng-click="gameComplete()">Game Complete</button>
-          </div>
+          </div> -->
           <div class="col-sm-4 bet-details">
             <h4><small>Max bet: </small>{{ player.bet }}mBit</h4>
             <p>$0 USD</p>
@@ -37,30 +39,30 @@
           <p>Wallet {{ player.wallet }}</p>
         </div>
       </div>
-      <div class="col-md-2 pot">
+      <div class="col-sm-2 col-md-2 pot">
         <p>{{ match.timer }} seconds</p>
         <div class="confirmed" ng-show="pot">
           <h3>{{ pot }}mBit</h3>
           <p>CONFIRMED</p> 
         </div>
       </div>
-      <div class="col-sm-12 col-md-5 opponent">
+      <div class="col-sm-5 col-md-5 opponent">
         <div class="opponent-inner">
           <h2>{{ opponent.name }}</h2>
           <div class="col-sm-6 bet-details">
             <h4><small>Max bet: </small><br>{{ opponent.bet }}mBit</h4>
             <p>$0 USD</p>
           </div>
-          <div class="match-icon">
+          <div class="col-sm-4 col-md-4 match-icon">
             <img src="{{ opponent.iconUrl }}" alt="Opponent Icon">
           </div>
         </div>
       </div>
       <div class="col-sm-12 col-md-12 match-box-bottom">
-        <div class="col-sm-12 col-md-5 player-team">
+        <div class="col-sm-5 col-md-5 player-team">
           <table class="table">
             <thead>
-              <th>Icon</th>
+              <th>Champion</th>
               <th>Name</th>
               <th>Level</th>
             </thead>
@@ -73,12 +75,12 @@
             </tbody>
           </table>
         </div>
-        <div class="col-sm-12 col-md-5 col-md-offset-2 opponent-team">
+        <div class="col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-2 opponent-team">
           <table class="table">
             <thead>
               <th>Level</th>
               <th>Name</th>
-              <th>Icon</th>
+              <th>Champion</th>
             </thead>
             <tbody>
               <tr ng-repeat="player in opponent.team">

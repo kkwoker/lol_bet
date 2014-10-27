@@ -1,3 +1,11 @@
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px){
+  .match-icon img{
+    width: 70%;
+  }
+}
+
 .match-box {
   color: black;
   padding: 0;
@@ -6,6 +14,16 @@
   margin-top: 30px;
   box-shadow: 2px 2px 11px 4px #302020;
   padding: 0px 0 20px;
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px) {
+      margin-top: 40px;
+      margin-right: -10px;
+      padding-right: -10px;
+      margin-bottom: 40px;
+      height: 570px;
+      left: 20px;
+    }
   
   .status {
     text-align: center;
@@ -65,6 +83,7 @@
       .match-icon {
         float: left;
         padding: 0;
+
       }
 
       .bet-input {
@@ -92,6 +111,7 @@
     .opponent-inner {
       .match-icon {
         float: right;
+        padding: 0;
       }
       .bet-details {
         text-align: left;

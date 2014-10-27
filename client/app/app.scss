@@ -144,9 +144,11 @@ ul.summonerFilter{
   and (max-device-width : 1024px) 
   and (orientation : landscape) { 
     font-size: 14px;
-    left: -150px;
+    left: -130px;
     z-index: 10000;
     top: 0px;
+    height: 570px;
+    margin: 0;
   }
 }
 
@@ -166,7 +168,7 @@ ul.summonerFilter{
   and (min-device-width : 768px) 
   and (max-device-width : 1024px) 
   and (orientation : landscape) { 
-    left: 160px;
+    left: 140px;
     top: -150px;
   }
 
@@ -233,4 +235,16 @@ ul.summonerFilter{
   float:left;
 }
 
+.help-block{
+  color: red;
+}
 
+.greenlight {
+  color: green;
+}
+
+.black-transparent{
+  background: rgba(24, 24, 24, 0.86);
+  padding-bottom: 15px;
+  border-radius: 2%;
+}

@@ -1,12 +1,14 @@
 <script>
-$('.sidebar').addClass('nav-show'); 
+// $('.sidebar').addClass('nav-show'); 
+// $("#nav-toggle").addClass("active");
 $('.slider-button').on("click", function(){
-    $('.sidebar').toggleClass('nav-show'); 
+    $('.sidebar').toggleClass('nav-show');
+    $("#nav-toggle").toggleClass("active"); 
 });
-$("#nav-toggle").addClass("active");
-$("#nav-toggle").on( "click", function() {
-    $(this).toggleClass("active");
-  });
+
+// $("#nav-toggle").on( "click", function() {
+//     $(this).toggleClass("active");
+//   });
 
 </script>
 
@@ -21,9 +23,7 @@ $("#nav-toggle").on( "click", function() {
   </div>
   <div class="col-sm-1 col-md-1">
     <div class="slider-button" style="background: purple;">
-      
       <a id="nav-toggle" href="#"><span></span></a>
-
 
     </div>
   </div>
