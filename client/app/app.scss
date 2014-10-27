@@ -181,12 +181,7 @@ ul.summonerFilter{
   left: 50%; 
   top: 50%; 
   left: -25px;
-  @media only screen 
-  and (min-device-width : 768px) 
-  and (max-device-width : 1024px) 
-  { 
 
-  }
 }
 
 #nav-toggle { cursor: pointer; padding: 10px 35px 16px 0px; }
@@ -247,4 +242,10 @@ ul.summonerFilter{
   background: rgba(24, 24, 24, 0.86);
   padding-bottom: 15px;
   border-radius: 2%;
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  { 
+    margin-top: 20px;
+  } 
 }
