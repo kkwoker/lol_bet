@@ -3,12 +3,14 @@
 <header class="hero-unit" id="banner">
   <div class="container background-blur" ng-controller="HomeCtrl" ng-keyup="cancelSearch($event)">
   <div class="search-loading" ng-show="loading">
-    <div class="loading-ball">
-      <div class="ball"></div>
-      <div class="ball1"></div>
+    <div class="loading-box">
+      <div class="loading-ball">
+        <div class="ball"></div>
+        <div class="ball1"></div>
+      </div>
+      <h3>Searching</h3>
+      <button class="btn btn-default" ng-click="loading = false">Cancel</button>
     </div>
-    <h3>Searching...</h3>
-    <p>(press esc to cancel)</p>
   </div>
     <div class="col-sm-12 col-md-8 col-md-offset-2 home-box">
       <div class="home-header">

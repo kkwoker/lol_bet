@@ -49,7 +49,8 @@ exports.create = function (req, res, next) {
       
       var newUser = new User(user);
       newUser.save(function(err, user) {
-        return res.json(201, newUser);
+        var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
+        return res.json({ token: token });
       });
     }
     if(response.statusCode === 404){
