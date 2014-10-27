@@ -12,20 +12,24 @@ $('.slider-button').on("click", function(){
 
 </script>
 
-<div class="col-sm-3 col-md-2 sidebar nav-styles">
-  <div class="col-sm-10 col-md-10">
-    <ul class="nav nav-sidebar" ng-controller="LoginCtrl">
-      <li ng-hide="isLoggedIn()" class="active"><a href="/login">Log in!</a></li>
-      <li><a href="/home">Profile</a></li>
-      <li><a href="/summoner_search">Users</a></li>
-      <li><a href="/btc_transaction">Funds</a></li>
-    </ul>
-  </div>
-  <div class="col-sm-1 col-md-1">
+<div class="col-sm-3 col-md-2 sidebar nav-styles" ng-controller="NavbarCtrl">
+  <div class="col-sm-12 col-md-12">
     <div class="slider-button" style="background: purple;">
       <a id="nav-toggle" href="#"><span></span></a>
-
     </div>
+    <ul class="nav nav-sidebar" ng-controller="LoginCtrl">
+      <div id="spacer"></div>
+      <li ng-hide="isLoggedIn()" class="active"><a href="/login">Login<i class="fa fa-sign-in icon"></i></a></li>
+      <li ng-show="isLoggedIn()" class="active"><a href="/login">Logout<i class="fa fa-sign-out icon"></i></a></li>
+      <li><a href="/btc_transaction">Settings<i class="fa fa-cog icon"></i></a></li>
+      <li><a href="/home">Profile<i class="fa fa-user icon"></i></a></li>
+      <li><a href="/summoner_search">Users<i class="fa fa-users icon"></i></a></li>
+      <li><a href="/btc_transaction">Funds<i class="fa fa-btc icon"></i></a></li>
+      
+    </ul>
   </div>
+  <!-- <div class="col-sm-1 col-md-1"> -->
+    
+  <!-- </div> -->
 </div>
 <meta name="viewport" content="width=max-device-width, initial-scale=1, user-scalable=yes, minimal-ui">

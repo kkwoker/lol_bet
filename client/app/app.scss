@@ -10,6 +10,8 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
  body {
   font-family: 'Averia Serif Libre', san-serif;
+  background: url('../../assets/images/background.jpg');
+  background-size: cover;
  }
  
  a {
@@ -135,20 +137,21 @@ ul.summonerFilter{
   z-index: 1;
   position: absolute;
   background: rgba(24, 24, 24, 0.86);
-  height: 700px;
+  height: 100vh;
   top: 0px;
   left: -185px;
+  padding-right: 0;
   transition: all 1s;
   @media only screen 
   and (min-device-width : 768px) 
   and (max-device-width : 1024px) 
   and (orientation : landscape) { 
     font-size: 14px;
-    left: -130px;
+    left: -120px;
     z-index: 10000;
     top: 0px;
-    height: 680px;
     margin: 0;
+    padding-left: 0;
   }
 }
 
@@ -159,17 +162,17 @@ ul.summonerFilter{
 }
 
 .slider-button{
-  position: absolute;
+  position: relative;
   float: right;
+  padding-right: 5px;
   color: white;
-  left: 30px;
   top: 7px;
   @media only screen 
   and (min-device-width : 768px) 
   and (max-device-width : 1024px) 
   and (orientation : landscape) { 
-    left: 140px;
-    top: -150px;
+    float: right;
+    top: 10px;
   }
 
 }
@@ -248,4 +251,21 @@ ul.summonerFilter{
   { 
     margin-top: 20px;
   } 
+}
+#spacer{
+  height: 50px;
+}
+
+.nav-sidebar li{
+  margin-top: 20px;
+}
+.nav li a {
+  padding-right: 0;
+  right: -10px;
+  font-size: 20px;
+}
+
+.icon{
+  float: right;
+  padding-right: 11px;
 }
