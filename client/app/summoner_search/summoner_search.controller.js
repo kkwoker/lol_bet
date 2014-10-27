@@ -103,6 +103,14 @@ angular.module('lolBetApp')
     $scope.summonerDetails = [];
     $scope.summonerStats = [];
     $scope.summonerAggregatedStats = [];
+    $scope.AramUnranked5x5 = [];
+    $scope.CoopVsAI = [];
+    $scope.CAP5x5 = [];
+    $scope.CoopVsAI3x3 = [];
+    $scope.NightmareBot = [];
+    $scope.OdinUnranked = [];
+    $scope.OneForAll5x5 = [];
+   
     
     // ranked stats
     $http.get('/api/stats/'+$routeParams.param2)
@@ -110,7 +118,6 @@ angular.module('lolBetApp')
         for (var i = 0; i < data.champions.length; i++) {
           if( data.champions[i].id == 0) {
             $scope.foundStats="true";
-            console.log(data.champions[i]);
             $scope.summonerStats.push({"champions_killed": data.champions[i].stats.mostChampionKillsPerSession, "total_sessions_played": data.champions[i].stats.totalSessionsPlayed,
             "max_num_deaths": data.champions[i].stats.maxNumDeaths, "total_sessions_won": data.champions[i].stats.totalSessionsWon, "total_sessions_lost": data.champions[i].stats.totalSessionsLost,
             "max_killing_spree": data.champions[i].stats.maxLargestKillingSpree, "total_damage_dealt": data.champions[i].stats.totalDamageDealt, "total_damage_taken": data.champions[i].stats.totalDamageTaken,
@@ -124,13 +131,21 @@ angular.module('lolBetApp')
       // aggregated stats
       $http.get('/api/summarys/'+$routeParams.param2)
         .success(function(data){
-          for (var i = 0; i < data.playerStatSummaries.length; i++) {
-            //console.log(data.playerStatSummaries[i].aggregatedStats);
-           // $scope.summonerAggregatedStats.push({"key": data.playerStatSummaries[i].playerStatSummaryType, "keya": data.playerStatSummaries[i].aggregatedStats});
-           $scope.summonerAggregatedStats.push(data.playerStatSummaries[i]);
-          }
-         console.log($scope.summonerAggregatedStats);
-        }).error(function(data){
+          var AramUnranked5x5 = $.grep(data.playerStatSummaries, function(e){ return e.playerStatSummaryType == "AramUnranked5x5" }); 
+          jQuery.isEmptyObject(AramUnranked5x5) ? $scope.AramUnranked5x5.push({"wins": "NA", "Aggregated Stats": {"Aggregated Stats": "NA"} }) : $scope.AramUnranked5x5.push({"wins": AramUnranked5x5[0].wins, "aggregatedStats": AramUnranked5x5[0].aggregatedStats });
+          var CoopVsAI = $.grep(data.playerStatSummaries, function(e){ return e.playerStatSummaryType == "CoopVsAI" }); 
+          jQuery.isEmptyObject(CoopVsAI) ? $scope.CoopVsAI.push({"wins": "NA", "Aggregated Stats": {"Aggregated Stats": "NA"} }) : $scope.CoopVsAI.push({"wins": CoopVsAI[0].wins, "aggregatedStats": CoopVsAI[0].aggregatedStats });
+          var CAP5x5 = $.grep(data.playerStatSummaries, function(e){ return e.playerStatSummaryType == "CAP5x5" }); 
+          jQuery.isEmptyObject(CAP5x5) ? $scope.CAP5x5.push({"wins": "No stats available for this summary type", "Aggregated Stats": {"Aggregated Stats": "NA"} }) : $scope.CAP5x5.push({"wins": CAP5x5[0].wins, "aggregatedStats": CAP5x5[0].aggregatedStats }); 
+          var CoopVsAI3x3 = $.grep(data.playerStatSummaries, function(e){ return e.playerStatSummaryType == "CoopVsAI3x3" }); 
+          jQuery.isEmptyObject(CoopVsAI3x3) ? $scope.CoopVsAI3x3.push({"wins": "No stats available for this summary type", "Aggregated Stats": {"Aggregated Stats": "NA"} }) : $scope.CoopVsAI3x3.push({"wins": CoopVsAI3x3[0].wins, "aggregatedStats": CoopVsAI3x3[0].aggregatedStats });
+          var NightmareBot = $.grep(data.playerStatSummaries, function(e){ return e.playerStatSummaryType == "NightmareBot" }); 
+          jQuery.isEmptyObject(NightmareBot) ? $scope.NightmareBot.push({"wins": "No stats available for this summary type", "Aggregated Stats": {"Aggregated Stats": "NA"} }) : $scope.NightmareBot.push({"wins": NightmareBot[0].wins, "aggregatedStats": NightmareBot[0].aggregatedStats });
+          var OdinUnranked = $.grep(data.playerStatSummaries, function(e){ return e.playerStatSummaryType == "OdinUnranked" }); 
+          jQuery.isEmptyObject(OdinUnranked) ? $scope.OdinUnranked.push({"wins": "No stats available for this summary type", "Aggregated Stats": {"Aggregated Stats": "NA"} }) : $scope.OdinUnranked.push({"wins": OdinUnranked[0].wins, "aggregatedStats": OdinUnranked[0].aggregatedStats });
+          var OneForAll5x5 = $.grep(data.playerStatSummaries, function(e){ return e.playerStatSummaryType == "OneForAll5x5" }); 
+          jQuery.isEmptyObject(OneForAll5x5) ? $scope.OneForAll5x5.push({"wins": "No stats available for this summary type", "Aggregated Stats": {"Aggregated Stats": "NA"} }) : $scope.OneForAll5x5.push({"wins": OneForAll5x5[0].wins, "aggregatedStats": OneForAll5x5[0].aggregatedStats });
+       }).error(function(data){
           console.log(data);
       });
 

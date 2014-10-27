@@ -89,19 +89,176 @@
         Total Minions Killed: {{summoner.total_minions_killed}}
       </td>
     </tr>
+   
+
   </table>
 
-  <div ng-show="foundStats == 'true'">
-  <p style="font-size:1.05em;">Summary Statistics</p>
 
-  <p style="float:left; padding:5px; margin:5px;" ng-repeat="summoner in summonerAggregatedStats">
-    <strong>{{summoner.playerStatSummaryType}}</strong>
-    <span ng-repeat="(key,value) in summoner.aggregatedStats">{{key+" "+value}}</span>
-  </p>
-</div>
-</div>
+  <div ng-show="foundStats == 'true' && cantFind != 'true'" >
+    <div class = "tip_event"> 
+      <div class="stats_tip">
+      AramUnranked5x5
+      </div>
+      <span class="tip">
+      <p style = "text-align: center;">Stats</p>
+
+      <div class="info_stat_box" ng-repeat="summoner in AramUnranked5x5"> 
+        Wins: {{summoner.wins}}
+      <div ng-repeat="(key, value) in summoner">
+
+        <div ng-repeat="(x, y) in value">
+          {{x}} : {{y}}
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+    <div class = "tip_event"> 
+      <div class="stats_tip">
+      CAP5x5
+      </div>
+      <span class="tip">
+      <p style = "text-align: center;">Stats</p>
+
+      <div class="info_stat_box" ng-repeat="summoner in CoopVsAI"> 
+        Wins: {{summoner.wins}}
+      <div ng-repeat="(key, value) in summoner">
+
+        <div ng-repeat="(x, y) in value">
+          {{x}} : {{y}}
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+      <div class = "tip_event"> 
+      <div class="stats_tip">
+      CAP5x5
+      </div>
+      <span class="tip">
+      <p style = "text-align: center;">Stats</p>
+
+      <div class="info_stat_box" ng-repeat="summoner in CAP5x5"> 
+        <div>Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+
+        <div ng-repeat="(x, y) in value">
+          {{x}} : {{y}}
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+    <div class = "tip_event"> 
+      <div class="stats_tip">
+      CoopVsAI3x3
+      </div>
+      <span class="tip">
+      <p style = "text-align: center;">Stats</p>
+
+      <div class="info_stat_box" ng-repeat="summoner in CoopVsAI3x3"> 
+        <div>Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+
+        <div ng-repeat="(x, y) in value">
+          {{x}} : {{y}}
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+    <div class = "tip_event"> 
+      <div class="stats_tip">
+      NightmareBot
+      </div>
+      <span class="tip">
+      <p style = "text-align: center;">Stats</p>
+
+      <div class="info_stat_box" ng-repeat="summoner in NightmareBot"> 
+        <div>Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+
+        <div ng-repeat="(x, y) in value">
+          {{x}} : {{y}}
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+    <div class = "tip_event"> 
+      <div class="stats_tip">
+      OdinUnranked
+      </div>
+      <span class="tip">
+      <p style = "text-align: center;">Stats</p>
+
+      <div class="info_stat_box" ng-repeat="summoner in OdinUnranked"> 
+        <div>Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+
+        <div ng-repeat="(x, y) in value">
+          {{x}} : {{y}}
+        </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class = "tip_event"> 
+      <div class="stats_tip">
+      OneForAll5x5
+      </div>
+      <span class="tip">
+      <p style = "text-align: center;">Stats</p>
+
+      <div class="info_stat_box" ng-repeat="summoner in OneForAll5x5"> 
+        <div>Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+
+        <div ng-repeat="(x, y) in value">
+          {{x}} : {{y}}
+        </div>
+
+        </div>
+      </div>
+    </div>
 </div>
 
-  </div>
+  <script type="text/javascript"> 
+
+$(document).ready(function() {
+
+$(".tip_event").hover(function(){
+  tip = $(this).find('.tip');
+  tip.show();
+}, function() {
+  tip.hide();
+  }).mousemove(function(e) {
+
+    var mousex = e.pageX  -200; 
+    var mousey = e.pageY  -400; 
+    var tipw = tip.width(); 
+    var tiph = tip.height(); 
+ 
+    var tipVisX = $(window).width() - (mousex + tipw);
+ 
+    var tipVisY = $(window).height() - (mousey + tiph);
+
+    if(tipVisX < 20) {
+      mousex = e.pageX - tipw - 10;
+    } if (tipVisY < 20 ) { 
+      mousey = e.pageY - tiph - 10;
+    }
+    tip.css({ top:mousey, left:mousex, opacity: 0.8 }); 
+    
+  });
+});
+</script>
 </header>
 
