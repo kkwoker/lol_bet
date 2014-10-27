@@ -14,11 +14,11 @@ $('.slider-button').on("click", function(){
 
 <div class="col-sm-3 col-md-2 sidebar nav-styles">
   <div class="col-sm-10 col-md-10">
-    <ul class="nav nav-sidebar">
-      <li class="active"><a href="/login">Log in!</a></li>
-      <li><a href="#">Profile</a></li>
-      <li><a href="#">Users</a></li>
-      <li><a href="#">Export</a></li>
+    <ul class="nav nav-sidebar" ng-controller="LoginCtrl">
+      <li ng-hide="isLoggedIn()" class="active"><a href="/login">Log in!</a></li>
+      <li><a href="/home">Profile</a></li>
+      <li><a href="/summoner_search">Users</a></li>
+      <li><a href="/btc_transaction">Funds</a></li>
     </ul>
   </div>
   <div class="col-sm-1 col-md-1">
@@ -28,3 +28,4 @@ $('.slider-button').on("click", function(){
     </div>
   </div>
 </div>
+<meta name="viewport" content="width=max-device-width, initial-scale=1, user-scalable=yes, minimal-ui">
