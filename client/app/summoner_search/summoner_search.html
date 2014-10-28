@@ -96,78 +96,38 @@
 
   <div ng-show="foundStats == 'true' && cantFind != 'true'" >
 
-<!-- 
-    <div class = "tip_event"> 
-      <div class="stats_tip">
-      AramUnranked5x5
-      </div>
-      <span class="tip">
-      <p style = "text-align: center;">Stats</p>
-
-      <div class="info_stat_box" ng-repeat="summoner in AramUnranked5x5"> 
-        Wins: {{summoner.wins}}
-      <div ng-repeat="(key, value) in summoner">
-
-        <div ng-repeat="(x, y) in value">
-          {{x}} : {{y}}
-        </div>
-
-      </div>
-    </div>
-    </div>
- -->
-
   <div class = "tip_event"> 
     <div class="stats_tip">
-    AramUnranked5x5
+     AramUnranked5x5
     </div>
     <span class="tip">
     <p class="summary_type"> AramUnranked5x5 </p>
-    <div class="info_stat_box" id="RankedSolo5x5" ng-repeat="summoner in AramUnranked5x5"> 
+    <div id="AramUnranked5x5" class="info_stat_box" ng-repeat="summoner in AramUnranked5x5"> 
       <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
       <div class="stats_name">{{userName}}'s Stats</div>
       <div class="stats_wins">Wins: {{summoner.wins}}</div>
       <div ng-repeat="(key, value) in summoner">
-        <div style="stats_dtails" ng-repeat="(x, y) in value">
-          {{x}} : {{y}}
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
         </div>
       </div>
     </div>
   </div>
 
+
   <div class = "tip_event"> 
     <div class="stats_tip">
-    CoopVsAI
+     CoopVsAI
     </div>
     <span class="tip">
     <p class="summary_type"> CoopVsAI </p>
-    <div class="info_stat_box" id="RankedSolo5x5" ng-repeat="summoner in CoopVsAI"> 
+    <div id="CoopVsAI" class="info_stat_box" ng-repeat="summoner in CoopVsAI"> 
       <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
       <div class="stats_name">{{userName}}'s Stats</div>
       <div class="stats_wins">Wins: {{summoner.wins}}</div>
       <div ng-repeat="(key, value) in summoner">
-        <div style="stats_dtails" ng-repeat="(x, y) in value">
-          {{x}} : {{y}}
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-    <div class = "tip_event"> 
-    <div class="stats_tip">
-    CAP5x5
-    </div>
-    <span class="tip">
-    <p class="summary_type"> CAP5x5 </p>
-    <div class="info_stat_box" id="RankedSolo5x5" ng-repeat="summoner in CAP5x5"> 
-      <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
-      <div class="stats_name">{{userName}}'s Stats</div>
-      <div class="stats_wins">Wins: {{summoner.wins}}</div>
-      <div ng-repeat="(key, value) in summoner">
-        <div style="stats_dtails" ng-repeat="(x, y) in value">
-          {{x}} : {{y}}
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
         </div>
       </div>
     </div>
@@ -177,17 +137,35 @@
 
   <div class = "tip_event"> 
     <div class="stats_tip">
-    CoopVsAI3x3
+     CAP5x5
     </div>
     <span class="tip">
-    <p class="summary_type"> CoopVsAI3x3 </p>
-    <div class="info_stat_box" id="RankedSolo5x5" ng-repeat="summoner in CoopVsAI3x3"> 
+    <p class="summary_type"> CAP5x5 </p>
+    <div id="CAP5x5" class="info_stat_box" ng-repeat="summoner in CAP5x5"> 
       <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
       <div class="stats_name">{{userName}}'s Stats</div>
       <div class="stats_wins">Wins: {{summoner.wins}}</div>
       <div ng-repeat="(key, value) in summoner">
-        <div style="stats_dtails" ng-repeat="(x, y) in value">
-          {{x}} : {{y}}
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class = "tip_event"> 
+    <div class="stats_tip">
+      CoopVsAI3x3
+    </div>
+    <span class="tip">
+    <p class="summary_type"> CoopVsAI3x3 </p>
+    <div id="CoopVsAI3x3" class="info_stat_box" ng-repeat="summoner in CoopVsAI3x3"> 
+      <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
+      <div class="stats_name">{{userName}}'s Stats</div>
+      <div class="stats_wins">Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
         </div>
       </div>
     </div>
@@ -198,29 +176,11 @@
 
   <div class = "tip_event"> 
     <div class="stats_tip">
-    NightmareBot
+      NightmareBot
     </div>
     <span class="tip">
     <p class="summary_type"> NightmareBot </p>
-    <div class="info_stat_box" id="RankedSolo5x5" ng-repeat="summoner in NightmareBot"> 
-      <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
-      <div class="stats_name">{{userName}}'s Stats</div>
-      <div class="stats_wins">Wins: {{summoner.wins}}</div>
-      <div ng-repeat="(key, value) in summoner">
-        <div style="stats_dtails" ng-repeat="(x, y) in value">
-          {{x}} : {{y}}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class = "tip_event"> 
-    <div class="stats_tip">
-    OdinUnranked
-    </div>
-    <span class="tip">
-    <p class="summary_type"> OdinUnranked </p>
-    <div style="overflow:scroll; overflow-y:hidden; overflow-x:hidden; height:300px;" id="OdinUnranked" class="info_stat_box" ng-repeat="summoner in OdinUnranked"> 
+    <div id="NightmareBot" class="info_stat_box" ng-repeat="summoner in NightmareBot"> 
       <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
       <div class="stats_name">{{userName}}'s Stats</div>
       <div class="stats_wins">Wins: {{summoner.wins}}</div>
@@ -228,39 +188,52 @@
         <div class="stats_dtails" ng-repeat="(x, y) in value">
             {{x}} : {{y}}
         </div>
+      </div>
     </div>
   </div>
-</div>
- 
 
   <div class = "tip_event"> 
     <div class="stats_tip">
-    RankedSolo5x5
+     OdinUnranked
     </div>
     <span class="tip">
-    <p class="summary_type"> RankedSolo5x5 </p>
-    <div class="info_stat_box" id="RankedSolo5x5" ng-repeat="summoner in RankedSolo5x5"> 
+    <p class="summary_type"> OdinUnranked </p>
+    <div id="OdinUnranked" class="info_stat_box" ng-repeat="summoner in OdinUnranked"> 
       <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
       <div class="stats_name">{{userName}}'s Stats</div>
-      <div class="stats_wins">Wins: {{summoner.wins}}</div>
+      <div class="stats_wins"><strong>Wins: {{summoner.wins}}</strong></div>
       <div ng-repeat="(key, value) in summoner">
-        <div style="stats_dtails" ng-repeat="(x, y) in value">
-          {{x}} : {{y}}
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
         </div>
       </div>
     </div>
   </div>
 
-
-
+  <div class = "tip_event"> 
+    <div class="stats_tip">
+      RankedSolo5x5
+    </div>
+    <span class="tip">
+    <p class="summary_type"> RankedSolo5x5 </p>
+    <div id="RankedSolo5x5" class="info_stat_box" ng-repeat="summoner in RankedSolo5x5"> 
+      <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
+      <div class="stats_name">{{userName}}'s Stats</div>
+      <div class="stats_wins">Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
+        </div>
+      </div>
+    </div>
   </div>
+
+</div>
+</header>
 
   <script type="text/javascript"> 
 
 $(document).ready(function() {
-
-
-
 
 $(".tip_event").hover(function(){
 

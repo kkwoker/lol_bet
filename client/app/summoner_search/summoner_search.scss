@@ -94,13 +94,12 @@ z-index:100;
   display: inline-block;
   margin-top:10px;
 }
-
 .info_stat_box {
-  
-  height:auto; 
-  width:300px; 
-  
-  color:white;
+  overflow: scroll; 
+  overflow-y: hidden; 
+  overflow-x: hidden; 
+  height: 200px;
+  color: white;
 }
 .stats_tip {
   background-color:green; 
@@ -111,9 +110,12 @@ z-index:100;
   text-align:center; 
   font-size:1.2em; 
   height:100px;
+  padding:10px 5px 5px 5px;
+  display:inline-block
 }
 .stats_wins {
   text-align:left;
+  margin-top:3px;
 }
 .stats_dtails {
   text-align:left;
@@ -126,7 +128,9 @@ z-index:100;
   float:left; 
   width:100px;
   background-repeat:no-repeat;
-  
+
 }
+
+
 
 
