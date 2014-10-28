@@ -25,7 +25,7 @@
           </div>
           <div class="col-sm-4 col-md-4 bet-input" ng-hide="match.complete">
             <input type="number" min="0" ng-model="player.bet" ng-change="sendBet()">
-            <button class="btn-large btn-large-primary confirm" ng-class="{ active: player.lockedIn == player.bet }" ng-click="lockIn()">{{ player.lockedIn == player.bet ? 'Locked' : 'Lock In' }}</button>
+            <button class="orange-button confirm" ng-class="{ active: player.lockedIn == player.bet }" ng-click="lockIn()">{{ player.lockedIn == player.bet ? 'Locked' : 'Lock In' }}</button>
           </div>
 <!--           <div class="col-sm-4 col-md-4 bet-input" ng-show="match.complete">
             <button class="btn-large btn-large-primary complete" ng-click="gameComplete()">Game Complete</button>
@@ -91,7 +91,7 @@
             </tbody>
           </table>
         </div>
-        <button class="complete" ng-show="match.complete" ng-click="gameComplete()">Get results</button>
+        <button class="orange-button complete" ng-show="match.complete" ng-click="gameComplete()">Get results</button>
       </div>
     </div>
   </div>
