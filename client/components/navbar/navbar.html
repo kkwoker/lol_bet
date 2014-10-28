@@ -20,7 +20,7 @@ $('.slider-button').on("click", function(){
     <ul class="nav nav-sidebar" ng-controller="LoginCtrl">
       <div id="spacer"></div>
       <li ng-hide="isLoggedIn()" class="active"><a href="/login">Login<i class="fa fa-sign-in icon"></i></a></li>
-      <li ng-show="isLoggedIn()" class="active"><a href="/login">Logout<i class="fa fa-sign-out icon"></i></a></li>
+      <li ng-show="isLoggedIn()" class="active"><a href="" ng-click="logout()">Logout<i class="fa fa-sign-out icon"></i></a></li>
       <li ng-show="isLoggedIn()"><a href="/btc_transaction">Settings<i class="fa fa-cog icon"></i></a></li>
       <li ng-show="isLoggedIn()"><a href="/home">Profile<i class="fa fa-user icon"></i></a></li>
       <li><a href="/summoner_search">Users<i class="fa fa-users icon"></i></a></li>
