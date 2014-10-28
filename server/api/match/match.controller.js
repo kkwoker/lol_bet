@@ -300,12 +300,29 @@ exports.gameCompletion = function(req, res){
         winner = "teamTwo"
       }
 
-      // Move wallet money
-
 
       // Update active state of match
       Match.findById(gameId, function (err, match) {
         console.log(match);
+
+        // Move wallet money
+        var winningUser
+        var losingUser
+        console.log(match.match[winner]);
+        _.each(match.playerArr, function(i) {
+          var user = _.keys(i)[0];
+          console.log(match.match[winner]);
+          console.log(_.has(match.match[winner], user));
+          _.each(match.match[winner], function(i) {
+            if (i.name === user) {
+              winningUser = user;
+            }
+          });
+        })
+
+        console.log('winner is: ' + winningUser);
+        console.log('loser is: ' + losingUser);
+
         if (err) { return res.json(200, obj); }
         if(!match) { return res.send(404); }
         var updated = _.merge(match, {"active": false, "winner": winner});
