@@ -96,14 +96,37 @@ z-index:100;
 }
 
 .info_stat_box {
-  text-align:center; 
+  
   height:auto; 
   width:300px; 
-  background:blue; 
+  
   color:white;
 }
 .stats_tip {
   background-color:green; 
   padding:10px;
 }
+
+.stats_name {
+  text-align:center; 
+  font-size:1.2em; 
+  height:100px;
+}
+.stats_wins {
+  text-align:left;
+}
+.stats_dtails {
+  text-align:left;
+}
+.summary_type {
+  text-align: center;
+}
+.stat_image {
+  height:100px; 
+  float:left; 
+  width:100px;
+  background-repeat:no-repeat;
+  
+}
+
 

@@ -110,8 +110,9 @@ angular.module('lolBetApp')
     $scope.NightmareBot = [];
     $scope.OdinUnranked = [];
     $scope.OneForAll5x5 = [];
-   
-    
+   $scope.RankedSolo5x5 = [];
+
+
     // ranked stats
     $http.get('/api/stats/'+$routeParams.param2)
       .success(function(data){
@@ -131,6 +132,7 @@ angular.module('lolBetApp')
       // aggregated stats
       $http.get('/api/summarys/'+$routeParams.param2)
         .success(function(data){
+          console.log("data", data);
           var AramUnranked5x5 = $.grep(data.playerStatSummaries, function(e){ return e.playerStatSummaryType == "AramUnranked5x5" }); 
           jQuery.isEmptyObject(AramUnranked5x5) ? $scope.AramUnranked5x5.push({"wins": "NA", "Aggregated Stats": {"Aggregated Stats": "NA"} }) : $scope.AramUnranked5x5.push({"wins": AramUnranked5x5[0].wins, "aggregatedStats": AramUnranked5x5[0].aggregatedStats });
           var CoopVsAI = $.grep(data.playerStatSummaries, function(e){ return e.playerStatSummaryType == "CoopVsAI" }); 
@@ -145,21 +147,27 @@ angular.module('lolBetApp')
           jQuery.isEmptyObject(OdinUnranked) ? $scope.OdinUnranked.push({"wins": "No stats available for this summary type", "Aggregated Stats": {"Aggregated Stats": "NA"} }) : $scope.OdinUnranked.push({"wins": OdinUnranked[0].wins, "aggregatedStats": OdinUnranked[0].aggregatedStats });
           var OneForAll5x5 = $.grep(data.playerStatSummaries, function(e){ return e.playerStatSummaryType == "OneForAll5x5" }); 
           jQuery.isEmptyObject(OneForAll5x5) ? $scope.OneForAll5x5.push({"wins": "No stats available for this summary type", "Aggregated Stats": {"Aggregated Stats": "NA"} }) : $scope.OneForAll5x5.push({"wins": OneForAll5x5[0].wins, "aggregatedStats": OneForAll5x5[0].aggregatedStats });
+          var RankedSolo5x5 = $.grep(data.playerStatSummaries, function(e){ return e.playerStatSummaryType == "RankedSolo5x5" }); 
+          console.log("solo", RankedSolo5x5,  "one for all",OneForAll5x5 );
+          jQuery.isEmptyObject(RankedSolo5x5) ? $scope.RankedSolo5x5.push({"wins": "No stats available for this summary type", "Aggregated Stats": {"Aggregated Stats": "NA"} }) : $scope.RankedSolo5x5.push({"wins": RankedSolo5x5[0].wins, "aggregatedStats": RankedSolo5x5[0].aggregatedStats });
+          
        }).error(function(data){
           console.log(data);
       });
 
 
-    $http.get('/api/matches/search/'+$routeParams.param1)
-      .success(function(data){
-        $scope.online = "online";
-      }).error(function(data) {
-        console.log(data);
-      });
+    // $http.get('/api/matches/search/'+$routeParams.param1)
+    //   .success(function(data){
+    //     $scope.online = "online";
+    //   }).error(function(data) {
+    //     console.log(data);
+    //   });
 
     $http.get('/api/users')
       .success(function(data){
       var result = $.grep(data, function(e){ return e.summoner != null && e.summoner.indexName == $routeParams.param1; });
+      $scope.image = result[0].summoner.profileIconId;
+      $scope.userName = result[0].summoner.name;
       $scope.summonerDetails.push({"name": result[0].summoner.name, "profile_icon_id": result[0].summoner.profileIconId, "summoner_level": result[0].summoner.summonerLevel, "id": result[0].summoner.id});
     }).error(function(data) {
       console.log(data);
