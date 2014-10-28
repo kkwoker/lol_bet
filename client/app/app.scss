@@ -39,10 +39,11 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   }
  }
  
-.btc-logo {
+#btc-logo {
   width: 25px;
   position: relative;
   bottom: 2px;
+  margin-left: 26px;
 }
 
 .browsehappy {
@@ -245,6 +246,7 @@ ul.summonerFilter{
   background: rgba(24, 24, 24, 0.86);
   padding-bottom: 15px;
   border-radius: 2%;
+  color: white;
   @media only screen 
   and (min-device-width : 768px) 
   and (max-device-width : 1024px) 
@@ -268,4 +270,8 @@ ul.summonerFilter{
 .icon{
   float: right;
   padding-right: 11px;
+}
+
+.summoner-icon{
+  float: left;
 }

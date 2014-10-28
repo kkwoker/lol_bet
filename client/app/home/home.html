@@ -15,8 +15,11 @@
     <div class="col-sm-12 col-md-8 col-md-offset-2 home-box">
       <div class="home-header">
         <div class="left">
-          <img src="{{ user.avatarURL }}" alt="User Avatar">
+          <img class="summoner-icon" src="{{ user.avatarURL }}" alt="User Avatar">
           <h3 class="summoner-name">{{ user.summoner.name }}</h3>
+          <br>
+          <h4> <img id="btc-logo" src="/assets/images/BC_Logo.png"> {{ user.bitcoins }}</h4>
+            <h6> $10.00 USD</h6>
         </div>
         <div class="right">
           <button class="orange-button" ng-click="searchGames()">
@@ -24,21 +27,21 @@
           </button>
         </div>
       </div>
-      <div class="home-body">
-        <div class="col-sm-4 col-md-4 home-body-left">
-          <div class="col-sm-9 col-md-12">
-            <h4> <img class="btc-logo" src="/assets/images/BC_Logo.png"> {{ user.bitcoins }}</h4>
-            <h6> $10.00 USD</h6>
+      <!-- <div class="home-body"> -->
+        <!-- <div class="col-sm-4 col-md-4 home-body-left"> -->
+          <!-- <div class="col-sm-9 col-md-12"> -->
+            <!-- <h4> <img class="btc-logo" src="/assets/images/BC_Logo.png"> {{ user.bitcoins }}</h4>
+            <h6> $10.00 USD</h6> -->
             <!-- <a ng-href="/btc_transaction">
               <button class="orange-button">Deposit/Withdraw</button>
             </a> -->
-          </div>
+          <!-- </div> -->
 
-        </div>
+        <!-- </div> -->
         <div class="recent-match-title">Recent Matches</div>
 
 
-        <div class="col-sm-8 col-md-8 home-body-right" ng-controller="RecentMatchesCtrl">
+        <div class="col-sm-12 col-md-12 home-body-right" ng-controller="RecentMatchesCtrl">
           
           <div class="match" ng-repeat="match in matches">
             <!-- <span class="winner">{{match.winner}}</span> -->

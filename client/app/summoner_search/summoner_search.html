@@ -40,8 +40,10 @@
           <tr ng-repeat="summoner in filteredSummoners = ( userObject | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:summoner_name)">
    
           <td>
+            <a href="/summoner_search/{{summoner.indexName}}/{{summoner.id}}">
             {{summoner.name}}<br/>
             <img width="50" height="auto" src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
+            </a>
           </td>
           <td>
              <a href="/summoner_search/{{summoner.indexName}}/{{summoner.id}}">Profile</a>

@@ -9,19 +9,11 @@
           <h3 class="summoner-name">{{ user.summoner.name }}</h3>
         </div>
         <div class="right">
-          <button class="btn-large btn-large-primary depositWithdrawButtons" ng-click="deposit = true">deposit</button>
-          <button class="btn-large depositWithdrawButtons" ng-click="deposit = false">withdraw</button>
+          <button class="orange-button depositWithdrawButtons" ng-click="deposit = true">deposit</button>
+          <button class="orange-button depositWithdrawButtons" ng-click="deposit = false">withdraw</button>
           <!-- <a ng-href="/home"><button class="orange-button">Back</button></a> -->
         </div>
-        <!-- 
-          <div class="button">
-            <ul class="nav nav-tabs" role "tablist">
-              <li><a ng-href="/home" class="btn-large btn-large-primary">Back</a></li>
-              <li class="active"><a ng-href="/btc_transaction" class="btn-large btn-large-primary"> Deposit</a></li>
-              <li><a href="#" class="btn-large btn-large-primary"> Withdrawal</a></li>
-            </ul>
-          </div>
-         -->
+        
       </div>
 
           
@@ -33,18 +25,16 @@
         </div>
 
         <div class="btc-withdraw-body" ng-hide="deposit" ng-hide="deposit">
-        <button class="btn-large depositWithdrawButtons" ng-click="deposit = true">deposit</button>
-        <button class="btn-large btn-large-primary depositWithdrawButtons" ng-click="deposit = false">withdraw</button>
         <h3 class="withdrawHeader">WITHDRAW</h3>
         <form  ng-submit="requestWithdrawal(user)">
           <div class="form-group">
-            <input class="form-control" type="text" ng-model="user.withdrawValue" placeholder="Enter amount of mBits to withdraw">
+            <input class="form-control withdrawlForm" type="text" ng-model="user.withdrawValue" placeholder="Enter amount of mBits to withdraw">
           </div>
           <div class="form-group">
-            <input class="form-control" type="text" ng-model="user.btcAddress" placeholder="Enter your Bitcoin address">
+            <input class="form-control withdrawlForm" type="text" ng-model="user.btcAddress" placeholder="Enter your Bitcoin address">
           </div>
           <div class="form-group">
-            <button class="requestSubmit btn btn-default" type="submit">Submit</button>
+            <button class="requestSubmit orange-button" type="submit">Submit</button>
           </div>
         </form>
         <p>For an added measure of security withdrawals take up to 12 hours to process.</p> 
