@@ -5,8 +5,11 @@
     <div class="col-sm-12 col-md-8 col-md-offset-2 home-box">
       <div class="home-header">
         <div class="left">
-          <img src="{{ user.avatarURL }}" alt="User Avatar">
+          <img class="summoner-icon" src="{{ user.avatarURL }}" alt="User Avatar">
           <h3 class="summoner-name">{{ user.summoner.name }}</h3>
+          <br>
+          <h4> <img id="btc-logo" src="/assets/images/BC_Logo.png"> {{ user.bitcoins }}</h4>
+          <h6> $10.00 USD</h6>
         </div>
         <div class="right">
           <button class="orange-button depositWithdrawButtons" ng-click="deposit = true">deposit</button>
