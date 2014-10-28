@@ -9,7 +9,9 @@
           <h3 class="summoner-name">{{ user.summoner.name }}</h3>
         </div>
         <div class="right">
-          <a ng-href="/home"><button class="orange-button">Back</button></a>
+          <button class="btn-large btn-large-primary depositWithdrawButtons" ng-click="deposit = true">deposit</button>
+          <button class="btn-large depositWithdrawButtons" ng-click="deposit = false">withdraw</button>
+          <!-- <a ng-href="/home"><button class="orange-button">Back</button></a> -->
         </div>
         <!-- 
           <div class="button">
@@ -24,8 +26,7 @@
 
           
         <div class="btc-deposit-body" ng-show="deposit">
-        <button class="btn-large btn-large-primary depositWithdrawButtons" ng-click="deposit = true">deposit</button>
-        <button class="btn-large depositWithdrawButtons" ng-click="deposit = false">withdraw</button>
+        
         <h3 class="depositHeader">Your unique deposit address:</h3>
         <input type="disabled" class="btcInput" value="{{ inputAddress }}">
         <p>All bitcoin deposits to this address will be accreddited to your lolbet account balance,  usually within 10 minutes.</p>

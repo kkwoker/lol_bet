@@ -11,7 +11,7 @@
       </div>
       <div class="col-sm-12 status complete animate flip-in" ng-show="match.complete">
         <h3>Betting has completed. Good Luck!
-          <button class="complete" ng-show="match.complete" ng-click="gameComplete()">Get results</button>
+          
         </h3>
       </div>
       <div class="col-sm-12 status error animate flip-in" ng-show="error">
@@ -91,6 +91,7 @@
             </tbody>
           </table>
         </div>
+        <button class="complete" ng-show="match.complete" ng-click="gameComplete()">Get results</button>
       </div>
     </div>
   </div>

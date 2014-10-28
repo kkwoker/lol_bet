@@ -198,20 +198,20 @@
   padding: 11px 20px 8px 20px;
   font-size: 16px;
   margin-top: 10px;
-  color: black;
-
-  border-color: #f6c653 #bd6a23 #b6631f #e8ab4a;
-  background: linear-gradient(orange, rgb(255, 97, 0));
+  color: rgb(247, 247, 247);
+  border-color: #F0F0F0 #F5F1ED #FAF9F8 #FAF8F5;
+  background: linear-gradient(rgb(39, 39, 39), #000000);
+  border-radius: 5px;
   &:hover {
-    color: #222;
-    border-color: #fdeaba #bf712c #b66521 #edbd6e;
-    background: linear-gradient(#E57E1A, #ffb800);
+    color: #FCFCFC;
+    border-color: #F9F5ED #F2E8DF #F2E7DE #F7F3EC;
+    background: linear-gradient(#444240, #888784);
   }
 
   &:active {
-    color: #222;
-    border-color: #e1b03d #7f3517 #772d16 #c17f30;
-    background: #D08901;
+    color: #FCFCFC;
+    border-color: #F9F5ED #F2E8DF #F2E7DE #F7F3EC;
+    background: linear-gradient(#444240, #888784);
   }
   @media only screen 
   and (min-device-width : 768px) 
@@ -221,4 +221,6 @@
 
   }
 }
+
+
 
