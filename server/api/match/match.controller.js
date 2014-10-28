@@ -306,22 +306,35 @@ exports.gameCompletion = function(req, res){
         console.log(match);
 
         // Move wallet money
-        var winningUser
-        var losingUser
-        console.log(match.match[winner]);
-        _.each(match.playerArr, function(i) {
-          var user = _.keys(i)[0];
+        if (match.active) {
+          var winningUser
+          var losingUser
+          var amount = match.bet * 100000
           console.log(match.match[winner]);
-          console.log(_.has(match.match[winner], user));
-          _.each(match.match[winner], function(i) {
-            if (i.name === user) {
-              winningUser = user;
+          _.each(match.playerArr, function(i) {
+            if (i[_.keys(i)[0]].teamId === winner) {
+              winningUser = _.keys(i)[0]; 
+            } else {
+              losingUser = _.keys(i)[0];
             }
-          });
-        })
+          })
+          console.log('winner is: ' + winningUser);
+          console.log('loser is: ' + losingUser);
 
-        console.log('winner is: ' + winningUser);
-        console.log('loser is: ' + losingUser);
+          User.findOne({ 'summoner.indexName': winningUser }, function(err, user) {
+            user.wallet += amount;
+            user.save(function(err) {
+              if (err) { console.log(err); }
+            })
+          });
+
+          User.findOne({ 'summoner.indexName': losingUser }, function(err, user) {
+            user.wallet -= amount;
+            user.save(function(err) {
+              if (err) { console.log(err); }
+            })
+          });
+        }
 
         if (err) { return res.json(200, obj); }
         if(!match) { return res.send(404); }
