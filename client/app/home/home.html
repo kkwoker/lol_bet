@@ -18,8 +18,13 @@
           <img class="summoner-icon" src="{{ user.avatarURL }}" alt="User Avatar">
           <h3 class="summoner-name">{{ user.summoner.name }}</h3>
           <br>
-          <div class="wallet"><h4> <img id="btc-logo" src="/assets/images/BC_Logo.png"> {{ user.bitcoins }}
-          <span id="usd"> =  $10.00 USD</span></h4></div>
+          <div class="wallet">
+            <h4> <img id="btc-logo" src="/assets/images/BC_Logo.png"> {{ user.bitcoins }}
+              <span id="usd"> =  {{user.mBits}}mBits </span>
+            </h4>
+            <br>
+            <p class="conversion">$10 USD</p>
+          </div>
             
         </div>
         <div class="right">
