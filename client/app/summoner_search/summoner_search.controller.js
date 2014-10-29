@@ -6,7 +6,7 @@ angular.module('lolBetApp')
     $scope.user = [];
     $scope.userObject = [];
     $scope.userCount = [];
-    $scope.pagination = Pagination.getNew(5);
+    $scope.pagination = Pagination.getNew(4);
     $scope.summonerStats = [];
     $scope.route = $route;
    
