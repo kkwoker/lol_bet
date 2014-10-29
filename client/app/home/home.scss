@@ -19,7 +19,7 @@
 
     .right {
         float: right;
-        margin: 26px;
+        margin: 32px 20px 0 5px;
     }
 }
 
@@ -234,12 +234,12 @@
 }
 
 .left{
-  width: 65%;
+  width: 60%;
   @media only screen 
   and (min-device-width : 768px) 
   and (max-device-width : 1024px) 
   and (orientation : landscape) { 
-    width: 380px;
+    width: 368px;
   }
 
   .summoner-icon {
