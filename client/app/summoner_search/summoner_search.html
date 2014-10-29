@@ -1,14 +1,14 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <header class="hero-unit" id="banner">
-  <div class="col-sm-12 col-md-8 col-md-offset-2 home-box" style="overflow: scroll; height: 627px; padding:10px;">
+  <div class="col-sm-12 col-md-8 col-md-offset-2 home-box" style="overflow: scroll; height:80%; padding:10px;">
     <div class="home-header" >
       <div class="left">
       <p ng-show="online">
         Game Status: <span class="{{online}}">{{online}}</span><br/>
       </p>
         <form novalidate class="simple-form">
-          <input autofocus ng-hide="summonerView" ng-click="listSummoners()" class="ng-hide" type="text" ng-model="sm_name" ng-change="summoner_name=sn_number" placeholder="Search Summoners"/>
+          <input autofocus ng-hide="summonerView" ng-click="listSummoners()" class="ng-hide" type="text" ng-model="sm_name" ng-change="summonerName=sn_number" placeholder="Search Summoners"/>
         </form><br/>
         <a ng-show="online || unregisteredSummonerFound==='yes'" class="back" ng-click="route.reload()" href="/summoner_search">Back</a>
       </div>
@@ -16,11 +16,11 @@
 
     <div ng-hide="summonerView" class="ng-hide">
 
-      <div ng-show="(filteredSummoners | filter:summoner_name).length == 0">
+      <div ng-show="(filteredSummoners | filter:summonerName).length == 0">
         <div ng-hide="cantFind=='true'">
-          Sorry, it appears that {{summoner_name}} isn't registered with us<br/>
-          Check if <strong>{{summoner_name}}</strong> has a League of Legends account?
-          <button ng-click="checkSummoner(summoner_name)">Search</button>
+          Sorry, it appears that {{summonerName}} isn't registered with us<br/>
+          Check if <strong>{{summonerName}}</strong> has a League of Legends account?
+          <button ng-click="checkSummoner(summonerName)">Search</button>
         </div>
 
         <div class="summoner-details" ng-show="unregisteredSummonerFound === 'yes'">
@@ -31,19 +31,17 @@
         </div>
       </div>
 
-      <table class="span5 table" ng-show="(filteredSummoners | filter:summoner_name).length != 0">
+      <table class="span5 table" ng-show="(filteredSummoners | filter:summonerName).length != 0">
         <thead>
           <th>Name</th>
           <th>Profile</th>
         </thead>
           
-          <tr ng-repeat="summoner in filteredSummoners = ( userObject | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:summoner_name)">
+          <tr ng-repeat="summoner in filteredSummoners = ( userObject | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:summonerName)">
    
           <td>
-            <a href="/summoner_search/{{summoner.indexName}}/{{summoner.id}}">
             {{summoner.name}}<br/>
             <img width="50" height="auto" src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
-            </a>
           </td>
           <td>
              <a href="/summoner_search/{{summoner.indexName}}/{{summoner.id}}">Profile</a>
