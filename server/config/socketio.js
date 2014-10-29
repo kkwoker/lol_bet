@@ -20,6 +20,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/summary/summary.socket').register(socket);
 
   require('../api/mailer/mailer.socket').register(socket);
 
@@ -94,7 +95,7 @@ module.exports = function (socketio) {
         socketio.sockets.in(data.room).emit('status', { ready: true });
         
         // Start the timer
-        var time = 15;
+        var time = 60;
         socketio.sockets.in(data.room).emit('countdown', { time: time });
         var countdown = setInterval(function() {
           time--;

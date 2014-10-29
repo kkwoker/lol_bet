@@ -3,21 +3,32 @@
 <header class="hero-unit" id="banner">
   <div class="container background-blur" ng-keyup="cancelSearch($event)">
   <div class="search-loading" ng-show="loading">
-    <div class="loading-ball">
-      <div class="ball"></div>
-      <div class="ball1"></div>
+    <div class="loading-box">
+      <div class="loading-ball">
+        <div class="ball"></div>
+        <div class="ball1"></div>
+      </div>
+      <h3>Searching</h3>
+      <button class="btn btn-default" ng-click="loading = false">Cancel</button>
     </div>
-    <h3>Searching...</h3>
-    <p>(press esc to cancel)</p>
   </div>
     <div class="col-sm-12 col-md-8 col-md-offset-2 home-box">
       <div class="home-header">
         <div class="left">
-          <img src="{{ user.avatarURL }}" alt="User Avatar">
+          <img class="summoner-icon" src="{{ user.avatarURL }}" alt="User Avatar">
           <h3 class="summoner-name">{{ user.summoner.name }}</h3>
+          <br>
+          <div class="wallet">
+            <h4> <img id="btc-logo" src="/assets/images/BC_Logo.png"> {{ user.bitcoins }}
+              <span id="usd"> =  {{user.mBits}}mBits </span>
+            </h4>
+            <br>
+            <p class="conversion">$10 USD</p>
+          </div>
+            
         </div>
         <div class="right">
-          <button class="btn-large" ng-click="searchGames()">
+          <button class="orange-button" ng-click="searchGames()">
             Search for games!
           </button>
         </div>
@@ -32,16 +43,11 @@
             
           </div>
 
-          <div class="col-sm-12 button">
+        <div class="recent-match-title">Recent Matches</div>
 
-            <a ng-href="/btc_transaction">
-              <button class="btn-large btn-large-primary">Deposit / Withdraw</button>
-            </a>
-          </div>
+
+        <div class="col-sm-12 col-md-12 home-body-right" ng-controller="RecentMatchesCtrl">
           
-        </div>
-        <div class="col-sm-12 col-md-8 home-body-right" ng-controller="RecentMatchesCtrl">
-          <div class="recent-match-title">Recent Matches</div>
           <div class="match" ng-repeat="match in matches">
             <!-- <span class="winner">{{match.winner}}</span> -->
             <span class="team1">

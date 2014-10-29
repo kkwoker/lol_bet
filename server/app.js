@@ -4,6 +4,9 @@
 
 'use strict';
 
+// New Relic config
+require('../newrelic');
+
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -12,8 +15,6 @@ var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
 
-// New Relic config
-require('../newrelic');
 
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);

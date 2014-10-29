@@ -1,14 +1,14 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <header class="hero-unit" id="banner">
-  <div class="col-sm-12 col-md-8 col-md-offset-2 home-box" style="overflow: scroll; height:80%; padding:10px;">
+  <div class="col-sm-12 col-md-8 col-md-offset-2 home-box" style="overflow: scroll; overflow-x:hidden; height:80%; padding:10px;">
     <div class="home-header" >
       <div class="left">
       <p ng-show="online">
         Game Status: <span class="{{online}}">{{online}}</span><br/>
       </p>
         <form novalidate class="simple-form">
-          <input autofocus ng-hide="summonerView" ng-click="listSummoners()" class="ng-hide" type="text" ng-model="sm_name" ng-change="summoner_name=sn_number" placeholder="Search Summoners"/>
+          <input style="color:black;" autofocus ng-hide="summonerView" ng-click="listSummoners()" class="ng-hide" type="text" ng-model="sm_name" ng-change="summonerName=sn_number" placeholder="Search Summoners"/>
         </form><br/>
         <a ng-show="online || unregisteredSummonerFound==='yes'" class="back" ng-click="route.reload()" href="/summoner_search">Back</a>
       </div>
@@ -16,11 +16,11 @@
 
     <div ng-hide="summonerView" class="ng-hide">
 
-      <div ng-show="(filteredSummoners | filter:summoner_name).length == 0">
+      <div ng-show="(filteredSummoners | filter:summonerName).length == 0">
         <div ng-hide="cantFind=='true'">
-          Sorry, it appears that {{summoner_name}} isn't registered with us<br/>
-          Check if <strong>{{summoner_name}}</strong> has a League of Legends account?
-          <button ng-click="checkSummoner(summoner_name)">Search</button>
+          Sorry, it appears that {{summonerName}} isn't registered with us<br/>
+          Check if <strong>{{summonerName}}</strong> has a League of Legends account?
+          <button ng-click="checkSummoner(summonerName)">Search</button>
         </div>
 
         <div class="summoner-details" ng-show="unregisteredSummonerFound === 'yes'">
@@ -31,13 +31,13 @@
         </div>
       </div>
 
-      <table class="span5 table" ng-show="(filteredSummoners | filter:summoner_name).length != 0">
+      <table class="span5 table" ng-show="(filteredSummoners | filter:summonerName).length != 0">
         <thead>
           <th>Name</th>
           <th>Profile</th>
         </thead>
           
-          <tr ng-repeat="summoner in filteredSummoners = ( userObject | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:summoner_name)">
+          <tr ng-repeat="summoner in filteredSummoners = ( userObject | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage | filter:summonerName)">
    
           <td>
             {{summoner.name}}<br/>
@@ -66,7 +66,7 @@
     {{noSummoner}}
     <div class="summoner-details" ng-repeat="summoner in summonerDetails" >
       <p> 
-        <img src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
+        <img alt="profile_icon_id" src='https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{summoner.profile_icon_id}}.png'/>
         {{summoner.name}}<br/>level: {{summoner.summoner_level}}
       </p>
     </div>
@@ -88,11 +88,186 @@
         Total Damage Taken: {{summoner.total_damage_taken}}<br/>
         Total Minions Killed: {{summoner.total_minions_killed}}
       </td>
-
     </tr>
-  </table>
-</div>
-</div>
+   
 
+  </table>
+ 
+
+  <div ng-show="foundStats == 'true' && cantFind != 'true'" >
+
+  <div class = "tip_event"> 
+    <div class="stats_tip">
+     AramUnranked5x5
+    </div>
+    <span class="tip">
+    <p class="summary_type"> AramUnranked5x5 </p>
+    <div id="AramUnranked5x5" class="info_stat_box" ng-repeat="summoner in AramUnranked5x5"> 
+      <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
+      <div class="stats_name">{{userName}}'s Stats</div>
+      <div class="stats_wins">Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
+        </div>
+      </div>
+    </div>
   </div>
+
+
+  <div class = "tip_event"> 
+    <div class="stats_tip">
+     CoopVsAI
+    </div>
+    <span class="tip">
+    <p class="summary_type"> CoopVsAI </p>
+    <div id="CoopVsAI" class="info_stat_box" ng-repeat="summoner in CoopVsAI"> 
+      <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
+      <div class="stats_name">{{userName}}'s Stats</div>
+      <div class="stats_wins">Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class = "tip_event"> 
+    <div class="stats_tip">
+     CAP5x5
+    </div>
+    <span class="tip">
+    <p class="summary_type"> CAP5x5 </p>
+    <div id="CAP5x5" class="info_stat_box" ng-repeat="summoner in CAP5x5"> 
+      <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
+      <div class="stats_name">{{userName}}'s Stats</div>
+      <div class="stats_wins">Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class = "tip_event"> 
+    <div class="stats_tip">
+      CoopVsAI3x3
+    </div>
+    <span class="tip">
+    <p class="summary_type"> CoopVsAI3x3 </p>
+    <div id="CoopVsAI3x3" class="info_stat_box" ng-repeat="summoner in CoopVsAI3x3"> 
+      <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
+      <div class="stats_name">{{userName}}'s Stats</div>
+      <div class="stats_wins">Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+<br/>
+
+
+  <div class = "tip_event"> 
+    <div class="stats_tip">
+      NightmareBot
+    </div>
+    <span class="tip">
+    <p class="summary_type"> NightmareBot </p>
+    <div id="NightmareBot" class="info_stat_box" ng-repeat="summoner in NightmareBot"> 
+      <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
+      <div class="stats_name">{{userName}}'s Stats</div>
+      <div class="stats_wins">Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class = "tip_event"> 
+    <div class="stats_tip">
+     OdinUnranked
+    </div>
+    <span class="tip">
+    <p class="summary_type"> OdinUnranked </p>
+    <div id="OdinUnranked" class="info_stat_box" ng-repeat="summoner in OdinUnranked"> 
+      <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
+      <div class="stats_name">{{userName}}'s Stats</div>
+      <div class="stats_wins"><strong>Wins: {{summoner.wins}}</strong></div>
+      <div ng-repeat="(key, value) in summoner">
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class = "tip_event"> 
+    <div class="stats_tip">
+      RankedSolo5x5
+    </div>
+    <span class="tip">
+    <p class="summary_type"> RankedSolo5x5 </p>
+    <div id="RankedSolo5x5" class="info_stat_box" ng-repeat="summoner in RankedSolo5x5"> 
+      <div style="background-image: url(https://ddragon.leagueoflegends.com/cdn/4.18.1/img/profileicon/{{image}}.png);" class="stat_image"></div>
+      <div class="stats_name">{{userName}}'s Stats</div>
+      <div class="stats_wins">Wins: {{summoner.wins}}</div>
+      <div ng-repeat="(key, value) in summoner">
+        <div class="stats_dtails" ng-repeat="(x, y) in value">
+            {{x}} : {{y}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 </header>
+
+  <script type="text/javascript"> 
+
+$(document).ready(function() {
+
+$(".tip_event").hover(function(){
+
+tipEventHovered = $(this).find('.info_stat_box[id]');
+tipEventHoveredId = tipEventHovered.prop('id');
+console.log(tipEventHoveredId);
+tip = $(this).find('.tip');
+tip.show();
+
+}, function() {
+  tip.hide();
+  }).mousemove(function(e) {
+
+    var mousex = e.pageX  -200; 
+    var mousey = e.pageY  -200; 
+    var tipw = tip.width(); 
+    var tiph = tip.height(); 
+ 
+    var tipVisX = $(window).width() - (mousex + tipw);
+ 
+    var tipVisY = $(window).height() - (mousey + tiph);
+
+    if(tipVisX < 20) {
+      mousex = e.pageX - tipw - 10;
+    } if (tipVisY < 20 ) { 
+      mousey = e.pageY - tiph - 10;
+    }
+    tip.css({ top:mousey, left:mousex, opacity: 0.8 }); 
+ 
+   $("#"+tipEventHoveredId).animate({ scrollTop:$("#"+tipEventHoveredId)[0].scrollHeight }, 30000, function() {
+      $(this).animate({ scrollTop: 0 }, 30000);
+    });
+  });
+});
+</script>
+</header>
+

@@ -10,8 +10,9 @@ router.get('/gameCompletion/:id', controller.gameCompletion);
 
 
 router.get('/', controller.index);
+router.get('/reset', controller.clearMatches);
 router.get('/:id', controller.show);
-router.get('/search/:indexName', controller.search)
+router.get('/search/:indexName', controller.search);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);

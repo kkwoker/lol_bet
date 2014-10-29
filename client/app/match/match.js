@@ -6,6 +6,7 @@ angular.module('lolBetApp')
       .when('/match', {
         templateUrl: 'app/match/match.html',
         controller: 'MatchCtrl',
+        authenticate: true,
         resolve: {
           matchData: function($http, $location, currentMatch) {
             var match = currentMatch.getMatch();

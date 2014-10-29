@@ -2,22 +2,20 @@
 
 var keys = require('../../config/local.env')
 var _ = require('lodash');
-var Stat = require('./stat.model');
+var Summary = require('./summary.model');
 var request = require('request');
 
-
+// Get list of summarys
 exports.index = function(req, res) {
-  Stat.find({}, '-salt -hashedPassword', function (err, stats) {
-    if(err) return res.send(500, err);
-    res.json(200, stats);
+  Summary.find(function (err, summarys) {
+    if(err) { return handleError(res, err); }
+    return res.json(200, summarys);
   });
 };
 
-
-// Get a single stat
 exports.show = function(req, res) {
   var id = req.params.id;
-  var url = "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/"+id+"/ranked?api_key="+keys.RIOT_API_KEY;
+  var url = "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/"+id+"/summary?api_key="+keys.RIOT_API_KEY;
    request(url, function(error, response, body){
     if(!error && response.statusCode === 200){
       console.log(JSON.parse(body));
@@ -35,34 +33,34 @@ exports.show = function(req, res) {
   });
 };
 
-// Creates a new stat in the DB.
+// Creates a new summary in the DB.
 exports.create = function(req, res) {
-  Stat.create(req.body, function(err, stat) {
+  Summary.create(req.body, function(err, summary) {
     if(err) { return handleError(res, err); }
-    return res.json(201, stat);
+    return res.json(201, summary);
   });
 };
 
-// Updates an existing stat in the DB.
+// Updates an existing summary in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  Stat.findById(req.params.id, function (err, stat) {
+  Summary.findById(req.params.id, function (err, summary) {
     if (err) { return handleError(res, err); }
-    if(!stat) { return res.send(404); }
-    var updated = _.merge(stat, req.body);
+    if(!summary) { return res.send(404); }
+    var updated = _.merge(summary, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-      return res.json(200, stat);
+      return res.json(200, summary);
     });
   });
 };
 
-// Deletes a stat from the DB.
+// Deletes a summary from the DB.
 exports.destroy = function(req, res) {
-  Stat.findById(req.params.id, function (err, stat) {
+  Summary.findById(req.params.id, function (err, summary) {
     if(err) { return handleError(res, err); }
-    if(!stat) { return res.send(404); }
-    stat.remove(function(err) {
+    if(!summary) { return res.send(404); }
+    summary.remove(function(err) {
       if(err) { return handleError(res, err); }
       return res.send(204);
     });

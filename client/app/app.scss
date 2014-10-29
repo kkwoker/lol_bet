@@ -10,6 +10,20 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
  body {
   font-family: 'Averia Serif Libre', san-serif;
+  background: url('../../assets/images/background.jpg');
+  background-size: cover;
+ }
+ 
+ a {
+  color: white;
+ }
+
+ button a {
+  color: black;
+  &:hover {
+    color: black;
+    text-decoration: none;
+  }
  }
 
  // Navbar styles
@@ -25,10 +39,11 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   }
  }
  
-.btc-logo {
+#btc-logo {
   width: 25px;
   position: relative;
   bottom: 2px;
+  margin-left: 26px;
 }
 
 .browsehappy {
@@ -50,6 +65,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
   font-size: 16px;
   border: 1;
   margin-top: 10px;
+
 
   color: #222;
   border-color: #f6c653 #bd6a23 #b6631f #e8ab4a;
@@ -117,6 +133,95 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 ul.summonerFilter{
   list-style-type:none;
 }
+
+.nav-styles{
+  z-index: 1;
+  position: absolute;
+  background: rgba(24, 24, 24, 0.86);
+  height: 100vh;
+  top: 0px;
+  left: -185px;
+  padding-right: 0;
+  transition: all 1s;
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  and (orientation : landscape) { 
+    font-size: 14px;
+    left: -120px;
+    z-index: 10000;
+    top: 0px;
+    margin: 0;
+    padding-left: 0;
+  }
+}
+
+.nav-show{
+  left: 0px;
+  color: green;
+  transition: all 1s;
+}
+
+.slider-button{
+  position: relative;
+  float: right;
+  padding-right: 5px;
+  color: white;
+  top: 7px;
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  and (orientation : landscape) { 
+    float: right;
+    top: 10px;
+  }
+
+}
+
+
+/* Hamburgers yum */
+#nav-toggle { 
+  position: absolute;
+  left: 50%; 
+  top: 50%; 
+  left: -25px;
+
+}
+
+#nav-toggle { cursor: pointer; padding: 10px 35px 16px 0px; }
+#nav-toggle span, #nav-toggle span:before, #nav-toggle span:after {
+
+  cursor: pointer;
+  border-radius: 1px;
+  height: 5px;
+  width: 35px;
+  background: white;
+  position: absolute;
+  display: block;
+  content: '';
+}
+#nav-toggle span:before {
+  top: -10px; 
+}
+#nav-toggle span:after {
+  bottom: -10px;
+}
+
+#nav-toggle span, #nav-toggle span:before, #nav-toggle span:after {
+  transition: all 500ms ease-in-out;
+}
+#nav-toggle.active span {
+  background-color: transparent;
+}
+#nav-toggle.active span:before, #nav-toggle.active span:after {
+  top: 0;
+}
+#nav-toggle.active span:before {
+  transform: rotate(45deg);
+}
+#nav-toggle.active span:after {
+  transform: rotate(-45deg);
+}
 .summoner-details {
   text-align:center;
   font-size: 1.6em;
@@ -129,4 +234,44 @@ ul.summonerFilter{
   float:left;
 }
 
+.help-block{
+  color: red;
+}
 
+.greenlight {
+  color: green;
+}
+
+.black-transparent{
+  background: rgba(24, 24, 24, 0.86);
+  padding-bottom: 15px;
+  border-radius: 2%;
+  color: white;
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  { 
+    margin-top: 20px;
+  } 
+}
+#spacer{
+  height: 50px;
+}
+
+.nav-sidebar li{
+  margin-top: 20px;
+}
+.nav li a {
+  padding-right: 0;
+  right: -10px;
+  font-size: 20px;
+}
+
+.icon{
+  float: right;
+  padding-right: 11px;
+}
+
+.summoner-icon{
+  float: left;
+}

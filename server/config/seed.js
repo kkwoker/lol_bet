@@ -228,7 +228,7 @@ User.find({}).remove(function() {
         summonerLevel: 30,
         revisionDate: 1411327378000
       },
-    wallet: 140000000
+    wallet: 407060
   },{
     provider: 'local',
     name: 'Eric',
