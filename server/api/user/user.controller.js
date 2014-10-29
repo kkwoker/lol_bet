@@ -108,6 +108,24 @@ exports.changePassword = function(req, res, next) {
 };
 
 /**
+ * Change a users currency
+ */
+exports.changeCurrency = function(req, res) {
+  console.log("inside server");
+  console.log(req.body);
+
+  User.findById(req.body.user_id, function (err, user) {
+      user.currency = req.body.newCurrency;
+      user.save(function(err) {
+        if (err) return validationError(res, err);
+        res.send(200);
+        });
+    }
+  );
+};
+
+
+/**
  * Get my info
  */
 exports.me = function(req, res, next) {

@@ -14,7 +14,8 @@ var UserSchema = new Schema({
   hashedPassword: String,
   provider: String,
   salt: String,
-  wallet: { type: Number, default: 0 }
+  wallet: { type: Number, default: 0 },
+  currency: { type: String, default: 'USD' }
 });
 
 /**

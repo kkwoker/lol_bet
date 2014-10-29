@@ -36,7 +36,7 @@ exports.search = function(req, res){
     unirest.get("https://community-league-of-legends.p.mashape.com/api/v1.0/na/summoner/retrieveInProgressSpectatorGameInfo/"+ summonerName)
         .header("X-Mashape-Key", keys.MASHAPE_API_KEY)
         .end(function (result) {
-          if(result.body.success){
+          if(result.body && result.body.success){
             console.log("THERE IS NO MATCH");
             return res.json(404, result.body);
           }else{
@@ -112,7 +112,7 @@ exports.search = function(req, res){
       for(var i in champs){
         for(var c in allChamps){
           if(champs[i] == allChamps[c].id){
-            champs[i] = allChamps[c].image.full
+            champs[i] = allChamps[c].key;
           }
         }
       }
@@ -150,7 +150,8 @@ exports.search = function(req, res){
     var obj = {
       "_id": match.playerCredentials.gameId,
       "match": matchNew,
-      "bet": bet,
+      "bet": 0,
+      "playerArr": [p1, p2],
       "active": true
     }
 
@@ -180,7 +181,7 @@ exports.search = function(req, res){
         }
       })
       console.log("bidders: " + bidders);
-      match.bet.playerArr[1][bidders[0]] = summoners[bidders[0]];
+      match.playerArr[1][bidders[0]] = summoners[bidders[0]];
       // if(summoners[bidders[0]]){
         var newMatch = new Match(match);
           newMatch.save(function(err, matchRes){
@@ -287,7 +288,7 @@ exports.gameCompletion = function(req, res){
   // console.log(url);
   request(url, function(err, response, body){
   //   console.log(response.statusCode);
-    if(response.statusCode == "404"){
+    if(response && response.statusCode == "404"){
       return res.json(200, {"finished": false}) 
     }else if(response.statusCode == "200"){
       var jsonBody = JSON.parse(body);
@@ -307,6 +308,7 @@ exports.gameCompletion = function(req, res){
 
       // Update active state of match
       Match.findById(gameId, function (err, match) {
+        console.log(match);
         if (err) { return res.json(200, obj); }
         if(!match) { return res.send(404); }
         var updated = _.merge(match, {"active": false, "winner": winner});

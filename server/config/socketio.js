@@ -20,7 +20,11 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+
   require('../api/mailer/mailer.socket').register(socket);
+
+  require('../api/stat/stat.socket').register(socket);
+
   require('../api/btc_transaction/btc_transaction.socket').register(socket);
   require('../api/match/match.socket').register(socket);
   require('../api/summoner/summoner.socket').register(socket);
@@ -64,9 +68,15 @@ module.exports = function (socketio) {
 
     socket.on('join-room', function(data) {
 
+      Match.findById(data.room, function(err, match) {
+        if (match.bet !== 0) {
+          socket.emit('betting-complete', { pot: match.bet });
+          socket.disconnect();
+        }
+      });
+
       socket.join(data.room);
       socket.room = data.room;
-      console.log(data.room);
       /* Removing number of user detection for now
       if (socketio.sockets.in(data.room).sockets.length < 2) {
         socket.room = data.room;
@@ -97,29 +107,26 @@ module.exports = function (socketio) {
       }
 
       socket.on('bet', function(data) {
-        socket.bet = data.bet;
         socket.broadcast.to(socket.room).emit('bet', { bet: data.bet, lockedIn: data.lockedIn });
       });
 
       socket.on('set-pot', function(data) {
-        console.log('setting pot to: ' + data.bet);
-        socket.broadcast.to(socket.room).emit('set-pot', { bet: data.bet });
+        console.log('setting pot to: ' + data.pot);
+        socket.broadcast.to(socket.room).emit('set-pot', { pot: data.pot });
       });
 
       socket.on('save-bet', function(data) {
         Match.findById(data.match, function (err, match) {
           if (err) { return console.log(err); }
-          var newbet = {
-            bet: {
-              "bet": data.bet
-            }
-          }
-          var updated = _.merge(match, {bet: {"bet": data.bet}});
+          var newMatch = { bet: data.bet }
+          var updated = _.merge(match, newMatch);
           console.log(updated);
           updated.save(function (err) {
             if (err) { return console.log(err); }
           });
         });
+
+        socket.disconnect();
       })
     })
   });

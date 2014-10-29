@@ -29,7 +29,7 @@ exports.create = function(req, res) {
   console.log("connected test");
   var transaction = {};
   var user_id = req.body.user_id;
-  var callback_url = encodeURIComponent(keys.DOMAIN + '/btc_transactions/confirm');
+  var callback_url = encodeURIComponent(keys.DOMAIN + '/api/btc_transactions/confirm');
   var url = 'https://blockchain.info/api/receive?method=create&address=' + keys.BITCOIN_ADDRESS +'&callback=' + callback_url;
   console.log(callback_url);
 
@@ -63,26 +63,30 @@ exports.confirm = function(req, res) {
   console.log(req.query);
 
   BtcTransaction.findOne({input_address: req.query.input_address}).find( function (err, btc_transaction) {
-    console.log(typeof btc_transaction)
+    console.log('RECIEVED CALLBACK:')
+    console.log(btc_transaction);
     if (err) { return handleError(res, err); }
     if(!btc_transaction) { return res.send(404); }
-    // var updated = _.merge(btc_transaction, req.body);
-    btc_transaction[0].pending = false;
-    if (req.query.confirmations >= 4){ 
+    
+    if (btc_transaction[0].success === true) {
+      btc_transaction[0].confirmations = req.query.confirmations;
+    } else if (req.query.confirmations >= 4) {
+      btc_transaction[0].confirmations = req.query.confirmations;
+      btc_transaction[0].pending = false;
       btc_transaction[0].success = true;
+      btc_transaction[0].value = req.query.value
+
       User.findOne({_id: btc_transaction[0].user_id}).find( function(err, user) {
-        console.log(user);
-        console.log(parseInt(req.query.value));
         user[0].wallet += parseInt(req.query.value);
         user[0].save(function(err){
           console.log(err);
         });
       })
     } else {
-      btc_transaction[0].success = false;
+      btc_transaction[0].confirmations = req.query.confirmations;
     }
-    console.log(btc_transaction);
     btc_transaction[0].save(function (err) {
+      console.log('SAVING');
       if (err) { return handleError(res, err); }
       console.log("success" + btc_transaction);
       return res.json(200, btc_transaction);

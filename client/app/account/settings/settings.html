@@ -34,6 +34,37 @@
 
         <button class="btn btn-lg btn-primary" type="submit">Save changes</button>
       </form>
+
+      <form class="form" name="currencyForm" ng-submit="changeCurrency(currencyForm)">
+        <select ng-model="newCurrency">
+          <option value="USD">United States Dollar</option>
+          <option value="ISK">Icelandic Krona</option>
+          <option value="HKD">Hong Kong Dollar</option>
+          <option value="TWD">Taiwan Dollar</option>
+          <option value="CHF">Swiss Franc</option>
+          <option value="EUR">Euro</option>
+          <option value="DKK">Danish Krone</option>
+          <option value="CLP">Chilean Peso</option>
+          <option value="CAD">Canadian Dollar</option>
+          <option value="CNY">Renminbi</option>
+          <option value="THB">Thai Baht</option>
+          <option value="AUD">Australian Dollar</option>
+          <option value="SGP">Singapore Dollar</option>
+          <option value="KRW">South Korean Won</option>
+          <option value="JPY">Japanese Yen</option>
+          <option value="PLN">Polish Zloty</option>
+          <option value="GBP">Great British Pound</option>
+          <option value="SEK">Swedish Krona</option>
+          <option value="NZD">New Zealand Dollar</option>
+          <option value="BRL">Brazilian Real</option>
+          <option value="RUB">Russian Ruble</option>
+          </select>
+
+        <button class="btn btn-lg btn-primary" type="submit">Save changes</button>
+      </form>    
+
+
+
     </div>
   </div>
 </div>

@@ -1,8 +1,23 @@
 'use strict';
 angular.module('lolBetApp')
-  .controller('HomeCtrl', ['$scope', '$http', '$timeout','$location', 'Auth', 'currentMatch', 
-    function ($scope, $http, $timeout, $location, Auth, currentMatch) {
+  .controller('HomeCtrl', ['$scope', '$http', '$timeout','$location', '$interval', 'Auth', 'currentMatch', 
+    function ($scope, $http, $timeout, $location, $interval, Auth, currentMatch) {
     $scope.user = {};
+    $scope.preferredCurrency = Auth.getCurrentUser().currency
+
+    console.log($scope.preferredCurrency);
+    $http.get('/api/btc_exchange/544dba0cdb1b763dc0f20def')
+      .success(function(data) {
+        $scope.preferredCurrency = Auth.getCurrentUser().currency
+        $scope.exchangeRate = data[$scope.preferredCurrency].last;
+      });
+
+    $interval(function(){
+      $http.get('/api/btc_exchange/544dba0cdb1b763dc0f20def')
+        .success(function(data) {
+          $scope.exchangeRate = data.USD.last;
+        });
+    }, 60000);
 
     Auth.getCurrentUser().$promise
       .then(function(data) {
@@ -22,22 +37,24 @@ angular.module('lolBetApp')
       $scope.loading = true;
 
       function getGame() {
-        if (!$scope.loading) { return false; }
-
         $http.get(url)
           .success(function(data) {
+            if (!data._id) {
+              $timeout(function() {
+                if ($scope.loading) { getGame(); }
+              }, 2000);
+            }
             $scope.loading = false;
             currentMatch.setMatch(data._id);
             $location.url('/match');
-            console.log(data);
           })
           .error(function(response, status) {
-           $timeout(function() {
-              getGame();
-            }, 5000);
-
             console.log(response, status);
+            $timeout(function() {
+              if ($scope.loading) { getGame(); }
+            }, 5000);
         });
+
       }
 
       $(document).on('keyup', function(event) {
@@ -48,7 +65,6 @@ angular.module('lolBetApp')
 
       getGame();
     };
-
   }])
 
 .controller('RecentMatchesCtrl', ['$scope', '$http',
@@ -63,16 +79,16 @@ angular.module('lolBetApp')
           $scope.matches[i] = {};
           $scope.matches[i].team1Champs = data[i].match.teamOne.map(function(val){
             // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
-            return '../../assets/images/champIcons/' + val.champImg;
-          })
+            return val.champImg;
+          });
           $scope.matches[i].team2Champs = data[i].match.teamTwo.map(function(val){
             // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
-            return '../../assets/images/champIcons/' + val.champImg;
+            return val.champImg;
 
-          })
+          });
           $scope.matches[i].winner = data[i].winner;
 
         }
-      })
+      });
     }
-  ])
+  ]);

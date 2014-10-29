@@ -29,6 +29,7 @@
         text-align: center;
         padding: 15px;
         border-right: 1px solid;
+        border-color: orange;
 
         .button {
             margin: 10px 0;
@@ -137,14 +138,47 @@
       -webkit-transform: rotate(-360deg);
   };
 }
+.summoner-name {
+  font-family: 'Averia Serif Libre', san-serif;
+  max-width: 500px;
+  margin-left: 25px;
+  margin-top: 25px;
+  font-size: 40px;
+}
 
+.champIcon{
+  width: 30px;
+}
+
+.champIcon:hover{
+  width: 35px;
+  position: relative;
+}
 .match{
   margin-bottom: 5px;
   border: thick;
   border-radius: 5px;
-  background-color: #505050;
+  /*background-color: rgba(80, 80, 80, 0.56);*/
+  background: linear-gradient(rgb(144, 139, 131), #6F6B68);
   padding: 5px 5px 5px 5px;
+  text-align: center;
+  &:hover {
+    height: 40px;
+    transition: all;
+  }
 }
 .winner{
+  margin-left: 30px;
   color: white;
+}
+
+.team1{
+  /*background: purple;*/
+}
+.team2{
+  /*background: blue;*/
+}
+.recent-match-title{
+  text-align: center;
+
 }

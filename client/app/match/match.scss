@@ -16,12 +16,20 @@
       margin: 10px 0;
     }
 
+    &.start {
+      background: rgba(2, 187, 242, 0.54);
+    }
+
+    &.confirmed {
+      background: rgba(14, 169, 16, 0.54);
+    }
+
     &.complete {
       background: rgba(14, 169, 16, 0.54);
     }
 
-    &.active {
-      background: rgba(72, 50, 207, 0.54);
+    &.error {
+      background: rgba(242, 33, 33, 0.54);
     }
   }
 
@@ -32,6 +40,22 @@
     height: 207px;
     padding: 22px 27px;
     text-align: center;
+
+    .confirmed {
+      width: 91px;
+      margin: 0 auto;
+
+      h3 {
+        margin-bottom: 2px;
+        border-bottom: 2px solid rgba(14, 169, 16, 0.54);
+        margin-top: 33px;
+        font-size: 28px;
+      }
+      p {
+        font-weight: 600;
+        color: rgba(14, 169, 16, 0.54);
+      }
+    }
   }
 
   .player {
@@ -82,89 +106,60 @@
       }
     }
   }
+  
+  .btn-large {
+    padding: 8px 11px 8px 11px;
+    margin: 0;
+    width: 100%;
 
-  .match-box-left {
-
-    .match-box-top {
-      margin: 50px 0 25px;
-
-      .bet-details {
-        input {
-          width: 83px;
-          height: 50px;
-          font-size: 25px;
-          padding: 0 10px;
-        }
-      }
+    &.active {
+      color: #222;
+      border-color: #e1b03d #7f3517 #772d16 #c17f30;
+      background: #D08901;
     }
 
-    .match-box-bottom {
-      margin: 25px 0 50px;
-
-      .bet-details {
-        h4 {
-          font-size: 25px;
-        }
-      }
-    }
-  }
-  .match-box-right {
-    border-left: 1px solid #BDBDBD;
-
-    table {
-      margin-bottom: 0;
-
-      img {
-        width: 30px;
-      }
-    }
-
-    .opponent-team {
-      border-bottom: 1px solid #BDBDBD;
+    &.complete {
+      width: 150px;
     }
   }
 }
 
 /* ------------------------------------------- */
-/* Bouncy Slide Top 
+/* Slide Down
 /* ------------------------------------------- */
-/* line 325, ../sass/ng-animation.scss */
-.bouncy-slide-top {
-  -webkit-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1);
-  /* older webkit */
-  -webkit-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  -moz-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  -ms-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  -o-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  /* easeOutBack */
-  -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1);
-  /* older webkit */
-  -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
-  -moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
-  -ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
-  -o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
-  transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
-  /* custom */
+/* line 270, ../sass/ng-animation.scss */
+.slide-down {
+  -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -o-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* easeOutQuad */
+  -webkit-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -ms-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* easeOutQuad */
 }
-/* line 328, ../sass/ng-animation.scss */
-.bouncy-slide-top.ng-enter {
-  transform: translateY(240px);
-  -ms-transform: translateY(240px);
-  -webkit-transform: translateY(240px);
+/* line 273, ../sass/ng-animation.scss */
+.slide-down.ng-enter {
+  transform: translateY(-60px);
+  -ms-transform: translateY(-60px);
+  -webkit-transform: translateY(-60px);
   transition-duration: 250ms;
   -webkit-transition-duration: 250ms;
   opacity: 0;
 }
-/* line 334, ../sass/ng-animation.scss */
-.bouncy-slide-top.ng-enter-active {
+/* line 279, ../sass/ng-animation.scss */
+.slide-down.ng-enter-active {
   transform: translateY(0);
   -ms-transform: translateY(0);
   -webkit-transform: translateY(0);
   opacity: 1;
 }
-/* line 339, ../sass/ng-animation.scss */
-.bouncy-slide-top.ng-leave {
+/* line 284, ../sass/ng-animation.scss */
+.slide-down.ng-leave {
   transform: translateY(0);
   -ms-transform: translateY(0);
   -webkit-transform: translateY(0);
@@ -172,15 +167,15 @@
   -webkit-transition-duration: 250ms;
   opacity: 1;
 }
-/* line 345, ../sass/ng-animation.scss */
-.bouncy-slide-top.ng-leave-active {
-  transform: translateY(240px);
-  -ms-transform: translateY(240px);
-  -webkit-transform: translateY(240px);
+/* line 290, ../sass/ng-animation.scss */
+.slide-down.ng-leave-active {
+  transform: translateY(-60px);
+  -ms-transform: translateY(-60px);
+  -webkit-transform: translateY(-60px);
   opacity: 0;
 }
-/* line 351, ../sass/ng-animation.scss */
-.bouncy-slide-top.ng-hide-add {
+/* line 296, ../sass/ng-animation.scss */
+.slide-down.ng-hide-add {
   transform: translateY(0);
   -ms-transform: translateY(0);
   -webkit-transform: translateY(0);
@@ -188,27 +183,63 @@
   -webkit-transition-duration: 250ms;
   opacity: 1;
 }
-/* line 356, ../sass/ng-animation.scss */
-.bouncy-slide-top.ng-hide-add.ng-hide-add-active {
-  transform: translateY(240px);
-  -ms-transform: translateY(240px);
-  -webkit-transform: translateY(240px);
+/* line 301, ../sass/ng-animation.scss */
+.slide-down.ng-hide-add.ng-hide-add-active {
+  transform: translateY(-60px);
+  -ms-transform: translateY(-60px);
+  -webkit-transform: translateY(-60px);
   opacity: 0;
 }
-/* line 362, ../sass/ng-animation.scss */
-.bouncy-slide-top.ng-hide-remove {
-  transform: translateY(240px);
-  -ms-transform: translateY(240px);
-  -webkit-transform: translateY(240px);
+/* line 307, ../sass/ng-animation.scss */
+.slide-down.ng-hide-remove {
+  transform: translateY(-60px);
+  -ms-transform: translateY(-60px);
+  -webkit-transform: translateY(-60px);
   transition-duration: 250ms;
   -webkit-transition-duration: 250ms;
   display: block !important;
   opacity: 0;
 }
-/* line 368, ../sass/ng-animation.scss */
-.bouncy-slide-top.ng-hide-remove.ng-hide-remove-active {
+/* line 313, ../sass/ng-animation.scss */
+.slide-down.ng-hide-remove.ng-hide-remove-active {
   transform: translateY(0);
   -ms-transform: translateY(0);
   -webkit-transform: translateY(0);
+  opacity: 1;
+}
+
+/* ------------------------------------------- */
+/* Flip In 
+/* ------------------------------------------- */
+/* line 763, ../sass/ng-animation.scss */
+.flip-in {
+  -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -o-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* easeOutQuad */
+  -webkit-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -ms-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* easeOutQuad */
+}
+/* line 800, ../sass/ng-animation.scss */
+.flip-in.ng-hide-remove {
+  transform: perspective(300px) rotateX(90deg);
+  -ms-transform: perspective(300px) rotateX(90deg);
+  -webkit-transform: perspective(300px) rotateX(90deg);
+  transition-duration: 550ms;
+  -webkit-transition-duration: 550ms;
+  display: block !important;
+  opacity: 0;
+}
+/* line 806, ../sass/ng-animation.scss */
+.flip-in.ng-hide-remove.ng-hide-remove-active {
+  transform: perspective(300px) rotateX(0deg);
+  -ms-transform: perspective(300px) rotateX(0deg);
+  -webkit-transform: perspective(300px) rotateX(0deg);
   opacity: 1;
 }

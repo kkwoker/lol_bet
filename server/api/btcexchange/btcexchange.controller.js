@@ -1,5 +1,7 @@
 'use strict';
-
+var https = require('https');
+var request = require('request');
+var http = require('http');
 var _ = require('lodash');
 var Btcexchange = require('./btcexchange.model');
 
@@ -17,8 +19,28 @@ exports.show = function(req, res) {
   Btcexchange.findById(req.params.id, function (err, btcexchange) {
     if(err) { return handleError(res, err); }
     if(!btcexchange) { return res.send(404); }
-    return res.json(btcexchange);
-  });
+    if(Date.now() - btcexchange.updated_at > 60000){
+      request('https://blockchain.info/ticker', function (error, response, body) {
+        var body = JSON.parse(body);
+        if (!error && response.statusCode == 200) {
+          for (var i in body) {
+            delete body[i]['symbol'];
+          }
+          _.merge(btcexchange, body);
+          btcexchange.updated_at = Date.now();
+          btcexchange.save(function (err) {
+            if (err) { return handleError(res, err); }
+            console.log("success");
+            return res.json(200, btcexchange);
+          });
+        }     
+      }); 
+    }
+    else {
+      console.log("under 1min");
+      return res.json(200, btcexchange);
+    }
+    });
 };
 
 // Creates a new btcexchange in the DB.

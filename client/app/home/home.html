@@ -1,7 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <header class="hero-unit" id="banner">
-  <div class="container background-blur" ng-controller="HomeCtrl" ng-keyup="cancelSearch($event)">
+  <div class="container background-blur" ng-keyup="cancelSearch($event)">
   <div class="search-loading" ng-show="loading">
     <div class="loading-ball">
       <div class="ball"></div>
@@ -14,10 +14,10 @@
       <div class="home-header">
         <div class="left">
           <img src="{{ user.avatarURL }}" alt="User Avatar">
-          <h3>{{ user.summoner.name }}</h3>
+          <h3 class="summoner-name">{{ user.summoner.name }}</h3>
         </div>
         <div class="right">
-          <button class="btn-large btn-large-primary" ng-click="searchGames()">
+          <button class="btn-large" ng-click="searchGames()">
             Search for games!
           </button>
         </div>
@@ -28,28 +28,30 @@
             <h4> <img class="btc-logo" src="/assets/images/BC_Logo.png"> {{ user.bitcoins }}</h4>
           </div>
           <div class="col-sm-12">
-            <h6>$USD $10.00</h6>
+            <h6> {{  exchangeRate * user.bitcoins | number : 2 }}</h6>
             
           </div>
 
           <div class="col-sm-12 button">
 
-            <a ng-href="/btc_transaction" class="btn-large btn-large-primary">Deposit / Withdraw</a>
-
+            <a ng-href="/btc_transaction">
+              <button class="btn-large btn-large-primary">Deposit / Withdraw</button>
+            </a>
           </div>
           
         </div>
         <div class="col-sm-12 col-md-8 home-body-right" ng-controller="RecentMatchesCtrl">
-          Recent Matches
+          <div class="recent-match-title">Recent Matches</div>
           <div class="match" ng-repeat="match in matches">
+            <!-- <span class="winner">{{match.winner}}</span> -->
             <span class="team1">
-              <img class="champIcon" src="{{icon}}" alt="Champ1" ng-repeat="icon in match.team1Champs">
+              <img class="champIcon" src="/assets/images/champIcons/{{icon}}.png" alt="Champ1" ng-repeat="icon in match.team1Champs">
             </span>
             VS
             <span class="team2">
-              <img class="champIcon" src="{{icon}}" alt="Champ2" ng-repeat="icon in match.team2Champs">
+              <img class="champIcon" src="/assets/images/champIcons/{{icon}}.png" alt="Champ2" ng-repeat="icon in match.team2Champs">
             </span>
-            <span class="winner">{{match.winner}}</span>
+            
           </div>
         </div>
       </div>
