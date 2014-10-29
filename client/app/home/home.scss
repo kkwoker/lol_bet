@@ -228,6 +228,21 @@
 
 
 
-.usd{
+#usd{
+  font-size: 13px;
   padding-left: 3px;
+}
+
+.wallet{
+  display: inline;
+}
+
+.left{
+  width: 96vh;
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  and (orientation : landscape) { 
+    width: 380px;
+  }  
 }
