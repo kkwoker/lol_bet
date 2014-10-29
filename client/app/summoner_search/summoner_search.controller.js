@@ -21,8 +21,8 @@ angular.module('lolBetApp')
     for (var i = 0; i < data.length; i++ ) {
       if (data[i].summoner) {
         $scope.userCount = i;
-        $scope.userObject.push( { "name": data[i].summoner.name, "profile_icon_id": data[i].summoner.profileIconId, 
-          "summoner_level": data[i].summoner.summonerLevel, "indexName": data[i].summoner.indexName, "id": data[i].summoner.id } );
+        $scope.userObject.push( { 'name': data[i].summoner.name, 'profile_icon_id': data[i].summoner.profileIconId, 
+          'summoner_level': data[i].summoner.summonerLevel, 'indexName': data[i].summoner.indexName, 'id': data[i].summoner.id } );
       }
     }
     pageCount($scope.userCount);
