@@ -350,3 +350,17 @@ exports.gameCompletion = function(req, res){
   })
   
 }
+
+exports.clearMatches = function(req, res){
+  Match.find({"active": true}, function(err, matches){
+    _.forEach(matches, function(match){
+      console.log(match);
+      match.active = false;
+      match.save(function (err) {
+          if (err) { console.log(err); }
+      });
+    })
+    return res.json(200);
+  })
+
+}
