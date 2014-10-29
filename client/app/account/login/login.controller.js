@@ -4,7 +4,11 @@ angular.module('lolBetApp')
   .controller('LoginCtrl', function ($scope, Auth, $location) {
     $scope.user = {};
     $scope.errors = {};
-
+    $scope.redirectHome = function(){
+      if(Auth.isLoggedIn()){
+        $location.path('/home');
+      }
+    }
     $scope.login = function(form) {
       $scope.submitted = true;
 

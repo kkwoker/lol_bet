@@ -11,9 +11,13 @@ angular.module('lolBetApp')
       $http.get('/api/summoners/' + $scope.user.summonerName
       ).success(function(data) {
         $scope.errors.invalidSummoner = false;
+        $scope.greenlight = true;
+        $('.help-block').addClass('greenlight');
         console.log(data);
       }).error(function() {
         $scope.errors.invalidSummoner = true;
+        $scope.greenlight = false;
+        $('.help-block').removeClass('greenlight');
         console.log($scope.errors);
       });
     };

@@ -41,4 +41,35 @@
     text-align: center;
     height: 47px;
     font-size: 19px;
+    color: black;
   }
+.summoner-name {
+  font-family: 'Averia Serif Libre', san-serif;
+  max-width: 300px;
+  margin-left: 25px;
+  margin-top: 25px;
+  font-size: 40px;
+}
+
+
+.home-header {
+    border-bottom: 1px solid;
+
+    * {
+        display: inline-block;
+    }
+
+    img {
+        width: 100px;
+    }
+
+    .right {
+        float: right;
+        margin: 26px;
+    }
+}
+
+.withdrawlForm{
+  width: 50%;
+  margin: 0 auto;
+}

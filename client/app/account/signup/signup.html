@@ -1,11 +1,12 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-
+<div class="hero-unit">
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Sign up</h1>
+      
     </div>
-    <div class="col-sm-12">
+    <div class="col-sm-offset-3 col-sm-7 col-md-offset-4 col-md-4 black-transparent">
+      <h1>Sign up</h1>
       <form class="form" name="form" ng-submit="register(form)" novalidate>
 
         <div class="form-group" ng-class="{ 'has-success': form.summonerName.$valid && submitted,
@@ -13,10 +14,17 @@
           <label>Summoner Name</label>
 
           <input type="text" name="summonerName" class="form-control" ng-model="user.summonerName"
-                 required/>
+                 required ng-blur="checkSummoner()" /> 
           <p class="help-block" ng-show="form.summonerName.$error.required && submitted">
             A name is required
           </p>
+          <p class="help-block" ng-show="errors.invalidSummoner">
+            Please enter a valid Summoner name
+          </p>
+          <p class="help-block" ng-show="greenlight">
+            Summoner name looks good!
+          </p>
+
         </div>
 
         <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
@@ -55,15 +63,20 @@
         </div>
 
         <div>
-          <button class="btn btn-inverse btn-lg btn-login" type="submit">
+          <button class="orange-button" type="submit">
             Sign up
           </button>
-          <a class="btn btn-default btn-lg btn-register" href="/login">
-            Login
-          </a>
+        
+          <!-- <a href="/login">
+            <button class="orange-button">  
+              Login
+            </button>
+           </a>-->
+          
         </div>
 
       </form>
+    </div>
     </div>
   </div>
 

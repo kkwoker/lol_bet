@@ -1,11 +1,29 @@
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px){
+  .match-icon img{
+    width: 70%;
+  }
+}
+
 .match-box {
-  color: black;
+  color: white;
   padding: 0;
   text-align: left;
-  background-color: #e7e7e7;
+  background-color: rgba(18, 18, 19, 0.91);
   margin-top: 30px;
   box-shadow: 2px 2px 11px 4px #302020;
   padding: 0px 0 20px;
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px) {
+      margin-top: 40px;
+      margin-right: -10px;
+      padding-right: -10px;
+      margin-bottom: 40px;
+      height: 570px;
+      left: 20px;
+    }
   
   .status {
     text-align: center;
@@ -27,12 +45,16 @@
     &.complete {
       background: rgba(14, 169, 16, 0.54);
     }
+
+    &.error {
+      background: rgba(242, 33, 33, 0.54);
+    }
   }
 
   .pot {
-    border: 1px solid black;
-    border: 1px solid black;
-    border-radius: 109px;
+    /*border: 1px solid black;*/
+    /*border: 1px solid black;*/
+    /*border-radius: 109px;*/
     height: 207px;
     padding: 22px 27px;
     text-align: center;
@@ -61,6 +83,7 @@
       .match-icon {
         float: left;
         padding: 0;
+
       }
 
       .bet-input {
@@ -71,6 +94,7 @@
           height: 45px;
           padding: 7px 20px;
           font-size: 20px;
+          color: black;
         }
       }
 
@@ -88,6 +112,7 @@
     .opponent-inner {
       .match-icon {
         float: right;
+        padding: 0;
       }
       .bet-details {
         text-align: left;
@@ -104,39 +129,20 @@
   }
   
   .btn-large {
-    box-sizing: border-box;
-    font-weight: 500;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 8px 11px 13px 11px;
-    display: inline-block;
-    text-align: center;
-    font-size: 16px;
-    border: 0;
-    box-shadow: inset 0 -6px 0 rgba(0,0,0,.25);
-    width: 100%;
+    padding: 8px 11px 8px 11px;
     margin: 0;
-    transition: all 0.1s ease;
-  }
+    width: 100%;
 
-  .btn-large-primary {
-    color: #222;
-    background: #d79922;
-
-    &:hover {
+    &.active {
       color: #222;
-      background: #D28A00;
-      box-shadow: inset 0 -4px 0 rgba(0,0,0,.25);
+      border-color: #e1b03d #7f3517 #772d16 #c17f30;
+      background: #D08901;
     }
 
-    &:active, &.active {
-      color: #222;
-      background: #C88400;
-      box-shadow: inset 0 9px 14px rgba(0,0,0,.15),0 1px 2px rgba(0,0,0,.05);
+    &.complete {
+      width: 150px;
     }
   }
-
-
 }
 
 /* ------------------------------------------- */
@@ -257,4 +263,8 @@
   -ms-transform: perspective(300px) rotateX(0deg);
   -webkit-transform: perspective(300px) rotateX(0deg);
   opacity: 1;
+}
+
+.complete{
+  float: right;
 }

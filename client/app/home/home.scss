@@ -1,11 +1,11 @@
 .home-box {
-  color: black;
+  color: white;
   padding: 0;
   text-align: left;
-  background-color: #e7e7e7;
+  background-color: rgba(18, 18, 19, 0.91);
   margin-top: 30px;
   box-shadow: 2px 2px 11px 4px #302020;
-  
+  min-height: 500px;
 .home-header {
     border-bottom: 1px solid;
 
@@ -28,8 +28,6 @@
     .home-body-left {
         text-align: center;
         padding: 15px;
-        border-right: 1px solid;
-        border-color: orange;
 
         .button {
             margin: 10px 0;
@@ -55,15 +53,25 @@
   left: 0px;
   top: 0;
   padding: 200px;
+  
+  .loading-box {
+    width: 425px;
+    margin: 0 auto;
+    background: rgba(36, 36, 30, 1);
+    padding: 15px 0;
 
-  .loading-ball {
+    .loading-ball {
       position: relative;
-      right: 14px;
       top: 17px;  
-  }
+    }
 
-  h3 {
-      color: #E2E1E1;
+    h3 {
+        color: #E2E1E1;
+    }
+
+    button {
+      border-radius: 0;
+    }
   }
 }
 
@@ -140,10 +148,16 @@
 }
 .summoner-name {
   font-family: 'Averia Serif Libre', san-serif;
-  max-width: 500px;
+  max-width: 300px;
   margin-left: 25px;
   margin-top: 25px;
   font-size: 40px;
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  and (orientation : landscape) { 
+    font-size: 30px;
+  }
 }
 
 .champIcon{
@@ -181,4 +195,54 @@
 .recent-match-title{
   text-align: center;
 
+}
+
+
+.orange-button {
+  text-transform: uppercase;
+  padding: 11px 20px 8px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  color: rgb(247, 247, 247);
+  border-color: #F0F0F0 #F5F1ED #FAF9F8 #FAF8F5;
+  background: linear-gradient(rgb(39, 39, 39), #000000);
+  border-radius: 5px;
+  &:hover {
+    color: #FCFCFC;
+    border-color: #F9F5ED #F2E8DF #F2E7DE #F7F3EC;
+    background: linear-gradient(#444240, #888784);
+  }
+
+  &:active {
+    color: #FCFCFC;
+    border-color: #F9F5ED #F2E8DF #F2E7DE #F7F3EC;
+    background: linear-gradient(#444240, #888784);
+  }
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  and (orientation : landscape) { 
+    font-size: 14px;
+  }
+}
+
+
+
+#usd{
+  font-size: 13px;
+  padding-left: 3px;
+}
+
+.wallet{
+  display: inline;
+}
+
+.left{
+  width: 96vh;
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px) 
+  and (orientation : landscape) { 
+    width: 380px;
+  }  
 }

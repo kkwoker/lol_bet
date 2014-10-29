@@ -21,7 +21,6 @@ angular.module('lolBetApp')
       return route === $location.path();
     };
 
-
   });
   
    
