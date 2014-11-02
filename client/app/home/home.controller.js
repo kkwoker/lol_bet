@@ -66,7 +66,7 @@ angular.module('lolBetApp')
 
           }
         });
-        return $scope.matches;
+        return $scope.matches.reverse();
       }
 
 
