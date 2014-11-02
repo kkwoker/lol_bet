@@ -364,3 +364,13 @@ exports.clearMatches = function(req, res){
   })
 
 }
+
+exports.getMatchesBySummoner = function(req, res){
+  var name = req.params.summonerName;
+  var nameInTeam1or2 = {$or : [{"match.teamOne.name": name}, {"match.teamTwo.name": name}]};
+  console.log("Searching match for : " + name);
+  Match.find(nameInTeam1or2).where('active').equals(true).exec(function(err, matches){
+    return res.json(200, matches)
+  })
+}
+

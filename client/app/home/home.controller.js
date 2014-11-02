@@ -11,6 +11,7 @@ angular.module('lolBetApp')
         $scope.user.bitcoins = $scope.user.wallet / 100000000;
         $scope.user.mBits = $scope.user.wallet / 100000;
         $scope.user.avatarURL = 'https://ddragon.leagueoflegends.com/cdn/4.13.1/img/profileicon/' + $scope.user.summoner.profileIconId + '.png';
+        $scope.matches = recentMatches();
       }, function(response) {
         // failure
         console.log(response);
@@ -44,30 +45,30 @@ angular.module('lolBetApp')
 
       getGame();
     };
+    function recentMatches(){
+      $scope.matches = [];
+      var url = '/api/matches/summoner/' + $scope.user.summoner.indexName;
+      $http.get(url)
+        .success(function(data){
+
+          for(var i in data){
+            $scope.matches[i] = {};
+            $scope.matches[i].team1Champs = data[i].match.teamOne.map(function(val){
+              // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
+              return val.champImg;
+            });
+            $scope.matches[i].team2Champs = data[i].match.teamTwo.map(function(val){
+              // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
+              return val.champImg;
+
+            });
+            $scope.matches[i].winner = data[i].winner;
+
+          }
+        });
+        return $scope.matches;
+      }
+
+
   }])
 
-.controller('RecentMatchesCtrl', ['$scope', '$http',
-  function($scope, $http){
-    $scope.matches = [];
-    var url = '/api/matches';
-
-    $http.get(url)
-      .success(function(data){
-
-        for(var i in data){
-          $scope.matches[i] = {};
-          $scope.matches[i].team1Champs = data[i].match.teamOne.map(function(val){
-            // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
-            return val.champImg;
-          });
-          $scope.matches[i].team2Champs = data[i].match.teamTwo.map(function(val){
-            // return 'http://ddragon.leagueoflegends.com/cdn/4.18.1/img/champion/' + val.champImg;
-            return val.champImg;
-
-          });
-          $scope.matches[i].winner = data[i].winner;
-
-        }
-      });
-    }
-  ]);
